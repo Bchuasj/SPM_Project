@@ -52,3 +52,16 @@ PRIMARY KEY (Reg_ID),
 FOREIGN KEY (Course_ID) REFERENCES Course(Course_ID),
 FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
 );
+
+CREATE TABLE LearningJourney (
+Learning_Journey_ID int,
+Staff int,
+Role int,
+Skill int,
+Course varchar(20),
+PRIMARY KEY (Learning_Journey_ID),
+FOREIGN KEY (Staff) REFERENCES Staff(Staff_ID),
+FOREIGN KEY (Role) REFERENCES Role(Role_ID),
+FOREIGN KEY (Skill) REFERENCES Skill(Skill_ID),
+FOREIGN KEY (Course) REFERENCES Course(Course_ID)
+);
