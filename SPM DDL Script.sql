@@ -12,7 +12,7 @@ PRIMARY KEY (Role_ID)
 CREATE TABLE Skill (
 Skill_ID int,
 Skill_Name varchar(50) NOT NULL,
-Skill_Desc varchar(50),
+Skill_Desc varchar(50) NOT NULL,
 Role int,
 Is_Deleted boolean,
 PRIMARY KEY (Skill_ID),
