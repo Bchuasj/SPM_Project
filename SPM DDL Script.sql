@@ -1,68 +1,90 @@
-CREATE DATABASE SPM;
-
+DROP DATABASE IF EXISTS SPM;
+CREATE DATABASE IF NOT EXISTS SPM;
+	
 USE SPM;
 
-CREATE TABLE Role (
-roleId int,
-roleName varchar(20) NOT NULL,
-isDeleted boolean,
-PRIMARY KEY (roleId)
+
+CREATE TABLE Role ( 
+	roleID int,
+	roleName varchar(20) NOT NULL,
+	isDeleted boolean,
+	PRIMARY KEY (roleID)
 );
 
 CREATE TABLE Skill (
-skillId int,
-skillName varchar(50) NOT NULL,
-skillDesc varchar(50) NOT NULL,
-role int,
-isDeleted boolean,
-PRIMARY KEY (skillId),
-FOREIGN KEY (role) REFERENCES Role(roleId)
+	skillID int,
+	skillName varchar(50) NOT NULL,
+	skillDesc varchar(50) NOT NULL,
+	isDeleted boolean,
+	PRIMARY KEY (skillID)
+);
+
+CREATE TABLE RoleSkills (
+	roleID int,
+	skillID int,
+	CONSTRAINT rsKey PRIMARY KEY (roleID,skillID),
+	FOREIGN KEY (roleID) REFERENCES Role(roleID),
+	FOREIGN KEY (skillID) REFERENCES Skill(skillID)
 );
 
 CREATE TABLE Staff (
-staffId int,
-staffFName varchar(50) NOT NULL,
-staffLName varchar(50) NOT NULL,
-dept varchar(50) NOT NULL,
-role int,
-userType varchar(20),
-PRIMARY KEY (staffId),
-FOREIGN KEY (role) REFERENCES Role(roleId)
+	staffID int,
+	staffFName varchar(50) NOT NULL,
+	staffLName varchar(50) NOT NULL,
+	dept varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
+	userType varchar(20),
+	PRIMARY KEY (staffID)
 );
 
 CREATE TABLE Course (
-courseId varchar(20),
-courseName varchar(50) NOT NULL,
-courseDesc varchar(255),
-courseStatus varchar(15),
-courseType varchar(10),
-courseCategory varchar(50),
-skill int,
-isDeleted boolean,
-PRIMARY KEY (courseId),
-FOREIGN KEY (skill) REFERENCES Skill(skillId)
+	courseID varchar(20), 
+	courseName varchar(50) NOT NULL,
+	courseDesc varchar(255),
+	courseType varchar(10),
+	courseCategory varchar(50),
+	is_Deleted boolean, 
+	PRIMARY KEY (courseID)
 );
 
-CREATE TABLE Registration (
-regId int,
-courseId varchar(20),
-staffId int,
-regStatus varchar(20) NOT NULL,
-completionStatus varchar(20) NOT NULL,
-PRIMARY KEY (regId),
-FOREIGN KEY (courseId) REFERENCES Course(courseId),
-FOREIGN KEY (staffId) REFERENCES Staff(staffId)
+CREATE TABLE SkillCourses (
+	skillID int,
+	courseID varchar(20),
+	CONSTRAINT scKey PRIMARY KEY (skillID,courseID),
+	FOREIGN KEY (skillID) REFERENCES Skill(skillID),
+	FOREIGN KEY (courseID) REFERENCES Course(courseID)
 );
+
+
 
 CREATE TABLE LearningJourney (
-learningJourneyId int,
-staff int,
-role int,
-skill int,
-course varchar(20),
-CONSTRAINT LjKey PRIMARY KEY (learningJourneyId,staff,role,skill,course),
-FOREIGN KEY (staff) REFERENCES Staff(staffId),
-FOREIGN KEY (role) REFERENCES Role(roleId),
-FOREIGN KEY (skill) REFERENCES Skill(skillId),
-FOREIGN KEY (course) REFERENCES Course(courseId)
+	learningJourneyID int,
+	staffID int,
+	roleID int,
+	PRIMARY KEY (learningJourneyID),
+	FOREIGN KEY (staffID) REFERENCES Staff(staffID),
+	FOREIGN KEY (roleID) REFERENCES Role(roleID)
 );
+
+CREATE TABLE LearningJourneyDetails (
+	skillID int,
+	courseID varchar(20),
+	learningJourneyID int,
+	CONSTRAINT rsKey PRIMARY KEY (skillID, courseID, learningJourneyID),
+	FOREIGN KEY (skillID) REFERENCES Skill(skillID),
+	FOREIGN KEY (courseID) REFERENCES Course(courseID),
+	FOREIGN KEY (learningJourneyID) REFERENCES LearningJourney(learningJourneyID)
+);
+
+CREATE TABLE Registration ( 
+	regID int,
+	courseID varchar(20),
+	staffID int,
+	regStatus varchar(20) NOT NULL,
+	completionStatus varchar(20) NOT NULL,
+	PRIMARY KEY (regID),
+	FOREIGN KEY (courseID) REFERENCES Course(courseID),
+	FOREIGN KEY (staffID) REFERENCES Staff(staffID)
+);
+
+
