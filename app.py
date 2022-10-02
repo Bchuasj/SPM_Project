@@ -54,14 +54,14 @@ class Skill(db.Model):
 
 class Course(db.Model):
     __tablename__ = 'course'
-    courseID = db.Column(db.String(20), primary_key=True, nullable=False)
+    courseId = db.Column(db.String(20), primary_key=True, nullable=False)
     courseName = db.Column(db.String(50), nullable=False)
     courseDesc = db.Column(db.String(255), nullable=False)
     courseType = db.Column(db.String(10), nullable=False)
     courseCategory = db.Column(db.String(50), nullable=False)
     isDeleted = db.Column(db.Boolean)
-    def __init__(self, courseID, courseName, courseDesc, courseType, courseCategory, isDeleted):
-        self.courseID = courseID
+    def __init__(self, courseId, courseName, courseDesc, courseType, courseCategory, isDeleted):
+        self.courseId = courseId
         self.courseName = courseName
         self.courseDesc = courseDesc
         self.courseType = courseType
@@ -70,7 +70,7 @@ class Course(db.Model):
 
     def json(self):
         return {
-            "courseID": self.courseID,
+            "courseId": self.courseId,
             "courseName": self.courseName,
             "courseDesc": self.courseDesc,
             "courseType": self.courseType,
@@ -79,42 +79,42 @@ class Course(db.Model):
 
 class LearningJourney(db.Model):
     __tablename__ = 'learningjourney'
-    learningJourneyID = db.Column(db.Integer, primary_key=True, nullable=False)
-    staffID = db.Column(db.Integer, nullable=False)
-    roleID = db.Column(db.Integer, nullable=False)
+    learningJourneyId = db.Column(db.Integer, primary_key=True, nullable=False)
+    staffId = db.Column(db.Integer, nullable=False)
+    roleId = db.Column(db.Integer, nullable=False)
     # Retrieving values from a normalized table
     # skills = db.relationship('Skill',secondary=learningJourneyDetails, backref='skills' )
     # courses = db.relationship('Course',secondary=learningJourneyDetails, backref='courses' )
 
-    def __init__(self, learningJourneyID, staffID, roleID):
-        self.learningJourneyID = learningJourneyID
-        self.staffID = staffID
-        self.roleID = roleID
+    def __init__(self, learningJourneyId, staffId, roleId):
+        self.learningJourneyId = learningJourneyId
+        self.staffID = staffId
+        self.roleID = roleId
 
     def json(self):
         return {
-            "learningJourneyID": self.learningJourneyID,
-            "staffID": self.staffID,
-            "roleID": self.roleID 
+            "learningJourneyId": self.learningJourneyId,
+            "staffId": self.staffId,
+            "roleId": self.roleId
         }
 
 
 class LearningJourneyDetails(db.Model):
     __tablename__ = 'learningjourneydetails'
-    skillID = db.Column(db.Integer, primary_key=True, nullable=False)
-    courseID = db.Column(db.Integer, primary_key=True, nullable=False)
-    learningJourneyID = db.Column(db.Integer, primary_key=True, nullable=False)
+    skillId = db.Column(db.Integer, primary_key=True, nullable=False)
+    courseId = db.Column(db.Integer, primary_key=True, nullable=False)
+    learningJourneyId = db.Column(db.Integer, primary_key=True, nullable=False)
 
-    def __init__(self, skillID, courseID, learningJourneyID):
-        self.skillID = skillID
-        self.courseID = courseID
-        self.learningJourneyID = learningJourneyID
+    def __init__(self, skillId, courseId, learningJourneyId):
+        self.skillId = skillId
+        self.courseId = courseId
+        self.learningJourneyId = learningJourneyId
 
     def json(self):
         return {
-            "skillID": self.skillID,
-            "courseID": self.courseID,
-            "learningJourneyID": self.learningJourneyID 
+            "skillId": self.skillId,
+            "courseId": self.courseId,
+            "learningJourneyId": self.learningJourneyId 
         }
 
 
@@ -290,9 +290,9 @@ def deleteSkill(skillId):
 # GET All Learning Journeys (without details, when click it will call out the get learning journey by ID)
 # Also get all Learning Journeys is only for the specific user, hence filter by StaffID 
 # This is to prevent users to view other users' LJ
-@app.route("/allLearningJourney/<int:staffID>")
-def getAllLearningJourney(staffID):
-    ljList = LearningJourney.query.filter_by(staffID=staffID).all()
+@app.route("/allLearningJourney/<int:staffId>")
+def getAllLearningJourney(staffId):
+    ljList = LearningJourney.query.filter_by(staffId=staffId).all()
 
     if ljList:
         return jsonify(
@@ -311,10 +311,10 @@ def getAllLearningJourney(staffID):
         }
     )
 
-@app.route("/learningJourney/<int:learningJourneyID>")
-def getLearningJourney(learningJourneyID):
-    lj = LearningJourney.query.filter_by(learningJourneyID=learningJourneyID).first()
-    detailsList = LearningJourneyDetails.query.filter_by(learningJourneyID=learningJourneyID).all()
+@app.route("/learningJourney/<int:learningJourneyId>")
+def getLearningJourney(learningJourneyId):
+    lj = LearningJourney.query.filter_by(learningJourneyId=learningJourneyId).first()
+    detailsList = LearningJourneyDetails.query.filter_by(learningJourneyId=learningJourneyId).all()
     print("DetailsList Type", type(detailsList))
 
     if lj:
