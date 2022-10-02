@@ -52,6 +52,72 @@ class Skill(db.Model):
             "isDeleted": self.isDeleted
             }
 
+class Course(db.Model):
+    __tablename__ = 'course'
+    courseID = db.Column(db.String(20), primary_key=True, nullable=False)
+    courseName = db.Column(db.String(50), nullable=False)
+    courseDesc = db.Column(db.String(255), nullable=False)
+    courseType = db.Column(db.String(10), nullable=False)
+    courseCategory = db.Column(db.String(50), nullable=False)
+    isDeleted = db.Column(db.Boolean)
+    def __init__(self, courseID, courseName, courseDesc, courseType, courseCategory, isDeleted):
+        self.courseID = courseID
+        self.courseName = courseName
+        self.courseDesc = courseDesc
+        self.courseType = courseType
+        self.courseCategory = courseCategory
+        self.isDeleted = isDeleted
+
+    def json(self):
+        return {
+            "courseID": self.courseID,
+            "courseName": self.courseName,
+            "courseDesc": self.courseDesc,
+            "courseType": self.courseType,
+            "isDeleted": self.isDeleted
+            }
+
+class LearningJourney(db.Model):
+    __tablename__ = 'learningjourney'
+    learningJourneyID = db.Column(db.Integer, primary_key=True, nullable=False)
+    staffID = db.Column(db.Integer, nullable=False)
+    roleID = db.Column(db.Integer, nullable=False)
+    # Retrieving values from a normalized table
+    # skills = db.relationship('Skill',secondary=learningJourneyDetails, backref='skills' )
+    # courses = db.relationship('Course',secondary=learningJourneyDetails, backref='courses' )
+
+    def __init__(self, learningJourneyID, staffID, roleID):
+        self.learningJourneyID = learningJourneyID
+        self.staffID = staffID
+        self.roleID = roleID
+
+    def json(self):
+        return {
+            "learningJourneyID": self.learningJourneyID,
+            "staffID": self.staffID,
+            "roleID": self.roleID 
+        }
+
+
+class LearningJourneyDetails(db.Model):
+    __tablename__ = 'learningjourneydetails'
+    skillID = db.Column(db.Integer, primary_key=True, nullable=False)
+    courseID = db.Column(db.Integer, primary_key=True, nullable=False)
+    learningJourneyID = db.Column(db.Integer, primary_key=True, nullable=False)
+
+    def __init__(self, skillID, courseID, learningJourneyID):
+        self.skillID = skillID
+        self.courseID = courseID
+        self.learningJourneyID = learningJourneyID
+
+    def json(self):
+        return {
+            "skillID": self.skillID,
+            "courseID": self.courseID,
+            "learningJourneyID": self.learningJourneyID 
+        }
+
+
 #GET ALL ROLES
 @app.route("/role")
 def getAllRoles():
@@ -220,6 +286,76 @@ def deleteSkill(skillId):
             "message": "Skill not found."
         }
     )
+
+# GET All Learning Journeys (without details, when click it will call out the get learning journey by ID)
+# Also get all Learning Journeys is only for the specific user, hence filter by StaffID 
+# This is to prevent users to view other users' LJ
+@app.route("/allLearningJourney/<int:staffID>")
+def getAllLearningJourney(staffID):
+    ljList = LearningJourney.query.filter_by(staffID=staffID).all()
+
+    if ljList:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "learningJourney": [lj.json() for lj in ljList]
+                
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No Learning Journey found."
+        }
+    )
+
+@app.route("/learningJourney/<int:learningJourneyID>")
+def getLearningJourney(learningJourneyID):
+    lj = LearningJourney.query.filter_by(learningJourneyID=learningJourneyID).first()
+    detailsList = LearningJourneyDetails.query.filter_by(learningJourneyID=learningJourneyID).all()
+    print("DetailsList Type", type(detailsList))
+
+    if lj:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "learningJourney": lj.json(),
+                    "learningJourneyDetails":  [details.json() for details in detailsList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No Learning Journey found."
+        }
+    )
+
+# For debugging LearningJourneyDetails if need be (leave this as a comment here first thank you)
+# @app.route("/learningJourneyDetails/<int:learningJourneyID>")
+# def getLearningJourneyDetails(learningJourneyID):
+#     detailsList = LearningJourneyDetails.query.filter_by(learningJourneyID=learningJourneyID).all()
+#     print("DetailsList Type", type(detailsList))
+
+#     # if db.Query(detailsList).count():
+#     if len(detailsList):
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "details": [details.json() for details in detailsList]
+#                 }
+#             }
+#         )
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No Learning Journey Detail(s) found."
+#         }
+#     )
 
 if __name__ == '__main__':
     app.run(port=5006, debug=True)
