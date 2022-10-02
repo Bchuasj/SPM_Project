@@ -445,16 +445,28 @@ def createLearningJourneyDetail():
         }
     ), 201
 
-# Can update but did not show return success json message
+# Update a skill and course planned for a learning journey
 @app.route("/learningJourneyDetails/update/<int:skillId>/<int:courseId>/<int:learningJourneyId>", methods=['PUT'])
 def updateLearningJourneyDetails(skillId,courseId,learningJourneyId):
     ljDetail = LearningJourneyDetails.query.filter_by(skillId=skillId,courseId=courseId,learningJourneyId=learningJourneyId).first()
     if ljDetail:
         data = request.get_json()
-        ljDetail.skillId = data['skillId']
-        ljDetail.courseId = data['courseId']
-        db.session.commit()
 
+        try:
+            ljDetail.skillId = data['skillId']
+            ljDetail.courseId = data['courseId']
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                        "message": "You already have Skill ID:" + str(data['skillId']) + " and CourseID: " + str(data['courseId']) + " stored in this learning journey."
+                    }
+                    
+                }
+            ), 500
         return jsonify(
             {
                 "code": 200,
@@ -462,18 +474,6 @@ def updateLearningJourneyDetails(skillId,courseId,learningJourneyId):
             }
         )
 
-        # try:
-
-        # except:
-        #     return jsonify(
-        #         {
-        #             "code": 500,
-        #             "data": {
-        #                 "learningJourneyId": ljDetail.learningJourneyId
-        #             },
-        #             "message": "An error occurred updating the learning journey."
-        #         }
-        #     ), 500
 
 
     return jsonify(
