@@ -82,14 +82,11 @@ class LearningJourney(db.Model):
     learningJourneyId = db.Column(db.Integer, primary_key=True, nullable=False)
     staffId = db.Column(db.Integer, nullable=False)
     roleId = db.Column(db.Integer, nullable=False)
-    # Retrieving values from a normalized table
-    # skills = db.relationship('Skill',secondary=learningJourneyDetails, backref='skills' )
-    # courses = db.relationship('Course',secondary=learningJourneyDetails, backref='courses' )
 
     def __init__(self, learningJourneyId, staffId, roleId):
         self.learningJourneyId = learningJourneyId
-        self.staffID = staffId
-        self.roleID = roleId
+        self.staffId = staffId
+        self.roleId = roleId
 
     def json(self):
         return {
@@ -311,6 +308,7 @@ def getAllLearningJourney(staffId):
         }
     )
 
+# Get a specific Learning Journey of a specific staff
 @app.route("/learningJourney/<int:learningJourneyId>")
 def getLearningJourney(learningJourneyId):
     lj = LearningJourney.query.filter_by(learningJourneyId=learningJourneyId).first()
@@ -334,28 +332,187 @@ def getLearningJourney(learningJourneyId):
         }
     )
 
-# For debugging LearningJourneyDetails if need be (leave this as a comment here first thank you)
-# @app.route("/learningJourneyDetails/<int:learningJourneyID>")
-# def getLearningJourneyDetails(learningJourneyID):
-#     detailsList = LearningJourneyDetails.query.filter_by(learningJourneyID=learningJourneyID).all()
-#     print("DetailsList Type", type(detailsList))
+# Create a Learning Journey (Without details)
+@app.route("/learningJourney/create", methods=['POST'])
+def createLearningJourney():
+    data = request.get_json()
+    learningJourney = LearningJourney(**data)
+    
+    try:
+        db.session.add(learningJourney)
+        db.session.commit()
 
-#     # if db.Query(detailsList).count():
-#     if len(detailsList):
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": {
-#                     "details": [details.json() for details in detailsList]
-#                 }
-#             }
-#         )
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "No Learning Journey Detail(s) found."
-#         }
-#     )
+        
+    except:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "learningJourneyId": learningJourney.learningJourneyId
+                },
+                "message": "An error occurred creating the learningJourney."
+            }
+        ), 500
 
+    return jsonify(
+        {
+            "code": 201,
+            "data": learningJourney.json()
+        }
+    ), 201
+
+# Deleting a Learning Journey
+# deletes a learning journey details first then proceed to delete the Learning Journey
+@app.route("/learningJourney/delete/<int:learningJourneyId>", methods=['DELETE'])
+def deleteLearningJourney(learningJourneyId):
+    ljDetail = LearningJourneyDetails.query.filter_by(learningJourneyId=learningJourneyId).all()
+    lj = LearningJourney.query.filter_by(learningJourneyId=learningJourneyId).first()
+    if lj:
+        if len(ljDetail):
+            try:
+                for detail in ljDetail:
+                    db.session.delete(detail)
+                    db.session.commit()
+
+            except:
+                return jsonify(
+                    {
+                        "code": 500,
+                        "data": {
+                            "learningJourneyId": [detail.json() for detail in ljDetail]
+                        },
+                        "message": "An error occurred deleting the Learning Journey details."
+                    }
+                ), 500
+            
+        try:
+            db.session.delete(lj)
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                        "learningJourneyId": lj.learningJourneyId
+                    },
+                    "message": "An error occurred deleting the learning journey."
+                }
+            ), 500
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": "Deletion Success!"
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Learning Journey not found."
+        }
+    )
+
+
+# Add in the skill and the course for the role one by one (Due to the table storing it row by row) 
+@app.route("/learningJourneyDetails/create", methods=['POST'])
+def createLearningJourneyDetail():
+    data = request.get_json()
+    learningJourneyDetails = LearningJourneyDetails(**data)
+    
+    try:
+        db.session.add(learningJourneyDetails)
+        db.session.commit()
+
+        
+    except:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "skillId": learningJourneyDetails.skillId,
+                    "courseId": learningJourneyDetails.courseId,
+                    "learningJourneyId": learningJourneyDetails.learningJourneyId
+                },
+                "message": "An error occurred creating the learningJourney."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 201,
+            "data": learningJourneyDetails.json()
+        }
+    ), 201
+
+# Can update but did not show return success json message
+@app.route("/learningJourneyDetails/update/<int:skillId>/<int:courseId>/<int:learningJourneyId>", methods=['PUT'])
+def updateLearningJourneyDetails(skillId,courseId,learningJourneyId):
+    ljDetail = LearningJourneyDetails.query.filter_by(skillId=skillId,courseId=courseId,learningJourneyId=learningJourneyId).first()
+    if ljDetail:
+        data = request.get_json()
+        ljDetail.skillId = data['skillId']
+        ljDetail.courseId = data['courseId']
+        db.session.commit()
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": "Update successfully"
+            }
+        )
+
+        # try:
+
+        # except:
+        #     return jsonify(
+        #         {
+        #             "code": 500,
+        #             "data": {
+        #                 "learningJourneyId": ljDetail.learningJourneyId
+        #             },
+        #             "message": "An error occurred updating the learning journey."
+        #         }
+        #     ), 500
+
+
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Learning Journey Detail not found."
+        }
+    )
+
+# Delete a course and the skill attached to it
+@app.route("/learningJourneyDetails/delete/<int:skillId>/<int:courseId>/<int:learningJourneyId>", methods=['DELETE'])
+def deleteLearningJourneyDetails(skillId,courseId,learningJourneyId):
+    ljDetail = LearningJourneyDetails.query.filter_by(skillId=skillId,courseId=courseId,learningJourneyId=learningJourneyId).first()
+    if ljDetail:
+        try:
+            db.session.delete(ljDetail)
+            db.session.commit()
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                        "learningJourneyId": ljDetail.learningJourneyId
+                    },
+                    "message": "An error occurred deleting the skill."
+                }
+            ), 500
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": "Deletion Success!"
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Learning Journey Detail not found."
+        }
+    )
 if __name__ == '__main__':
     app.run(port=5006, debug=True)
