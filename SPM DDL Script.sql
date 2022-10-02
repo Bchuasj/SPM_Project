@@ -7,7 +7,7 @@ USE SPM;
 CREATE TABLE Role ( 
 	roleID int,
 	roleName varchar(20) NOT NULL,
-	isDeleted boolean,
+	isDeleted int,
 	PRIMARY KEY (roleID)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE Skill (
 	skillID int,
 	skillName varchar(50) NOT NULL,
 	skillDesc varchar(50) NOT NULL,
-	isDeleted boolean,
+	isDeleted int,
 	PRIMARY KEY (skillID)
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE Course (
 	courseDesc varchar(255),
 	courseType varchar(10),
 	courseCategory varchar(50),
-	is_Deleted boolean, 
+	isDeleted int, 
 	PRIMARY KEY (courseID)
 );
 
