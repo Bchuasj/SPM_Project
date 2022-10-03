@@ -33,8 +33,9 @@ CREATE TABLE Staff (
 	staffLName varchar(50) NOT NULL,
 	dept varchar(50) NOT NULL,
 	email varchar(50) NOT NULL,
-	userType varchar(20),
-	PRIMARY KEY (staffid)
+	role int,
+	PRIMARY KEY (staffid),
+	FOREIGN KEY (role) REFERENCES Role(roleId)
 );
 
 CREATE TABLE Course (
