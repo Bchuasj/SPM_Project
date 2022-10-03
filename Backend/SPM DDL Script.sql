@@ -38,12 +38,12 @@ CREATE TABLE Staff (
 );
 
 CREATE TABLE Course (
-	courseId varchar(20), 
+	courseId varchar(20),
 	courseName varchar(50) NOT NULL,
 	courseDesc varchar(255),
+	courseStatus varchar(15),
 	courseType varchar(10),
 	courseCategory varchar(50),
-	isDeleted int, 
 	PRIMARY KEY (courseId)
 );
 
