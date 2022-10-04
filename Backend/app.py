@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -10,10 +11,11 @@ CORS(app)
 
 db = SQLAlchemy(app)
 
-# role_skills = db.Table('role_skills',
-#     db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True),
-#     db.Column('skill_id', db.Integer, db.ForeignKey('skill.id'), primary_key=True)
-# )
+# Association table to role and skills with many to many relationship
+roleSkills = db.Table('roleSkills',
+    db.Column('roleId', db.Integer, db.ForeignKey('role.roleId'), primary_key=True),
+    db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True)
+)
 
 class Role(db.Model):
     __tablename__ = 'role'
@@ -56,10 +58,10 @@ class Course(db.Model):
     __tablename__ = 'course'
     courseId = db.Column(db.String(20), primary_key=True, nullable=False)
     courseName = db.Column(db.String(50), nullable=False)
-    courseDesc = db.Column(db.String(255), nullable=False)
-    courseType = db.Column(db.String(10), nullable=False)
-    courseCategory = db.Column(db.String(50), nullable=False)
-    isDeleted = db.Column(db.Boolean)
+    courseDesc = db.Column(db.String(255))
+    courseStatus = db.Column(db.String(15))
+    courseType = db.Column(db.String(10))
+    courseCategory = db.Column(db.String(50))
     def __init__(self, courseId, courseName, courseDesc, courseType, courseCategory, isDeleted):
         self.courseId = courseId
         self.courseName = courseName
@@ -73,9 +75,15 @@ class Course(db.Model):
             "courseId": self.courseId,
             "courseName": self.courseName,
             "courseDesc": self.courseDesc,
-            "courseType": self.courseType,
-            "isDeleted": self.isDeleted
+            "courseStatus": self.courseStatus,
+            "courseType": self.courseType
             }
+
+# Association table to course and skills with many to many relationship
+skillCourses = db.Table('skillCourses',
+    db.Column('courseId', db.String(20), db.ForeignKey('course.courseId'), primary_key=True),
+    db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True)
+)
 
 class LearningJourney(db.Model):
     __tablename__ = 'learningjourney'
@@ -95,7 +103,6 @@ class LearningJourney(db.Model):
             "roleId": self.roleId
         }
 
-
 class LearningJourneyDetails(db.Model):
     __tablename__ = 'learningjourneydetails'
     skillId = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -113,7 +120,6 @@ class LearningJourneyDetails(db.Model):
             "courseId": self.courseId,
             "learningJourneyId": self.learningJourneyId 
         }
-
 
 #GET ALL ROLES
 @app.route("/role")
@@ -150,6 +156,26 @@ def getRole(roleId):
         {
             "code": 404,
             "message": "Role not found."
+        }
+    )
+
+#GET ROLE WITH SKILLS AFFLIATED TO IT
+@app.route("/role/<int:roleId>/skills")
+def getSkills(roleId):
+    skillsList = Skill.query.join(roleSkills, (roleSkills.c.skillId == Skill.skillId)).filter(roleSkills.c.roleId == roleId).all()
+    if len(skillsList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "skills": [skill.json() for skill in skillsList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No skills found."
         }
     )
 
@@ -191,20 +217,50 @@ def getSkill(skillId):
         }
     )
 
-#CREATE SKILL
+# GET SKILL AND COURSES RELATED TO IT
+@app.route("/skill/<int:skillId>/courses")
+def getCourses(skillId):
+    coursesList = Course.query.join(skillCourses, (skillCourses.c.courseId == Course.courseId)).filter(skillCourses.c.skillId == skillId).all()
+    if len(coursesList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "courses": [course.json() for course in coursesList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No courses found."
+        }
+    )
+
+
+#CREATE SKILL AND ADD COURSES RELATED TO IT INTO skillCourses TABLE
 @app.route("/skill/create", methods=['POST'])
 def createSkill():
     data = request.get_json()
-    skill = Skill(**data)
     try:
+        skill = Skill(**data['skill'])
+        # add the new skill with courses related to it to skillCourses table
         db.session.add(skill)
+        db.session.commit()
+        if data['courses']:
+            for course in data['courses']:
+                insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
+                db.session.execute(insert)
+
+        #commit the new skill and courses related to it to skillCourses table
         db.session.commit()
     except:
         return jsonify(
             {
                 "code": 500,
                 "data": {
-                    "skillId": skill.skillId
+                    "skillId": skill.skillId,
+                    "courses": [course for course in data['courses']]
                 },
                 "message": "An error occurred creating the skill."
             }
@@ -213,38 +269,54 @@ def createSkill():
     return jsonify(
         {
             "code": 201,
-            "data": skill.json()
+            "data": {"skill" :skill.json(),
+                    "courses": [course for course in data['courses']]
+            }
         }
     ), 201
 
-#UPDATE SKILL
+#UPDATE SKILL along with skillCourses TABLE
 @app.route("/skill/update/<int:skillId>", methods=['PUT'])
-def updateSkill(skillId):
+def updateSkillCourses(skillId):
     skill = Skill.query.filter_by(skillId=skillId).first()
     if skill:
-        data = request.get_json()
-        skill.skillName = data['skillName']
-        skill.skillDesc = data['skillDesc']
-        skill.isDeleted = data['isDeleted']
         try:
+            data = request.get_json()
+            skill.skillName = data['skill']['skillName']
+            skill.skillDesc = data['skill']['skillDesc']
+            skill.isDeleted = data['skill']['isDeleted']
             db.session.commit()
+            # delete all courses related to the skill in skillCourses table
+            delete = skillCourses.delete().where(skillCourses.c.skillId == skillId)
+            db.session.execute(delete)
+            db.session.commit()
+            # add the new courses related to the skill
+            if data['courses']:
+                for course in data['courses']:
+                    insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
+                    db.session.execute(insert)
+                    db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "skill": skill.json(),
+                        "courses": [course for course in data['courses']]
+                    },
+                }
+            )
         except:
             return jsonify(
                 {
                     "code": 500,
                     "data": {
-                        "skillId": skill.skillId
+                        "skill": skill.json(),
+                        "courses": [course for course in data['courses']]
                     },
                     "message": "An error occurred updating the skill."
                 }
             ), 500
 
-        return jsonify(
-            {
-                "code": 200,
-                "data": skill.json()
-            }
-        )
     return jsonify(
         {
             "code": 404,
@@ -259,6 +331,7 @@ def deleteSkill(skillId):
     if skill:
         skill.isDeleted = True
         try:
+            skillCourses.query.filter_by(skillId=skillId).delete()
             db.session.commit()
         except:
             return jsonify(
