@@ -398,13 +398,29 @@ def getAllLearningJourney(staffId):
 
 
 # Get a specific Learning Journey of a specific staff
-@app.route("/learningJourney/<int:learningJourneyId>")
-def getLearningJourney(learningJourneyId):
+@app.route("/learningJourney/<int:learningJourneyId>/<int:staffId>")
+def getLearningJourney(learningJourneyId,staffId):
     ljList = LearningJourney.query.filter_by(learningJourneyId = learningJourneyId).all()
     courseList = Course.query.join(learningJourneyDetails, (learningJourneyDetails.c.courseId == Course.courseId )).filter_by(learningJourneyId=learningJourneyId).all()
     skillList = Skill.query.join(learningJourneyDetails, (learningJourneyDetails.c.skillId == Skill.skillId )).filter_by(learningJourneyId=learningJourneyId).all()
 
+    # skillStatusList = []
+    skillsStatus = []
     # CALL REGISTRATION TABLE TO CHECK COMPLETION STATUS
+    for skill in skillList:
+        for course in courseList:
+            regList = Registration.query.filter_by(staffId=staffId)
+
+            for regCourse in regList:
+                if course.courseId == regCourse.courseId and regCourse.courseCompletion == "Completed":
+                    skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Completed"})
+
+            
+
+            skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Incomplete"})
+    
+    print(skillsStatus)
+
 
     if courseList:
         return jsonify(
@@ -413,7 +429,8 @@ def getLearningJourney(learningJourneyId):
                 "data": {
                     "learningJourney": [lj.json() for lj in ljList],
                     "skills": [skill.json() for skill in skillList],
-                    "courses": [course.json() for course in courseList]
+                    "courses": [course.json() for course in courseList],
+                    "skillStatus": skillsStatus
                 }
             }
         )
