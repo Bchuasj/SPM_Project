@@ -54,34 +54,49 @@
 
   <!-- ======= Skills search bar and Skills ======= -->
   <footer id="footer">
-
-    <div class="container">
-        <div class="row">
-            <b>Create New Skill</b>
-        </div>
-    </div>
-
     <div class="footer-newsletter">
+        <div class="row justify-content-center">
+          <div class="col-4 pb-4">
+            <h2 class="logo" style="vertical-align:bottom">Create New Skill</h2>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+
         <div class="container">
-            <div class="row border border-1 bg-white py-2 mb-2 d-flex">
-                <!--skill name and input-->
-                <form>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
-                    </div>
-                    <div class="mb-3 form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                
+          <div class="row border border-1 bg-white py-2 mb-2 d-flex">
+              <!--form to create new skill-->
+              <form>
+                <div class="mb-3 row">
+                  <!--input for skill name-->
+                  <label for="skillName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Name: </label>
+                  <div class="col-sm col">
+                    <input type="text" class="form-control" id="skillName">
+                  </div>
+                  <div class="col-sm-1 col-1"></div>
+                </div>
+
+                <div class="mb-3 row">
+                  <!--input for skill description-->
+                  <label for="skillDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Description: </label>
+                  <div class="col-sm col">
+                    <input type="text" class="form-control" id="skillDesc">
+                  </div>
+                  <div class="col-sm-1 col-1"></div>
+                </div>
+
+                <div class="mb-3 row">
+                  <!--input for courses to be added to new skill-->
+                  <label for="courseNameID" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Course Name / ID: </label>
+                  <div class="col-sm col">
+                    <input type="text" class="form-control" id="courseNameID">
+                    
+                  </div>
+                  <div class="col-sm-1 col-1"></div>
+                </div>
+
+                <button type="submit" class="btn text-white" style="background-color: #ef7f3e">Create</button>
+              </form>
             </div>
         </div>
     </div>
