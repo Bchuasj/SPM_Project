@@ -155,10 +155,10 @@ def getAllRoles():
         }
     )
 
-#GET ROLE BY ID
-@app.route("/role/<int:roleId>")
-def getRole(roleId):
-    role = Role.query.filter_by(roleId=roleId).first()
+#GET ROLE BY role name
+@app.route("/role/<string:roleName>")
+def getRole(roleName):
+    role = Role.query.filter_by(roleName=roleName).first()
     if role:
         return jsonify(
             {
