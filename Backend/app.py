@@ -405,21 +405,31 @@ def getLearningJourney(learningJourneyId,staffId):
     skillList = Skill.query.join(learningJourneyDetails, (learningJourneyDetails.c.skillId == Skill.skillId )).filter_by(learningJourneyId=learningJourneyId).all()
 
     # skillStatusList = []
-    skillsStatus = []
+    # skillsStatus = []
+    courseStatus = []
     # CALL REGISTRATION TABLE TO CHECK COMPLETION STATUS
-    for skill in skillList:
-        for course in courseList:
-            regList = Registration.query.filter_by(staffId=staffId)
+    regList = Registration.query.filter_by(staffId=staffId).all()
+    print(regList)
+    # for skill in skillList:
+    #     for course in courseList:
+    #         for regCourse in regList:
+    #             if course.courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
+    #                 skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Completed"})
+    #                 break
 
-            for regCourse in regList:
-                if course.courseId == regCourse.courseId and regCourse.courseCompletion == "Completed":
-                    skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Completed"})
+    #         skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Incomplete"})
 
-            
-
-            skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Incomplete"})
+    # Get all the status of the courses in the learning journey
+    for course in courseList:
+        for regCourse in regList:
+            if course.courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
+                courseStatus.append({"courseId": course.courseId, "status": "Completed"})
+        courseStatus.append({"courseId": course.courseId, "status": "Incomplete"})
     
-    print(skillsStatus)
+    # For courses that are completed, update the skillStatus
+         
+    
+    print(courseStatus)
 
 
     if courseList:
@@ -430,7 +440,7 @@ def getLearningJourney(learningJourneyId,staffId):
                     "learningJourney": [lj.json() for lj in ljList],
                     "skills": [skill.json() for skill in skillList],
                     "courses": [course.json() for course in courseList],
-                    "skillStatus": skillsStatus
+                    "courseStatus": courseStatus
                 }
             }
         )
@@ -440,6 +450,9 @@ def getLearningJourney(learningJourneyId,staffId):
             "message": "No Learning Journey found."
         }
     )
+
+def getCourseStatus():
+    return "ok"
 
 #Create Learning Journey (together with the skills and courses planned)
 @app.route("/learningJourney/create", methods=['POST'])
