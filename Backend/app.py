@@ -1,4 +1,5 @@
 import json
+from unittest import result
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -378,13 +379,28 @@ def getAllLearningJourney(staffId):
     ljList = LearningJourney.query.filter_by(staffId=staffId).all()
     roleList = Role.query.join(LearningJourney, (LearningJourney.roleId == Role.roleId )).filter_by(staffId=staffId).all()
 
+    print(type(ljList))
+    print(ljList[0])
+    
+    # Append role Name into the list of Learning Journey so that easier retrieval frontend
+    resultList = []
+
+    for i in range(len(ljList)):
+        res = {}
+        res = ljList[i].json()
+        res['roleName'] = roleList[i].roleName
+        resultList.append(res)
+    
+    print(resultList)
+
+
+
     if ljList:
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "learningJourney": [lj.json() for lj in ljList],
-                    "role":[role.json() for role in roleList]
+                    "learningJourney": resultList
                 
                 }
             }
