@@ -382,7 +382,7 @@ def getAllLearningJourney(staffId):
     print(type(ljList))
     print(ljList[0])
     
-    # Append role Name into the list of Learning Journey so that easier retrieval frontend
+    # Append role Name into the list of Learning Journey so that easier retrieval
     resultList = []
 
     for i in range(len(ljList)):
@@ -420,43 +420,60 @@ def getLearningJourney(learningJourneyId,staffId):
     courseList = Course.query.join(learningJourneyDetails, (learningJourneyDetails.c.courseId == Course.courseId )).filter_by(learningJourneyId=learningJourneyId).all()
     skillList = Skill.query.join(learningJourneyDetails, (learningJourneyDetails.c.skillId == Skill.skillId )).filter_by(learningJourneyId=learningJourneyId).all()
 
-    # skillStatusList = []
-    # skillsStatus = []
     courseStatus = []
     # CALL REGISTRATION TABLE TO CHECK COMPLETION STATUS
     regList = Registration.query.filter_by(staffId=staffId).all()
     print(regList)
-    # for skill in skillList:
-    #     for course in courseList:
-    #         for regCourse in regList:
-    #             if course.courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
-    #                 skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Completed"})
-    #                 break
 
-    #         skillsStatus.append({"skillId": skill.skillId, "skillStatus": "Incomplete"})
 
     # Get all the status of the courses in the learning journey
     for course in courseList:
         for regCourse in regList:
+            # For courses that are completed, update the courseStatus that is completed
             if course.courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
                 courseStatus.append({"courseId": course.courseId, "status": "Completed"})
+        # If by the end of the loop, no match has been found, then the course has yet to be registed/complete
         courseStatus.append({"courseId": course.courseId, "status": "Incomplete"})
     
-    # For courses that are completed, update the skillStatus
-         
-    
+
     print(courseStatus)
 
 
+    # Append role Name, Course Name, course Status into the list of a specific Learning Journey so that easier retrieval
+    resultList = []
+
+    for i in range(len(ljList)):
+        res = ljList[i].json()
+        
+        tempSkillList = []
+        for skill in skillList:
+            tempSkill = {}
+            print("skill Id log:",skill.json()['skillId'])
+            tempSkill['skills'] = {'skillId':skill.json()['skillId'],"courses":[]}
+
+
+            skillCourses = getSkillCourses(skill.json()['skillId'])
+            for course in courseList:
+                for skillCourse in skillCourses:
+                    if course.json()['courseId'] == skillCourse.json()['courseId']:
+             
+                        tempSkill["skills"]["courses"].append(course.json()['courseId'])
+            tempSkillList.append(tempSkill)
+        
+        resultList.append(res)
+        resultList.append(tempSkillList)
+            
+    print(resultList)
+
+  
     if courseList:
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "learningJourney": [lj.json() for lj in ljList],
-                    "skills": [skill.json() for skill in skillList],
-                    "courses": [course.json() for course in courseList],
+                    "learningJourney": resultList,
                     "courseStatus": courseStatus
+
                 }
             }
         )
@@ -467,8 +484,11 @@ def getLearningJourney(learningJourneyId,staffId):
         }
     )
 
-def getCourseStatus():
-    return "ok"
+# Helper function for get Learning Journey Details, this function will retrieve the courses related to a skill
+def getSkillCourses(skillId):
+
+    courseList = Course.query.join(learningJourneyDetails, (learningJourneyDetails.c.courseId == Course.courseId )).filter_by(skillId = skillId).all()
+    return courseList
 
 #Create Learning Journey (together with the skills and courses planned)
 @app.route("/learningJourney/create", methods=['POST'])
