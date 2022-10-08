@@ -117,41 +117,41 @@
         </div>
       </div> -->
 
-      <!--display roles-->
+      <!-- container to display all learning journeys-->
       <div class="container">
-        <!-- Learning Journey 1 -->
-        <div id="ljList">
 
-        </div>
-
+        <div id="ljList"></div>
+        
+        <!-- Learning Journey 1 container -->
         <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
-  
-          <div class="col-auto align-self-center mx-2">
+          
+          <!-- Learning Journey 1 role and buttons -->
+          <div class="col-auto align-self-center mx-2 p-4">
             <b>HR Manager</b>
           </div>
           
           <div class="col-auto d-flex justify-content-end">
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails" aria-expanded="false" aria-controls="viewDetails">View Details</button>
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails1" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
             
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails" aria-expanded="false" aria-controls="editDetails">Edit Details</button>
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Edit Details</button>
             
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney" aria-expanded="false" aria-controls="deleteLearningJourney">Delete</button>
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1">Delete</button>
           </div>
 
-          <!--view details of Learning Journey -->
-
-          <div class="collapse pt-2" id="viewDetails">
+          <!--view details of Learning Journey 1 -->
+          <div class="collapse pt-2" id="viewDetails1">
             <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
-                <b>Skills required</b>
+                <b class="mb-2">Skills required</b>
 
                 <div class="container bg-white p-4">
-                  <table class="table">
+                  <table class="table align-items-center">
                     <thead>
                       <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Skill Status</th>
                         <th scope="col">Courses</th>
+                        <th scope="col">Course Status</th>
                       </tr>
                     </thead>
 
@@ -159,11 +159,35 @@
                       <tr>
                         <th scope="row">221</th>
                         <td>Analytics</td>
-                        <td>Incomplete</td>
+                        <td><button type="button" class="btn btn-warning">Incomplete</button></td>
                         <td>
-                          <button>C120 Computation</button>
-                          <button>C121 CRMA</button>
+                            <a class="btn btn-primary mb-1" href="#" role="button">C120 Computation</a><br>
+                            <a class="btn btn-primary" href="#" role="button">C121 CRMA</a>
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-warning mb-1">Incomplete</button><br>
+                            <button type="button" class="btn btn-success">Complete</button>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">122</th>
+                        <td>Business Negotiation</td>
+                        <td><button type="button" class="btn btn-warning">Incomplete</button></td>
+                        <td>No course in progress</td>
+                        <td>Nil</td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">123</th>
+                        <td>Market Research</td>
+                        <td><button type="button" class="btn btn-success">Complete</button></td>
+                        <td>
+                          <a class="btn btn-primary" href="#" role="button">C121 CRMA</a>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-success">Complete</button>
+                      </td>
                       </tr>
                     </tbody>
                   </table>
@@ -173,97 +197,60 @@
           </div>
 
         </div>
+        <!-- Learning Journey 1 container end -->
 
-        <!--skill 002-->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col-2">
-            <b>2</b>
+
+        <!-- Learning Journey 2 container -->
+        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+
+          <!-- Learning Journey 2 role and buttons -->
+          <div class="col-auto align-self-center mx-2 p-4">
+            <b>Operations Manager</b>
           </div>
-          <div class="col">
-            <b>User</b>
+          
+          <div class="col-auto d-flex justify-content-end">
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails2" aria-expanded="false" aria-controls="viewDetails2">View Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails2" aria-expanded="false" aria-controls="editDetails2">Edit Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney2" aria-expanded="false" aria-controls="deleteLearningJourney2">Delete</button>
           </div>
-          <div class="col-3">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add</button>
-          </div> -->
-          <!-- <div class="col">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">View details</button>
-          </div>
-          <div class="col">
-            <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
-          </div> -->
-          <!--view details of skills-->
-          <!-- <div class="collapse pt-2" id="collapseExample1">
-            <div class="card card-body text-start">
-              <p><b>Description</b></p>
-              Learn how to properly research in markets.
+
+          <!--view details of Learning Journey 1 -->
+          <div class="collapse pt-2" id="viewDetails2">
+            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
+                <b class="mb-2">Skills required</b>
+
+                <div class="container bg-white p-4 align-items-center">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Skill Status</th>
+                        <th scope="col">Courses</th>
+                        <th scope="col">Course Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                  </table>
+                </div>
+
             </div>
           </div>
-        </div> -->
 
-        <!--skill 003-->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col-2">
-            <b>3</b>
-          </div>
-          <div class="col">
-            <b>HR</b>
-          </div>
-          <div class="col-3">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add</button>
-          </div> -->
-          <!-- <div class="col">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">View details</button>
-          </div>
-          <div class="col">
-            <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
-          </div> -->
-          <!--view details of skills-->
-          <!-- <div class="collapse pt-2" id="collapseExample2">
-            <div class="card card-body text-start">
-              <p><b>Description</b></p>
-              Learn how to effectively communicate with different types of people.
-            </div>
-          </div>
-        </div> -->
-
-        <!--skill 005-->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col-2">
-            <b>4</b>
-          </div>
-          <div class="col">
-            <b>Manager</b>
-          </div>
-          <div class="col-3">
-            <button type="button" class="btn btn-sm px-3 text-white bg-success" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Added</button>
-          </div> -->
-          <!-- <div class="col">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">View details</button>
-          </div>
-          <div class="col">
-            <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
-          </div> -->
-          <!--view details of skills-->
-          <!-- <div class="collapse pt-2" id="collapseExample4">
-            <div class="card card-body text-start">
-              <p><b>Description</b></p>
-              Learn how to build an effective Software Development Team.
-            </div>
-          </div> -->
         </div>
+        <!-- Learning Journey 2 container end -->
+
+      </div>
+      <!-- end container displaying all journeys -->
 
       </div>
     </div>
 
+
+  
     <div class="container py-4">
       <div class="copyright">
         &copy; Copyright <strong><span>AIO LJPS</span></strong>. All Rights Reserved
@@ -277,7 +264,7 @@
       </div>
     </div>
   </footer><!-- End Footer -->
-
+  
   <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
