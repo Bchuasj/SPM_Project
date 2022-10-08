@@ -235,33 +235,18 @@ def getAllSkills():
         }
     )
 
-#GET SKILL BY ID
+
+# GET SKILL AND COURSES RELATED TO IT IF ANY
 @app.route("/skill/<int:skillId>")
-def getSkill(skillId):
+def getCourses(skillId):
     skill = Skill.query.filter_by(skillId=skillId).first()
+    coursesList = Course.query.join(skillCourses, (skillCourses.c.courseId == Course.courseId)).filter(skillCourses.c.skillId == skillId).all()
     if skill:
         return jsonify(
             {
                 "code": 200,
-                "data": skill.json()
-            }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "Skill not found."
-        }
-    )
-
-# GET SKILL AND COURSES RELATED TO IT
-@app.route("/skill/<int:skillId>/courses")
-def getCourses(skillId):
-    coursesList = Course.query.join(skillCourses, (skillCourses.c.courseId == Course.courseId)).filter(skillCourses.c.skillId == skillId).all()
-    if len(coursesList):
-        return jsonify(
-            {
-                "code": 200,
                 "data": {
+                    "skill": skill.json(),
                     "courses": [course.json() for course in coursesList]
                 }
             }
@@ -269,7 +254,7 @@ def getCourses(skillId):
     return jsonify(
         {
             "code": 404,
-            "message": "No courses found."
+            "message": "No skills found."
         }
     )
 
