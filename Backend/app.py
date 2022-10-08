@@ -136,6 +136,27 @@ class Registration(db.Model):
             "completionStatus": self.completionStatus 
         }
 
+# GET ALL COURSES
+@app.route("/courses")
+def getAllCourses():
+    coursesList = Course.query.all()
+    if len(coursesList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "courses": [course.json() for course in coursesList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "No course found."
+        }
+    )
+
+    
 #GET ALL ROLES
 @app.route("/role")
 def getAllRoles():
@@ -258,7 +279,9 @@ def getCourses(skillId):
 def createSkill():
     data = request.get_json()
     try:
-        skill = Skill(**data['skill'])
+        # get current max skillId
+        maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
+        skill = Skill(maxSkillId+1,data['skill']['skillName'],data['skill']['skillDesc'],data['skill']['isDeleted'])
         # add the new skill with courses related to it to skillCourses table
         db.session.add(skill)
         db.session.commit()
