@@ -449,7 +449,7 @@ def getLearningJourney(learningJourneyId,staffId):
         for skill in skillList:
             tempSkill = {}
             print("skill Id log:",skill.json()['skillId'])
-            tempSkill['skills'] = {'skillId':skill.json()['skillId'],"courses":[]}
+            tempSkill['skills'] = {'skillId':skill.json()['skillId'],'skillName':skill.json()['skillName'],"courses":[]}
 
 
             skillCourses = getSkillCourses(skill.json()['skillId'])

@@ -4,22 +4,22 @@ function getAllLearningJourneys(staffId) {
     axios.get("http://127.0.0.1:5006/allLearningJourney/" + staffId)
         .then(function (response) {
             var ljList = response.data.data.learningJourney;
-            console.log(response)
-            var roleList = response.data.data.role;
+            console.log(ljList)
+            // var roleList = response.data.data.role;
             // var counter = 0
             for(let lj in ljList){
-                var roleName;
-                // Get role name of the Learning Journey
-                for (role in roleList){
-                    if (roleList[role].roleId == ljList[lj].roleId){
-                        roleName = roleList[role].roleName
-                    }
-                }
+                // var roleName;
+                // // Get role name of the Learning Journey
+                // for (role in roleList){
+                //     if (roleList[role].roleId == ljList[lj].roleId){
+                //         roleName = roleList[role].roleName
+                //     }
+                // 
 
                 table.innerHTML += `
                 <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
                 <div class="col-3">
-                  <b>${roleName}</b>
+                  <b>${ljList[lj].roleName}</b>
                 </div>
       
                 <div class="col"></div>
@@ -31,7 +31,7 @@ function getAllLearningJourneys(staffId) {
                 </div>
 
                 <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
-                <div class="card card-body text-start" style="background-color: rgb(211, 224, 239);" >
+                <div id="${ljList[lj].learningJourneyId}" class="card card-body text-start mb-3" style="background-color: rgb(211, 224, 239);" >
                     <b class="p-2">Skills Required</b>
                     <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
                         <div class="col">
@@ -47,60 +47,132 @@ function getAllLearningJourneys(staffId) {
                             <b>Courses</b>
                         </div>
                     </div>
-                <!--<div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
-                   <div class="col">
-                        <b>ID</b>
-                    </div>
-                    <div class="col">
-                        <b>Name</b>
-                    </div>
-                    <div class="col">
-                        <b>Status</b>
-                    </div>
-                    <div class="col">
-                        <b>Courses</b>
-                    </div>
-                    </div>
-                </div>-->
+                
 
-
-                   `
-
+                </div>
+                `
 
                 axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
                     .then(function (ljDetails) {
-                        console.log("ljDetails", ljDetails);
-            
-            
-                        // detailTableString = string.concat("ljTable",counter.toString())
-                        // console.log("test",detailTableString)
+                       
+                        skillDetails = ljDetails.data.data.learningJourney[1]
+                        // console.log("skill needed for this role", skillDetails);
+
                         
-            
-                        // var detailsTable = document.getElementById("detailTable500")
-                        // console.log("detailsTable",detailsTable)
-            
-                        // for(skill in skillsList){
-                            
-                        //     detailsTable.innerHTML += `
-                        //     <div class="col">
-                        //         <b>${skillsList[skill].skillId}</b>
-                        //     </div>
-                        //     <div class="col">
-                        //     <b>${skillsList[skill].skillName}</b>
-                        //     </div>
-                        //     <div class="col">
-                        //         <b>Status</b>
-                        //     </div>
-                        //     <div class="col">
-                        //         <b>Courses</b>
-                        //     </div>
-                        //     `
-                        // }
+                        detailTable = document.getElementById(ljList[lj].learningJourneyId)
+                        console.log('DOM detail table', detailTable)
+
+                        for(detail in skillDetails){
+                            // console.log("courses that fulfill this skill",skillDetails[detail])
+
+                            skillId = skillDetails[detail].skills.skillId
+                            console.log("skillId", skillId)
+
+                            skillName = skillDetails[detail].skills.skillName
+                            console.log("skillName", skillName)
+
+
+                            detailTable.innerHTML += `
+                            <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light mb-3">
+                            <div class="col">
+                                    <b>${skillId}</b>
+                                </div>
+                                <div class="col">
+                                    <b>${skillName}</b>
+                                </div>
+                                <div class="col">
+                                    <b>Status</b>
+                                </div>
+                                <div id='courses${ljList[lj].learningJourneyId}' class="col">
+                                </div>
+                            </div>
+                            `
+
+                            courses = skillDetails[detail].skills.courses
+                            for(course in courses){
+                               console.log("course " + (parseInt(course)+1), courses[course])
+                               document.getElementById('courses' + ljList[lj].learningJourneyId).innerHTML += `
+                                        <b>${courses[course]}</b>
+                                   `
+
+                            }
+
+
+                            // detailTable.innerHTML += `
+                            // </div>
+                            // </div>
+                            // `
+
+                        }
+
+
                     })
                         .catch(function (error) {
                             console.log(error);
                         }
                     );
+
+
+                // table.innerHTML += `
+                // <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
+                // <div class="card card-body text-start mb-3" style="background-color: rgb(211, 224, 239);" >
+                //     <b class="p-2">Skills Required</b>
+                //     <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
+                //         <div class="col">
+                //             <b>ID</b>
+                //         </div>
+                //         <div class="col">
+                //             <b>Name</b>
+                //         </div>
+                //         <div class="col">
+                //             <b>Status</b>
+                //         </div>
+                //         <div class="col">
+                //             <b>Courses</b>
+                //         </div>
+                //     </div>
+                
+
+                // </div>
+
+
+                //    `
+
+
+                // axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
+                //     .then(function (ljDetails) {
+                //         console.log("ljDetails", ljDetails);
+            
+            
+                //         // detailTableString = string.concat("ljTable",counter.toString())
+                //         // console.log("test",detailTableString)
+                        
+            
+                //         // var detailsTable = document.getElementById("detailTable500")
+                //         // console.log("detailsTable",detailsTable)
+            
+                //         // for(skill in skillsList){
+                            
+                //         //     detailsTable.innerHTML += `
+                //         //     <div class="col">
+                //         //         <b>${skillsList[skill].skillId}</b>
+                //         //     </div>
+                //         //     <div class="col">
+                //         //     <b>${skillsList[skill].skillName}</b>
+                //         //     </div>
+                //         //     <div class="col">
+                //         //         <b>Status</b>
+                //         //     </div>
+                //         //     <div class="col">
+                //         //         <b>Courses</b>
+                //         //     </div>
+                //         //     `
+                //         // }
+                //     })
+                //         .catch(function (error) {
+                //             console.log(error);
+                //         }
+                //     );
 
                 // var skillsList; // List of all the skills needed for this role
                 // var coursesList; // List of all the courses that user took to fulfill the skill for this role
