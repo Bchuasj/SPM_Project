@@ -26,9 +26,12 @@
 
   <!-- Template Main CSS File -->
   <link href="../Bizland/assets/css/style.css" rel="stylesheet">
+
+  <!-- Axios CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body>
+<body onload = "getSkill()">
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -65,42 +68,39 @@
 
         <div class="container">
           <div class="row border border-1 bg-white py-2 mb-2 d-flex">
-              <!--form to create new skill-->
-              <form>
-                <div class="mb-3 row mt-3">
-                  <!--input for skill name-->
-                  <label for="skillName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Name: </label>
-                  <div class="col-sm col">
-                    <input type="text" class="form-control" id="skillName">
-                  </div>
-                  <div class="col-sm-1 col-1"></div>
+            <div class="mb-3 row mt-3">
+              <!--input for skill name-->
+              <label for="skillName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Name: </label>
+              <div class="col-sm col">
+                <input type="text" class="form-control" id="skillName">
+              </div>
+              <div class="col-sm-1 col-1"></div>
+            </div>
+
+            <div class="mb-3 row">
+              <!--input for skill description-->
+              <label for="skillDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Description: </label>
+              <div class="col-sm col">
+                <input type="text" class="form-control" id="skillDesc">
+              </div>
+              <div class="col-sm-1 col-1"></div>
+            </div>
+
+            <div class="mb-2 row">
+              <!--input for courses to be added to new skill-->
+              <label for="courseNameID" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Course Name / ID: </label>
+                <div class="input-group col-sm col">
+                  <select class="custom-select rounded border" id="inputGroupSelect04" multiple></select>
                 </div>
+            </div>
+            
+            <b style ="padding-right:275pt;">Press CTRL to multiselect options and CTRL click on same option to deselect</b>
+            
+            <div class="mb-3 row mb-4">
+              <div class="col-sm-10 col-10"></div>
+              <button class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 10%;" onclick = "updateSkill()">Update</button>
 
-                <div class="mb-3 row">
-                  <!--input for skill description-->
-                  <label for="skillDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill Description: </label>
-                  <div class="col-sm col">
-                    <input type="text" class="form-control" id="skillDesc">
-                  </div>
-                  <div class="col-sm-1 col-1"></div>
-                </div>
-
-                <div class="mb-3 row">
-                  <!--input for courses to be added to new skill-->
-                  <label for="courseNameID" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Course Name / ID: </label>
-                    <div class="input-group col-sm col">
-                      <select class="custom-select rounded border" id="inputGroupSelect04">
-                      </select>
-
-                    </div>
-                </div>
-
-                <div class="mb-3 row mb-4">
-                  <div class="col-sm-10 col-10"></div>
-                  <button type="submit" class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 10%;">Update</button>
-                </div>
-
-              </form>
+              </div>
             </div>
         </div>
     </div>
@@ -131,6 +131,8 @@
   <!-- Template Main JS File -->
   <script src="../Bizland/assets/js/main.js"></script>
 
+  <!-- CreateUpdate JS File -->
+  <script src="hrCreateUpdate.js"></script>
 </body>
 
 </html>
