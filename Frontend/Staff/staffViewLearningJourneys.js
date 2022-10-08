@@ -27,23 +27,23 @@ function getAllLearningJourneys(staffId) {
                 <div class="col-5">
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="collapseExample" ">View Details</button>
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30"  >Edit Details</button>
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242"  >Delete</button>
+                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" onclick="deleteLj(${ljList[lj].learningJourneyId})">Delete</button>
                 </div>
 
                 <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
                 <div id="${ljList[lj].learningJourneyId}" class="card card-body text-start mb-3" style="background-color: rgb(211, 224, 239);" >
                     <b class="p-2">Skills Required</b>
                     <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
-                        <div class="col">
+                        <div class="col-1">
                             <b>ID</b>
                         </div>
-                        <div class="col">
+                        <div class="col-3">
                             <b>Name</b>
                         </div>
-                        <div class="col">
+                        <div class="col-3">
                             <b>Status</b>
                         </div>
-                        <div class="col">
+                        <div class="col-5">
                             <b>Courses</b>
                         </div>
                     </div>
@@ -56,7 +56,7 @@ function getAllLearningJourneys(staffId) {
                     .then(function (ljDetails) {
                        
                         skillDetails = ljDetails.data.data.learningJourney[1]
-                        // console.log("skill needed for this role", skillDetails);
+                        console.log("skill details", skillDetails);
 
                         
                         detailTable = document.getElementById(ljList[lj].learningJourneyId)
@@ -64,6 +64,7 @@ function getAllLearningJourneys(staffId) {
 
                         for(detail in skillDetails){
                             // console.log("courses that fulfill this skill",skillDetails[detail])
+
 
                             skillId = skillDetails[detail].skills.skillId
                             console.log("skillId", skillId)
@@ -73,39 +74,49 @@ function getAllLearningJourneys(staffId) {
 
 
                             detailTable.innerHTML += `
-                            <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light mb-3">
-                            <div class="col">
+                            <div class="row rounded border border-1 p-3 mb-2 d-flex align-items-center bg-light mb-3">
+                            <div class="col-1">
                                     <b>${skillId}</b>
                                 </div>
-                                <div class="col">
+                                <div class="col-3">
                                     <b>${skillName}</b>
                                 </div>
-                                <div class="col">
-                                    <b>Status</b>
+                                <div class="col-3">
+                                    <b class="p-2" style="background-color: #F95A00; color:#FFF; border-radius: 25px;" id="status${skillId}"></b>
                                 </div>
-                                <div id='courses${ljList[lj].learningJourneyId}' class="col">
+                                <div id='${skillId}' class="col-5">
                                 </div>
                             </div>
                             `
 
                             courses = skillDetails[detail].skills.courses
                             for(course in courses){
+                                
                                console.log("course " + (parseInt(course)+1), courses[course])
-                               document.getElementById('courses' + ljList[lj].learningJourneyId).innerHTML += `
-                                        <b>${courses[course]}</b>
+                               document.getElementById(skillId).innerHTML += `
+                                    <div>
+                                        <b class="p-2" style="background-color: #6F6F6F; color:#FFF; border-radius: 25px;">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</b>
+                                    </div>
                                    `
+                                
+                                for(i in ljDetails.data.data.courseStatus){
+                                    if(ljDetails.data.data.courseStatus[i].courseId == courses[course]["courseId"]){
+                            
+                                        if(ljDetails.data.data.courseStatus[i].status == "Completed"){
+                                            document.getElementById("status"+skillId).innerHTML = "Completed"
+                                            document.getElementById("status"+skillId).style.backgroundColor = "#30B900"
+                                        }
+                                        else{
+                                            document.getElementById("status"+skillId).innerHTML = "Incomplete"
+                                            document.getElementById("status"+skillId).style.backgroundColor = "#F95A00"
+                                        }
+                                        
+                                    }
+                                
 
+                                }
                             }
-
-
-                            // detailTable.innerHTML += `
-                            // </div>
-                            // </div>
-                            // `
-
                         }
-
-
                     })
                         .catch(function (error) {
                             console.log(error);
@@ -113,128 +124,30 @@ function getAllLearningJourneys(staffId) {
                     );
 
 
-                // table.innerHTML += `
-                // <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
-                // <div class="card card-body text-start mb-3" style="background-color: rgb(211, 224, 239);" >
-                //     <b class="p-2">Skills Required</b>
-                //     <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
-                //         <div class="col">
-                //             <b>ID</b>
-                //         </div>
-                //         <div class="col">
-                //             <b>Name</b>
-                //         </div>
-                //         <div class="col">
-                //             <b>Status</b>
-                //         </div>
-                //         <div class="col">
-                //             <b>Courses</b>
-                //         </div>
-                //     </div>
-                
-
-                // </div>
-
-
-                //    `
-
-
-                // axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
-                //     .then(function (ljDetails) {
-                //         console.log("ljDetails", ljDetails);
-            
-            
-                //         // detailTableString = string.concat("ljTable",counter.toString())
-                //         // console.log("test",detailTableString)
-                        
-            
-                //         // var detailsTable = document.getElementById("detailTable500")
-                //         // console.log("detailsTable",detailsTable)
-            
-                //         // for(skill in skillsList){
-                            
-                //         //     detailsTable.innerHTML += `
-                //         //     <div class="col">
-                //         //         <b>${skillsList[skill].skillId}</b>
-                //         //     </div>
-                //         //     <div class="col">
-                //         //     <b>${skillsList[skill].skillName}</b>
-                //         //     </div>
-                //         //     <div class="col">
-                //         //         <b>Status</b>
-                //         //     </div>
-                //         //     <div class="col">
-                //         //         <b>Courses</b>
-                //         //     </div>
-                //         //     `
-                //         // }
-                //     })
-                //         .catch(function (error) {
-                //             console.log(error);
-                //         }
-                //     );
-
-                // var skillsList; // List of all the skills needed for this role
-                // var coursesList; // List of all the courses that user took to fulfill the skill for this role
-                // var statusList; // List of whether staff has completed the course or not (based on registration table)
-                // // // get details of Learning Journey
-            
-                // console.log("detailTable"+learningJourneyId)
-                // var detailTable = document.getElementById("detailTable"+learningJourneyId)
-                // console.log(detailTable)
-            
-                // var ljDetailsRows = {"skills":[]}; // aggregate all the information from the above list to display all the details in a row
-                // axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
-                //     .then(function (ljDetails) {
-                //         // console.log("ljDetails", ljDetails);
-            
-                //         skillsList = ljDetails.data.data.skills
-                //         console.log("skillsList", skillsList);
-            
-                //         coursesList = ljDetails.data.data.courses
-                //         console.log("coursesList", coursesList);
-            
-                //         statusList = ljDetails.data.data.courseStatus
-                //         console.log("statusList", statusList)
-            
-                //         // detailTableString = string.concat("ljTable",counter.toString())
-                //         // console.log("test",detailTableString)
-                        
-            
-                //         var detailsTable = document.getElementById("ljTable500")
-                //         console.log("detailsTable",detailsTable)
-            
-                //         for(skill in skillsList){
-                            
-                //             detailsTable.innerHTML += `
-                //             <div class="col">
-                //                 <b>${skillsList[skill].skillId}</b>
-                //             </div>
-                //             <div class="col">
-                //             <b>${skillsList[skill].skillName}</b>
-                //             </div>
-                //             <div class="col">
-                //                 <b>Status</b>
-                //             </div>
-                //             <div class="col">
-                //                 <b>Courses</b>
-                //             </div>
-                //             `
-                //         }
-                //     })
-                //         .catch(function (error) {
-                //             console.log(error);
-                //         }
-                //     );
-
-            
-                // counter++
             }
         })
 
 
 }
 
-// function getLjDetails(learningJourneyId, staffId){
+function deleteLj(ljId){
+    // window.alert(ljId)
+    // console.log("you've clicked the delete button")
 
-// }
+    axios.delete("http://127.0.0.1:5006/learningJourney/delete/" + ljId)
+    .then(function (response) {
+        if (response.status > 200 || response.status <300){
+            window.location.href = './staffViewLearningJourneys.html'
+
+        }
+
+        
+    })
+        .catch(function (error) {
+            console.log(error);
+        }
+    );
+
+
+
+}

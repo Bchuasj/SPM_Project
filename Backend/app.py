@@ -465,7 +465,7 @@ def getLearningJourney(learningJourneyId,staffId):
                 for skillCourse in skillCourses:
                     if course.json()['courseId'] == skillCourse.json()['courseId']:
              
-                        tempSkill["skills"]["courses"].append(course.json()['courseId'])
+                        tempSkill["skills"]["courses"].append({"courseId":course.json()['courseId'],"courseName" :course.json()['courseName']})
             tempSkillList.append(tempSkill)
         
         resultList.append(res)
