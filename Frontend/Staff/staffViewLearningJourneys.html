@@ -38,6 +38,7 @@
 <!-- StaffID is hardcorded at the moment as we're not doing login. 
   Alternatively we can try simulate this but for now I shall just hardcode
   the session stored for the StaffID for simplicity -->
+
 <body onload="getAllLearningJourneys('130001')">
 
   <!-- ======= Top Bar ======= -->
@@ -46,7 +47,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-      <h1 class="logo"><a href="index.html">AIO LJPS<span>.</span></a></h1>
+      <h1 class="logo"><a href="#">AIO LJPS<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="Mask group.png" alt=""></a> -->
 
@@ -57,6 +58,8 @@
           <li><a class="nav-link scrollto fw-light" href="#hero">Roles</a></li>
           <li><a class="nav-link scrollto fw-light" href="#services">HR View</a></li>
           <li><a class="nav-link scrollto fw-light" href="#portfolio">Logout</a></li> <!--need create a logout look page-->
+
+          <!-- additional dropdown option for navbar -->
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -75,8 +78,7 @@
             </ul>
           </li> -->
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </nav><!-- navbar -->
 
     </div>
   </header><!-- End Header -->
@@ -86,17 +88,21 @@
 
     <div class="footer-newsletter">
       <div class="container pb-4">
-        <!-- <div class="row justify-content-center"> -->
-          <div class="d-flex justify-content-start pt-4"><h1 class="logo" style="vertical-align:bottom">Learning Journeys</h1></div>
+        <div class="row justify-content-center">
+
+          <!-- learning journey heading -->
+          <div class="d-flex justify-content-start pt-4">
+            <h1 class="logo" style="vertical-align:bottom">Learning Journeys</h1>
+          </div>
           <!-- <div class="col-lg-6"></div> -->
 
-          <!-- </div>  -->
+        <!-- </div>  -->
 
-          <!-- <div class="col-lg-6"> -->
-            <!-- <form action="" method="get">
-              <input type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?"><input type="submit" value="Search">
-            </form> -->
-          <!-- </div>  -->
+        <!-- <div class="col-lg-6"> -->
+          <!-- <form action="" method="get">
+            <input type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?"><input type="submit" value="Search">
+          </form> -->
+        <!-- </div>  -->
         <!-- </div> -->
       </div>
 
@@ -117,28 +123,56 @@
         <div id="ljList">
 
         </div>
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col-3">
+
+        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+  
+          <div class="col-auto align-self-center mx-2">
             <b>HR Manager</b>
           </div>
-
-          <div class="col"></div>
-
-
-          <div class="col-5">
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">View Details</button>
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Edit Details</button>
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Delete</button>
+          
+          <div class="col-auto d-flex justify-content-end">
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails" aria-expanded="false" aria-controls="viewDetails">View Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails" aria-expanded="false" aria-controls="editDetails">Edit Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney" aria-expanded="false" aria-controls="deleteLearningJourney">Delete</button>
           </div>
-          -->
+
           <!--view details of Learning Journey -->
-          <!-- <div class="collapse pt-2" id="collapseExample">
-            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239);" 
-              <p><b>Description</b></p>
-              Learn how to pacify businessmen.
+
+          <div class="collapse pt-2" id="viewDetails">
+            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
+                <b>Skills required</b>
+
+                <div class="container bg-white p-4">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Courses</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <th scope="row">221</th>
+                        <td>Analytics</td>
+                        <td>Incomplete</td>
+                        <td>
+                          <button>C120 Computation</button>
+                          <button>C121 CRMA</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
             </div>
           </div>
-        </div> -->
+
+        </div>
 
         <!--skill 002-->
         <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
@@ -265,5 +299,4 @@
   <script src="../BizLand/assets/js/main.js"></script>
 
 </body>
-
 </html>
