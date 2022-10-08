@@ -435,16 +435,18 @@ def getLearningJourney(learningJourneyId,staffId):
 
 
     # Get all the status of the courses in the learning journey
-    for course in courseList:
+    # for course in courseList:
+    for i in range(len(courseList)):
         for regCourse in regList:
             # For courses that are completed, update the courseStatus that is completed
-            if course.courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
-                courseStatus.append({"courseId": course.courseId, "status": "Completed"})
+            if courseList[i].courseId == regCourse.courseId and regCourse.completionStatus == "Completed":
+                courseStatus.append({"courseId": courseList[i].courseId, "status": "Completed"})
+            
         # If by the end of the loop, no match has been found, then the course has yet to be registed/complete
-        courseStatus.append({"courseId": course.courseId, "status": "Incomplete"})
+        if len(courseStatus) != i+1:
+            courseStatus.append({"courseId": courseList[i].courseId, "status": "Incomplete"})
     
-
-    print(courseStatus)
+    print("Course status",courseStatus)
 
 
     # Append role Name, Course Name, course Status into the list of a specific Learning Journey so that easier retrieval
@@ -534,12 +536,7 @@ def createLearningJourney():
                     print(course)
                     insert = learningJourneyDetails.insert().values(learningJourneyId=data['learningJourney']['learningJourneyId'],skillId=skill['skillId'], courseId=course)
                     db.session.execute(insert)
-        # if data['courses']:
-        #     for course in data['courses']:
-        #         insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
-        #         db.session.execute(insert)
 
-        #commit the new skill and courses related to it to skillCourses table
         db.session.commit()
     except:
         return jsonify(
@@ -714,158 +711,6 @@ def deleteLearningJourney(learningJourneyId):
         }
     )
 
-# # Deleting a Learning Journey
-# # deletes a learning journey details first then proceed to delete the Learning Journey
-# @app.route("/learningJourney/delete/<int:learningJourneyId>", methods=['DELETE'])
-# def deleteLearningJourney(learningJourneyId):
-#     ljDetail = LearningJourneyDetails.query.filter_by(learningJourneyId=learningJourneyId).all()
-#     lj = LearningJourney.query.filter_by(learningJourneyId=learningJourneyId).first()
-#     if lj:
-#         if len(ljDetail):
-#             try:
-#                 for detail in ljDetail:
-#                     db.session.delete(detail)
-#                     db.session.commit()
 
-#             except:
-#                 return jsonify(
-#                     {
-#                         "code": 500,
-#                         "data": {
-#                             "learningJourneyId": [detail.json() for detail in ljDetail]
-#                         },
-#                         "message": "An error occurred deleting the Learning Journey details."
-#                     }
-#                 ), 500
-            
-#         try:
-#             db.session.delete(lj)
-#             db.session.commit()
-
-#         except:
-#             return jsonify(
-#                 {
-#                     "code": 500,
-#                     "data": {
-#                         "learningJourneyId": lj.learningJourneyId
-#                     },
-#                     "message": "An error occurred deleting the learning journey."
-#                 }
-#             ), 500
-
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": "Deletion Success!"
-#             }
-#         )
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "Learning Journey not found."
-#         }
-#     )
-
-
-# # Add in the skill and the course for the role one by one (Due to the table storing it row by row) 
-# @app.route("/learningJourneyDetails/create", methods=['POST'])
-# def createLearningJourneyDetail():
-#     data = request.get_json()
-#     learningJourneyDetails = LearningJourneyDetails(**data)
-    
-#     try:
-#         db.session.add(learningJourneyDetails)
-#         db.session.commit()
-
-        
-#     except:
-#         return jsonify(
-#             {
-#                 "code": 500,
-#                 "data": {
-#                     "skillId": learningJourneyDetails.skillId,
-#                     "courseId": learningJourneyDetails.courseId,
-#                     "learningJourneyId": learningJourneyDetails.learningJourneyId
-#                 },
-#                 "message": "An error occurred creating the learningJourney."
-#             }
-#         ), 500
-
-#     return jsonify(
-#         {
-#             "code": 201,
-#             "data": learningJourneyDetails.json()
-#         }
-#     ), 201
-
-# # Update a skill and course planned for a learning journey
-# @app.route("/learningJourneyDetails/update/<int:skillId>/<int:courseId>/<int:learningJourneyId>", methods=['PUT'])
-# def updateLearningJourneyDetails(skillId,courseId,learningJourneyId):
-#     ljDetail = LearningJourneyDetails.query.filter_by(skillId=skillId,courseId=courseId,learningJourneyId=learningJourneyId).first()
-#     if ljDetail:
-#         data = request.get_json()
-
-#         try:
-#             ljDetail.skillId = data['skillId']
-#             ljDetail.courseId = data['courseId']
-#             db.session.commit()
-
-#         except:
-#             return jsonify(
-#                 {
-#                     "code": 500,
-#                     "data": {
-#                         "message": "You already have Skill ID:" + str(data['skillId']) + " and CourseID: " + str(data['courseId']) + " stored in this learning journey."
-#                     }
-                    
-#                 }
-#             ), 500
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": "Update successfully"
-#             }
-#         )
-
-
-
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "Learning Journey Detail not found."
-#         }
-#     )
-
-# # Delete a course and the skill attached to it
-# @app.route("/learningJourneyDetails/delete/<int:skillId>/<int:courseId>/<int:learningJourneyId>", methods=['DELETE'])
-# def deleteLearningJourneyDetails(skillId,courseId,learningJourneyId):
-#     ljDetail = LearningJourneyDetails.query.filter_by(skillId=skillId,courseId=courseId,learningJourneyId=learningJourneyId).first()
-#     if ljDetail:
-#         try:
-#             db.session.delete(ljDetail)
-#             db.session.commit()
-#         except:
-#             return jsonify(
-#                 {
-#                     "code": 500,
-#                     "data": {
-#                         "learningJourneyId": ljDetail.learningJourneyId
-#                     },
-#                     "message": "An error occurred deleting the skill."
-#                 }
-#             ), 500
-
-#         return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": "Deletion Success!"
-#             }
-#         )
-#     return jsonify(
-#         {
-#             "code": 404,
-#             "message": "Learning Journey Detail not found."
-#         }
-#     )
 if __name__ == '__main__':
     app.run(port=5006, debug=True)

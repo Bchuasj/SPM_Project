@@ -147,7 +147,7 @@ function getAllLearningJourneys(staffId) {
                                 }
 
                                 if (completeCount > 0){
-                                    document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-success">Complete</button>`
+                                    document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-success">Completed</button>`
                                 } else {
                                     document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
                                 }
