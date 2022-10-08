@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Staff Roles</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../BizLand/assets/img/favicon.png" rel="icon">
+  <link href="../BizLand/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../BizLand/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../BizLand/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../BizLand/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../BizLand/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../BizLand/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../BizLand/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../BizLand/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: BizLand - v3.9.0
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<!-- StaffID is hardcorded at the moment as we're not doing login. 
+  Alternatively we can try simulate this but for now I shall just hardcode
+  the session stored for the StaffID for simplicity -->
+
+<body onload="getAllLearningJourneys('130001')">
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center"></section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo"><a href="#">AIO LJPS<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="Mask group.png" alt=""></a> -->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="#about">Learning journeys</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#hero">Skills</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#hero">Roles</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#services">HR View</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#portfolio">Logout</a></li> <!--need create a logout look page-->
+
+          <!-- additional dropdown option for navbar -->
+          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li> -->
+        </ul>
+      </nav><!-- navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Viewing all the Learning Journeys ======= -->
+  <footer id="footer">
+
+    <div class="footer-newsletter">
+      <div class="container pb-4">
+        <div class="row justify-content-center">
+
+          <!-- learning journey heading -->
+          <div class="d-flex justify-content-start pt-4">
+            <h1 class="logo" style="vertical-align:bottom">Learning Journeys</h1>
+          </div>
+          <!-- <div class="col-lg-6"></div> -->
+
+        <!-- </div>  -->
+
+        <!-- <div class="col-lg-6"> -->
+          <!-- <form action="" method="get">
+            <input type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?"><input type="submit" value="Search">
+          </form> -->
+        <!-- </div>  -->
+        <!-- </div> -->
+      </div>
+
+      <!-- Use for create new role (next sprint)-->
+      <!-- create new skill
+      <div class="container pb-4">
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col">
+            <a class="btn btn-sm text-white" href="#" role="button" style="background-color: #ef7f3e;">+ Create New Skill</a>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- container to display all learning journeys-->
+      <div class="container">
+
+        <div id="ljList"></div>
+        
+        <!-- Learning Journey 1 container -->
+        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+          
+          <!-- Learning Journey 1 role and buttons -->
+          <div class="col-auto align-self-center mx-2 p-4">
+            <b>HR Manager</b>
+          </div>
+          
+          <div class="col-auto d-flex justify-content-end">
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails1" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1">Delete</button>
+          </div>
+
+          <!--view details of Learning Journey 1 -->
+          <div class="collapse pt-2" id="editDetails1">
+            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
+                <b class="mb-2">Skills required</b>
+
+                <div class="container bg-white p-4">
+                  <table class="table align-items-center">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Courses Added</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <th scope="row">221</th>
+                        <td>Analytics</td>
+                        <td>
+                            <a class="btn btn-primary mb-1" href="#" role="button">C120 Computation</a><br>
+                            <a class="btn btn-primary" href="#" role="button">C121 CRMA</a><br>
+                            <button type="button" class="btn btn-outline-primary mt-5">+ Add Course</button>
+
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger mb-1">Delete</button><br>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                            <p></p>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">122</th>
+                        <td>Business Negotiation</td>
+                        <td>
+                          <button type="button" class="btn btn-outline-primary">+ Add Course</button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-outline-primary">+ Add Course</button>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <th scope="row">123</th>
+                        <td>Market Research</td>
+                        <td>
+                            <a class="btn btn-primary" href="#" role="button">C121 CRMA</a><br>
+                            <button type="button" class="btn btn-outline-primary mt-5">+ Add Course</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger mb-1">Delete</button><br>
+                            <p></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Learning Journey 1 container end -->
+
+
+        <!-- Learning Journey 2 container -->
+        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+
+          <!-- Learning Journey 2 role and buttons -->
+          <div class="col-auto align-self-center mx-2 p-4">
+            <b>Operations Manager</b>
+          </div>
+          
+          <div class="col-auto d-flex justify-content-end">
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails2" aria-expanded="false" aria-controls="viewDetails2">View Details</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails2" aria-expanded="false" aria-controls="editDetails2">Confirm Changes</button>
+            
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney2" aria-expanded="false" aria-controls="deleteLearningJourney2">Delete</button>
+          </div>
+
+          <!--view details of Learning Journey 1 -->
+          <div class="collapse pt-2" id="editDetails2">
+            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
+                <b class="mb-2">Skills required</b>
+
+                <div class="container bg-white p-4 align-items-center">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Courses Added</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                  </table>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- Learning Journey 2 container end -->
+
+      </div>
+      <!-- end container displaying all journeys -->
+
+      </div>
+    </div>
+
+
+  
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AIO LJPS</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+  
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="staffViewLearningJourneys.js"></script>
+  <script src="../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../BizLand/assets/vendor/aos/aos.js"></script>
+  <script src="../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../BizLand/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../BizLand/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../BizLand/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../BizLand/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../BizLand/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Axios CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../BizLand/assets/js/main.js"></script>
+
+</body>
+</html>
