@@ -22,10 +22,6 @@ function createSkill() {
             selectedCourses.push(courses.options[i].value);
         }
     }
-    console.log(skillName)
-    console.log(skillDesc)
-    console.log(courses)
-    console.log(selectedCourses)
     // Post request
     isDeleted = 0
     axios.post("http://127.0.0.1:5006/skill/create",
@@ -42,6 +38,48 @@ function createSkill() {
     )
 }
 
-function getSkill(){
+// function getSkill(skillId){
+//     // need to pass the skillId to me 
+//     getAllCourses();
+//     axios.get(`http://127.0.0.1:5006/skill/${skillId}`)
+//         .then(function (response) {
+//             var skill = response.data.data.skill;
+//             var courses = response.data.data.courses;
+//             document.getElementById("skillName").value = skill.skillName;
+//             document.getElementById("skillDesc").value = skill.skillDesc;
+//                 select = document.getElementById("inputGroupSelect04")
+//                 for (var i = 0, l = select.options.length, o; i < l; i++ ){
+//                     o = select.options[i];
+//                     for (var j = 0, m = courses.length, p; j < m; j++ ){
+//                         p = courses[j];
+//                         if (o.value == p){
+//                             o.selected = true;
+//                 }
+// }
+
+function updateSkill(){
+    var skillName = document.getElementById("skillName").value;
+    var skillDesc = document.getElementById("skillDesc").value;
+    var courses = document.getElementById("inputGroupSelect04");
+    var selectedCourses = [];
     
+    for (var i = 0; i < courses.options.length; i++) {
+        if (courses.options[i].selected) {
+            selectedCourses.push(courses.options[i].value);
+        }
+    }
+    // Put request
+    isDeleted = 0
+    axios.post(`http://127.0.0.1:5006/skill/update/${skillId}`,
+        {   skill: {
+                    skillName: skillName, 
+                    skillDesc: skillDesc,
+                    isDeleted: isDeleted
+                }, 
+        courses: selectedCourses
+    })
+        .then(function (response) {
+            console.log(response);
+        }
+    )
 }
