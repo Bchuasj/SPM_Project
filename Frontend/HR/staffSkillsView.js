@@ -17,16 +17,20 @@ function getAllSkills() {
                             <b>${skills[skill].skillName}</b>
                         </div>
                         <div class="col-sm col">
-                            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skills[skill].skillId}" aria-expanded="false" aria-controls="collapseExample${skills[skill].skillId}">View details</button>
+                            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skills[skill].skillId}" aria-expanded="false" aria-controls="collapseExample${skills[skill].skillId}" >View details</button>
                         </div>
                         <div class="collapse pt-2" id="collapseExample${skills[skill].skillId}">
                             <div class="card card-body text-start">
                                 <p><b>Description</b></p>
-                                ${skills[skill].skillDesc}
+                                <p>${skills[skill].skillDesc}</p>
+                                <p><b>Courses</b></p>
+                                <br><br>
+                                <div id="skillCourses${skills[skill].skillId}"></div>
                             </div>
                         </div>
                     </div>
                     `
+                    getCoursesForSkill(skills[skill].skillId)
                 }
             }
         })   
@@ -36,8 +40,45 @@ function getAllSkills() {
     );
 }
 
-function getCoursesForSkill(){
+function getCoursesForSkill(skillId){
+    axios.get("http://127.0.0.1:5006/skill/" + skillId)
+        .then(function (response) {
+            // console.log(response.data.data.courses)
+            var courses = response.data.data.courses
+            
+            if(courses.length == 0){
+                return 
+            }
 
+            var skillCourses = document.getElementById("skillCourses" + skillId)
+            skillCourses.innerHTML = `
+            <table class="table align-items-center">
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody id="courseDetails${skillId}"> 
+                </tbody>
+            </table>
+            `
+            var courseDetails = document.getElementById("courseDetails" + skillId)
+            for(let course in courses){
+                courseDetails.innerHTML += `
+                    <tr>
+                        <td>${courses[course].courseId}</td>
+                        <td>${courses[course].courseName}</td>
+                    </tr>
+                `
+            }
+            
+        })
+        .catch(function (error) {
+            console.log(error);
+            // getAllSkills()
+        }
+    );
 }
 
 function searchSkills() {
@@ -70,11 +111,15 @@ function searchSkillName(){
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
                             <p><b>Description</b></p>
-                            ${skill.skillDesc}
+                            <p>${skill.skillDesc}</p>
+                            <p><b>Courses</b></p>
+                            <br><br>
+                            <div id="skillCourses${skill.skillId}"></div>
                         </div>
                     </div>
                 </div>
                 `
+                getCoursesForSkill(skill.skillId)
 
             } else {
                 // skillsTable.innerHTML = "<p>No skills found.</p>";
@@ -114,11 +159,15 @@ function searchSkillId(){
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
                             <p><b>Description</b></p>
-                            ${skill.skillDesc}
+                            <p>${skill.skillDesc}</p>
+                            <p><b>Courses</b></p>
+                            <br><br>
+                            <div id="skillCourses${skill.skillId}"></div>
                         </div>
                     </div>
                 </div>
                 `
+                getCoursesForSkill(skill.skillId)
 
             } else {
                 skillsTable.innerHTML = "<p>No skills found.</p>";
