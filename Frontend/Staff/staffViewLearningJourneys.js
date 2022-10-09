@@ -26,7 +26,7 @@ function getAllLearningJourneys(staffId) {
                 <div class="col"></div>
 
                 <div class="col-auto d-flex justify-content-end">
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
+                    <button id="detailBtn${ljList[lj].learningJourneyId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1"  onclick="changeBtnName(this.id)">View Details</button>
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goUpdatePage(${ljList[lj].learningJourneyId},${staffId})">Edit Details</button>
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1" onclick="deleteLj(${ljList[lj].learningJourneyId})">Delete</button>
                 </div>
@@ -165,6 +165,16 @@ function getAllLearningJourneys(staffId) {
         })
 
 
+}
+
+function changeBtnName(id){
+    
+    if (document.getElementById(id).innerText == 'View Details'){
+        document.getElementById(id).innerText = 'Hide Details'
+    }else {
+        document.getElementById(id).innerText = 'View Details'
+    }
+    
 }
 
 function deleteLj(ljId){

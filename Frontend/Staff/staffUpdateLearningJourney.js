@@ -2,7 +2,7 @@ function getAllLearningJourneys() {
 
     staffId = localStorage.getItem('staffId')
     ljId = localStorage.getItem('ljId')
-    localStorage.removeItem('staffId');
+    // localStorage.removeItem('staffId');
 
     // var ljId = '501'
     // var staffId = '130001'
@@ -26,7 +26,7 @@ function getAllLearningJourneys() {
                   </div>
                   
                   <div class="col-auto d-flex justify-content-end">
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#editDetails1${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
+                    <button id="detailBtn${ljId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#editDetails${ljList[lj].learningJourneyId}" aria-expanded="true" aria-controls="viewDetails1" onclick="changeBtnName(this.id)">Hide Details</button>
                     
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
                     
@@ -34,7 +34,7 @@ function getAllLearningJourneys() {
                   </div>
         
                   <!--view details of Learning Journey 1 -->
-                  <div class="collapse.show pt-2" id="editDetails1${ljList[lj].learningJourneyId}">
+                  <div class="collapse show" id="editDetails${ljList[lj].learningJourneyId}">
                     <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
                         <b class="mb-2">Skills required</b>
         
@@ -224,13 +224,23 @@ function getAllLearningJourneys() {
             }
 
             localStorage.removeItem('editStatus');
-            localStorage.clear()
+            // localStorage.clear()
 
             
 
 })
 
 
+}
+
+function changeBtnName(id){
+    
+    if (document.getElementById(id).innerText == 'View Details'){
+        document.getElementById(id).innerText = 'Hide Details'
+    }else {
+        document.getElementById(id).innerText = 'View Details'
+    }
+    
 }
 
 function addCoursesLj(ljId,skillId){
