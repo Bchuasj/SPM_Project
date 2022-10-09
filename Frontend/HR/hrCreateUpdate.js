@@ -16,7 +16,10 @@ function createSkill() {
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("inputGroupSelect04");
     var selectedCourses = [];
-    
+    if (skillName == "" || skillDesc == ""){
+        alert("Please enter all the details")
+        return 
+    }
     for (var i = 0; i < courses.options.length; i++) {
         if (courses.options[i].selected) {
             selectedCourses.push(courses.options[i].value);
@@ -62,7 +65,10 @@ function updateSkill(){
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("inputGroupSelect04");
     var selectedCourses = [];
-    
+    if (skillName == "" || skillDesc == ""){
+        alert("Please enter all the details")
+        return 
+    }
     for (var i = 0; i < courses.options.length; i++) {
         if (courses.options[i].selected) {
             selectedCourses.push(courses.options[i].value);

@@ -27,7 +27,7 @@ function getAllRoles() {
         })
 }
 
-function getRoleName() {
+function getRole() {
     var roleName = document.getElementsByName("roles")[0].value;
     axios.get("http://127.0.0.1:5006/role/" + roleName)
         .then(function (response) {
