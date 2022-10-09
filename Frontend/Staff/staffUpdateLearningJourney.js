@@ -1,11 +1,11 @@
 function getAllLearningJourneys() {
 
-    // staffId = localStorage.getItem('staffId')
-    // console.log(staffId)
-    // localStorage.removeItem('staffId');
+    staffId = localStorage.getItem('staffId')
+    ljId = localStorage.getItem('ljId')
+    localStorage.removeItem('staffId');
 
-    var ljId = '501'
-    var staffId = '130001'
+    // var ljId = '501'
+    // var staffId = '130001'
 
 
 
