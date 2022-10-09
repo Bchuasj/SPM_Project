@@ -4,6 +4,10 @@ function getAllSkills() {
         .then(function (response) {
             var skills = response.data.data.skills;
             // console.log(skills)
+            if(skills.length == 0){
+                skillsTable.innerHTML = "<p>No skills found.</p>";
+                return
+            }
             skillsTable.innerHTML = "";
             for(let skill in skills){
                 // console.log(skills[skill])
@@ -23,7 +27,7 @@ function getAllSkills() {
                             <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skills[skill].skillId})">Delete</button>
                         </div>
                         <div class="collapse pt-2" id="collapseExample${skills[skill].skillId}">
                             <div class="card card-body text-start">
@@ -118,7 +122,7 @@ function searchSkillName(){
                         <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skill.skillId})">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
@@ -172,7 +176,7 @@ function searchSkillId(){
                         <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skill.skillId})">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
@@ -199,12 +203,28 @@ function searchSkillId(){
     );
 }
 
+function deleteSkill(skillId){
+    // var deletePopUp = document.getElementById("deletePopUp")
+    // deletePopUp.innerHTML = `
+    // Delete skill: ${skillId}
+    // `
+
+    axios.put("http://127.0.0.1:5006/skill/delete/" + skillId)
+    .then(function (response) {
+        console.log(response)
+        getAllSkills()
+    })
+    .catch(function (error) {
+        console.log(error);
+    }
+    );
+}
 // =================== AXIOS TEMPLATE ====================
 // axios.get("http://127.0.0.1:5006/skill/id/" + searchInput)
 // .then(function (response) {
 // })
 // .catch(function (error) {
 //     console.log(error);
-//     getAllSkills()
+
 // }
 // );

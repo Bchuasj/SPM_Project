@@ -393,7 +393,7 @@ def deleteSkill(skillId):
     if skill:
         skill.isDeleted = True
         try:
-            skillCourses.query.filter_by(skillId=skillId).delete()
+            # skillCourses.query.filter_by(skillId=skillId).delete()
             db.session.commit()
         except:
             return jsonify(
