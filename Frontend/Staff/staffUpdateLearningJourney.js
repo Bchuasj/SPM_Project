@@ -109,6 +109,7 @@ function getAllLearningJourneys() {
                         // detailTable = document.getElementById("500")
                         console.log('DOM detail table', detailTable)
 
+                        existingCourses = []
                         for(detail in skillDetails){
                             // console.log("courses that fulfill this skill",skillDetails[detail])
 
@@ -151,9 +152,12 @@ function getAllLearningJourneys() {
                             // </tr>
                             // `
 
+
                             courses = skillDetails[detail].skills.courses
                             console.log('courses length', courses.length)
                             for(course in courses){
+
+                               existingCourses.push(courses[course]['courseId'])
 
                                 
                                console.log("course " + (parseInt(course)+1), courses[course])
@@ -203,9 +207,43 @@ function getAllLearningJourneys() {
                                 
                             }
 
+
+
                             document.getElementById('addCourse'+skillId).innerHTML += `
-                            <button id="add${skillId}" type="button" class="btn btn-outline-primary mt-5">+ Add Course</button>
+                            <button id="add${skillId}" type="button" class="btn btn-outline-primary mt-5" data-bs-toggle="modal" data-bs-target="#modalAdd${skillId}" onclick="getSkillsCourses(${skillId},existingCourses)">+ Add Course</button>
                             `
+
+                            detailTable.innerHTML += `<div class="modal fade" id="modalAdd${skillId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                               <div class="modal-content">
+                                
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Add Courses</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div id='modalBody${skillId}' class="modal-body">
+                                <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-dark text-light">
+                                    <div class="col-4">
+                                        <b>Course ID</b>
+                                    </div>
+                                    <div class="col-4">
+                                        <b>Course Name</b>
+                                    </div>
+                                    <div class="col-4">
+                                        <b>Add to Learning Journey</b>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary" onclick="addCoursesLj(${ljId},${skillId})">Save changes</button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>`
 
                         }
                     })
@@ -219,11 +257,13 @@ function getAllLearningJourneys() {
 
             }
 
-            if (localStorage.getItem('editStatus')){
+            if (localStorage.getItem('deleteStatus')){
                 document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Deleted successfully!</span>"
+            } else if(localStorage.getItem('addStatus')){
+                document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Course(s) added successfully!</span>"
             }
 
-            localStorage.removeItem('editStatus');
+            localStorage.removeItem('deleteStatus');
             // localStorage.clear()
 
             
@@ -243,16 +283,93 @@ function changeBtnName(id){
     
 }
 
+function getSkillsCourses(skillId,existingCourses){
+    console.log("existingCourses",existingCourses)
+
+    var childCount = document.getElementById("modalBody"+skillId).childElementCount
+    
+    if(childCount == 1){ // To prevent calling of function when data is already loaded into the modal
+        axios.get("http://127.0.0.1:5006/skill/" + skillId)
+        .then(function (response) {
+            console.log(response.data.data)
+    
+            skillsCoursesList = response.data.data.courses
+            console.log("skillCoursesList", skillsCoursesList)
+
+
+                for(sc in skillsCoursesList){
+                    if(!existingCourses.includes(skillsCoursesList[sc].courseId)){
+                        document.getElementById("modalBody"+skillId).innerHTML += `
+                        <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
+                        <div class="col-4">
+                            <b>${skillsCoursesList[sc].courseId}</b>
+                        </div>
+                        <div class="col-5">
+                        <b>${skillsCoursesList[sc].courseName}</b>
+                        </div>
+                        <div class="col-3">
+                            <b><input type="checkbox" name="addCoursesCb" id="cb${skillId}${skillsCoursesList[sc].courseId}" value="${skillsCoursesList[sc].courseId}"></b>
+                        </div>
+                        </div>`
+
+                    }
+                    
+         
+                 }
+    
+            
+    
+    
+        })
+            .catch(function (error) {
+                console.log("Error Message: ",error.response.data.message);
+            }
+        );
+    
+
+    }
+
+
+}
+
 function addCoursesLj(ljId,skillId){
 
-    var jsonBody = {'courses':['MGT001']}
+    addCoursesList = []
 
-    axios.put("http://127.0.0.1:5006/learningJourney/addCourse/" + ljId + "/" + skillId, jsonBody)
+    // var checkbox = document.querySelector("input[type=checkbox]");
+    
+    // console.log("checkboxes",checkbox.length)
+
+    var checkboxes = document.querySelectorAll("input[type=checkbox][name=addCoursesCb]");
+    console.log("checboxes", checkboxes)
+    
+    for (cb in checkboxes){
+        if(checkboxes[cb].checked){
+            addCoursesList.push(checkboxes[cb].value)
+        }
+    }
+
+    console.log("addCourseList",addCoursesList)
+
+    // checkbox.addEventListener('change', function() {
+    // if (this.checked) {
+    //     addCoursesList.push(this.value)
+    // } 
+    // });
+
+    // var jsonBody = {"data":{'courses':[addCoursesList]}}
+    
+    var jsonBody = {'courses':addCoursesList}
+
+    axios.put("http://127.0.0.1:5006/learningJourney/addCourse/" + ljId + "/" + skillId, json = jsonBody)
     .then(function (response) {
         console.log(response.data.data)
+        localStorage.setItem('addStatus', true);
+        window.location.href = './staffUpdateLearningJourney.html'
+
     })
         .catch(function (error) {
-            console.log("Error Message: ",error.response.data.message);
+            console.log("Error Message: ",error);
         }
     );
 
@@ -263,6 +380,7 @@ function removeCoursesLj(ljId,skillId,course,length){
 
     var jsonBody = {'data':{'courses':[course]}}
 
+    // If there is only one course taken for that skill, do not allow user to delete it
     if(length <= 1){
         document.getElementById("editStatusMsg").innerHTML = "<span class='text-warning'>A skill must have at least 1 course!</span>"
     }
@@ -270,14 +388,14 @@ function removeCoursesLj(ljId,skillId,course,length){
         axios.delete("http://127.0.0.1:5006/learningJourney/removeCourse/" + ljId + "/" + skillId, jsonBody)
         .then(function (response) {
     
-            localStorage.setItem('editStatus', true);
+            localStorage.setItem('deleteStatus', true);
             console.log(response.data)
             window.location.href = './staffUpdateLearningJourney.html'
             
         })
         .catch(function (error) {
             console.log("Error Message: " , error.response.data.message);
-            localStorage.setItem('editStatus', false);
+            localStorage.setItem('deleteStatus', false);
             console.log(response.data)
         }
         );

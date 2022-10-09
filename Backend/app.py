@@ -570,7 +570,7 @@ def addCourseLJ(learningJourneyId,skillId):
         {  
             {   
                 "courses": ["MGT002"]
-            }]
+            }
         }
 
     """
@@ -581,6 +581,7 @@ def addCourseLJ(learningJourneyId,skillId):
     if lj:
         try:
             data = request.get_json()
+            print("data",data)
 
             if courseList:
                 for course in data['courses']:
