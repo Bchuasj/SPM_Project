@@ -27,7 +27,7 @@ function getAllSkills() {
                             <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skills[skill].skillId})">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${skills[skill].skillId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                         </div>
                         <div class="collapse pt-2" id="collapseExample${skills[skill].skillId}">
                             <div class="card card-body text-start">
@@ -122,7 +122,7 @@ function searchSkillName(){
                         <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skill.skillId})">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${skill.skillId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
@@ -176,7 +176,7 @@ function searchSkillId(){
                         <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-4" onclick="deleteSkill(${skill.skillId})">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${skill.skillId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${skill.skillId}">
                         <div class="card card-body text-start">
@@ -204,20 +204,26 @@ function searchSkillId(){
 }
 
 function deleteSkill(skillId){
-    // var deletePopUp = document.getElementById("deletePopUp")
-    // deletePopUp.innerHTML = `
-    // Delete skill: ${skillId}
-    // `
+    var deletePopUp = document.getElementById("deletePopUp")
+    var confirmDelete = document.getElementById("confirmDelete")
+    deletePopUp.innerHTML = `
+    Delete skill: ${skillId}
+    `
+    confirmDelete.onclick = confirmDeletion.bind(this, skillId);
+    
+}
 
+function confirmDeletion(skillId){
+    console.log("delete button pressed")
     axios.put("http://127.0.0.1:5006/skill/delete/" + skillId)
-    .then(function (response) {
-        console.log(response)
-        getAllSkills()
-    })
-    .catch(function (error) {
-        console.log(error);
-    }
-    );
+        .then(function (response) {
+            console.log(response)
+            getAllSkills()
+        })
+        .catch(function (error) {
+            console.log(error);
+        }
+        );
 }
 // =================== AXIOS TEMPLATE ====================
 // axios.get("http://127.0.0.1:5006/skill/id/" + searchInput)
