@@ -235,6 +235,45 @@ def getAllSkills():
         }
     )
 
+# GET SKILL by skill name (Addition)
+@app.route("/skill/name/<string:skillName>")
+def getSkillByName(skillName):
+    skill = Skill.query.filter_by(skillName=skillName).first()
+    if skill:
+        return jsonify(
+            {
+                "code": 200,
+                "data": skill.json()
+                
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Skill not found."
+        }
+    )
+
+# GET SKILL by skill id 
+@app.route("/skill/id/<int:skillId>")
+def getSkillById(skillId):
+    skill = Skill.query.filter_by(skillId=skillId).first()
+    if skill:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    'skills': skill.json()
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Skill not found."
+        }
+    )
+
 
 # GET SKILL AND COURSES RELATED TO IT IF ANY
 @app.route("/skill/<int:skillId>")
