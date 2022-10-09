@@ -27,7 +27,7 @@ function getAllLearningJourneys(staffId) {
 
                 <div class="col-auto d-flex justify-content-end">
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="removeCoursesLj(500,207)">Edit Details</button>
+                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goUpdatePage(${ljList[lj].learningJourneyId},${staffId})">Edit Details</button>
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1" onclick="deleteLj(${ljList[lj].learningJourneyId})">Delete</button>
                 </div>
 
@@ -184,33 +184,9 @@ function deleteLj(ljId){
 
 }
 
-function addCoursesLj(ljId,skillId){
-
-    var jsonBody = {'courses':['MGT001']}
-
-    axios.put("http://127.0.0.1:5006/learningJourney/addCourse/" + ljId + "/" + skillId, jsonBody)
-    .then(function (response) {
-        console.log(response.data.data)
-    })
-        .catch(function (error) {
-            console.log("Error Message: ",error.response.data.message);
-        }
-    );
-
+function goUpdatePage(ljId,staffId){
+    localStorage.setItem('ljId', ljId);
+    localStorage.setItem('staffId', staffId);
+    window.location.href = './staffUpdateLearningJourney.html'
 }
 
-function removeCoursesLj(ljId,skillId){
-
-    var jsonBody = {'courses':['MGT002']}
-
-    axios.delete("http://127.0.0.1:5006/learningJourney/removeCourse/" + ljId + "/" + skillId, jsonBody)
-    .then(function (response) {
-        console.log(response.data)
-        
-    })
-    .catch(function (error) {
-        console.log("Error Message: " , error.response.data.message);
-    }
-    );
-
-}

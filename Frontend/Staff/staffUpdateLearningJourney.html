@@ -39,7 +39,8 @@
   Alternatively we can try simulate this but for now I shall just hardcode
   the session stored for the StaffID for simplicity -->
 
-<body onload="getAllLearningJourneys('130001')">
+<body onload="getAllLearningJourneys()">
+<!-- <body> -->
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center"></section>
@@ -123,23 +124,23 @@
         <div id="ljList"></div>
         
         <!-- Learning Journey 1 container -->
-        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between"> -->
           
           <!-- Learning Journey 1 role and buttons -->
-          <div class="col-auto align-self-center mx-2 p-4">
+          <!-- <div class="col-auto align-self-center mx-2 p-4">
             <b>HR Manager</b>
           </div>
           
           <div class="col-auto d-flex justify-content-end">
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails1" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
+            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
             
             <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
             
             <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1">Delete</button>
-          </div>
+          </div> -->
 
           <!--view details of Learning Journey 1 -->
-          <div class="collapse pt-2" id="editDetails1">
+          <!-- <div class="collapse.show pt-2" id="editDetails1">
             <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
                 <b class="mb-2">Skills required</b>
 
@@ -201,15 +202,15 @@
             </div>
           </div>
 
-        </div>
+        </div> -->
         <!-- Learning Journey 1 container end -->
 
 
         <!-- Learning Journey 2 container -->
-        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between"> -->
 
           <!-- Learning Journey 2 role and buttons -->
-          <div class="col-auto align-self-center mx-2 p-4">
+          <!-- <div class="col-auto align-self-center mx-2 p-4">
             <b>Operations Manager</b>
           </div>
           
@@ -219,10 +220,10 @@
             <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails2" aria-expanded="false" aria-controls="editDetails2">Confirm Changes</button>
             
             <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney2" aria-expanded="false" aria-controls="deleteLearningJourney2">Delete</button>
-          </div>
+          </div> -->
 
           <!--view details of Learning Journey 1 -->
-          <div class="collapse pt-2" id="editDetails2">
+          <!-- <div class="collapse pt-2" id="editDetails2">
             <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
                 <b class="mb-2">Skills required</b>
 
@@ -244,15 +245,15 @@
             </div>
           </div>
 
-        </div>
+        </div> -->
         <!-- Learning Journey 2 container end -->
 
-      </div>
+      <!-- </div> -->
       <!-- end container displaying all journeys -->
 
-      </div>
+      <!-- </div>
     </div>
-
+ -->
 
   
     <div class="container py-4">
@@ -273,7 +274,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="staffViewLearningJourneys.js"></script>
+  <script src="staffUpdateLearningJourney.js"></script>
   <script src="../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="../BizLand/assets/vendor/aos/aos.js"></script>
   <script src="../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
