@@ -92,12 +92,24 @@ function getCoursesForSkill(skillId){
 }
 
 function searchSkills() {
-    searchSkillName()
-}
-
-function searchSkillName(){
     var searchInput = document.getElementById("searchInput").value
     var skillsTable = document.getElementById("skillsTable")
+
+    if(searchInput == ''){
+        getAllSkills()
+        return
+    }
+
+    if (isNaN(parseInt(searchInput))){
+        searchSkillName(searchInput, skillsTable)
+    } else {
+        searchSkillId(searchInput, skillsTable)
+    }
+}
+
+function searchSkillName(searchInput, skillsTable){
+    // var searchInput = document.getElementById("searchInput").value
+    // var skillsTable = document.getElementById("skillsTable")
 
     console.log(searchInput)
     axios.get("http://127.0.0.1:5006/skill/name/" + searchInput)
@@ -138,29 +150,29 @@ function searchSkillName(){
                 getCoursesForSkill(skill.skillId)
 
             } else {
-                // skillsTable.innerHTML = "<p>No skills found.</p>";
-                searchSkillId()
+                skillsTable.innerHTML = "<p>No skills found.</p>";
+                // console.log("search id")
             }
     })
         .catch(function (error) {
             console.log(error);
-            getAllSkills()
         }
     );
 }
 
-function searchSkillId(){
-    var searchInput = document.getElementById("searchInput").value
-    var skillsTable = document.getElementById("skillsTable")
+function searchSkillId(searchInput, skillsTable){
+    // var searchInput = document.getElementById("searchInput").value
+    // var skillsTable = document.getElementById("skillsTable")
 
     axios.get("http://127.0.0.1:5006/skill/id/" + searchInput)
         .then(function (response) {
             console.log(response);
-            var skill = response.data.data.skills;
+            var resp = response.data.data;
             // console.log(skill.isDeleted)
             // console.log(response.data.code)
-            if (response.data.code == 200 && skill.isDeleted == false){
-                // console.log("here")
+            if (response.data.code == 200 && resp.skills.isDeleted == false){
+                console.log("skill found")
+                var skill = resp.skills
                 skillsTable.innerHTML =   `
                 <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
                     <div class="col-2">
@@ -192,13 +204,13 @@ function searchSkillId(){
                 getCoursesForSkill(skill.skillId)
 
             } else {
+                // console.log("no skills found")
                 skillsTable.innerHTML = "<p>No skills found.</p>";
 
             }
     })
         .catch(function (error) {
             console.log(error);
-            getAllSkills()
         }
     );
 }
