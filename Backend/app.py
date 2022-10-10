@@ -13,8 +13,8 @@ CORS(app)
 db = SQLAlchemy(app)
 
 # Association table to role and skills with many to many relationship
-roleSkills = db.Table('roleSkills',
-    db.Column('roleId', db.Integer, db.ForeignKey('role.roleId'), primary_key=True),
+jobSkills = db.Table('jobSkills',
+    db.Column('jobId', db.Integer, db.ForeignKey('job.jobId'), primary_key=True),
     db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True)
 )
 
@@ -34,6 +34,24 @@ class Role(db.Model):
             "roleName": self.roleName,
             "isDeleted": self.isDeleted
         }
+
+class Job(db.Model):
+    __tablename__ = 'job'
+    jobId = db.Column(db.Integer, primary_key=True, nullable=False)
+    jobName = db.Column(db.String(100), nullable=False)
+    isDeleted = db.Column(db.Boolean)
+    def __init__(self, jobId, jobName, isDeleted):
+        self.jobId = jobId
+        self.jobName = jobName
+        self.isDeleted = isDeleted
+    
+    def json(self):
+        return {
+            "jobId": self.jobId,
+            "jobName": self.jobName,
+            "isDeleted": self.isDeleted
+        }
+
 
 class Skill(db.Model):
     __tablename__ = 'skill'
@@ -98,18 +116,18 @@ class LearningJourney(db.Model):
     __tablename__ = 'learningjourney'
     learningJourneyId = db.Column(db.Integer, primary_key=True, nullable=False)
     staffId = db.Column(db.Integer, nullable=False)
-    roleId = db.Column(db.Integer, nullable=False)
+    jobId = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, learningJourneyId, staffId, roleId):
+    def __init__(self, learningJourneyId, staffId, jobId):
         self.learningJourneyId = learningJourneyId
         self.staffId = staffId
-        self.roleId = roleId
+        self.jobId = jobId
 
     def json(self):
         return {
             "learningJourneyId": self.learningJourneyId,
             "staffId": self.staffId,
-            "roleId": self.roleId
+            "jobId": self.jobId
         }
 
 class Registration(db.Model):
@@ -195,10 +213,10 @@ def getRole(roleName):
         }
     )
 
-#GET ROLE WITH SKILLS AFFLIATED TO IT
-@app.route("/role/<int:roleId>/skills")
-def getSkills(roleId):
-    skillsList = Skill.query.join(roleSkills, (roleSkills.c.skillId == Skill.skillId)).filter(roleSkills.c.roleId == roleId).all()
+#GET JOB WITH SKILLS AFFLIATED TO IT
+@app.route("/job/<int:jobId>/skills")
+def getSkills(jobId):
+    skillsList = Skill.query.join(jobSkills, (jobSkills.c.skillId == Skill.skillId)).filter(jobSkills.c.jobId == jobId).all()
     if len(skillsList):
         return jsonify(
             {
@@ -424,7 +442,7 @@ def deleteSkill(skillId):
 def getAllLearningJourney(staffId):
 
     ljList = LearningJourney.query.filter_by(staffId=staffId).all()
-    roleList = Role.query.join(LearningJourney, (LearningJourney.roleId == Role.roleId )).filter_by(staffId=staffId).all()
+    jobList = Job.query.join(LearningJourney, (LearningJourney.jobId == Job.jobId )).filter_by(staffId=staffId).all()
 
     print(type(ljList))
     print(ljList[0])
@@ -435,7 +453,7 @@ def getAllLearningJourney(staffId):
     for i in range(len(ljList)):
         res = {}
         res = ljList[i].json()
-        res['roleName'] = roleList[i].roleName
+        res['jobName'] = jobList[i].jobName
         resultList.append(res)
     
     print(resultList)
@@ -549,7 +567,7 @@ def createLearningJourney():
             "learningJourney": {
                 "learningJourneyId": 511, (format on id depends on your mockup data)
                 "staffId": 140008,
-                "roleId": 1
+                "jobId": 1
             },
             "skills":[{
                 "skillId": 207,
