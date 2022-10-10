@@ -445,7 +445,6 @@ def getAllLearningJourney(staffId):
     jobList = Job.query.join(LearningJourney, (LearningJourney.jobId == Job.jobId )).filter_by(staffId=staffId).all()
 
     print(type(ljList))
-    print(ljList[0])
     
     # Append role Name into the list of Learning Journey so that easier retrieval
     resultList = []
