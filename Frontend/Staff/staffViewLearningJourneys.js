@@ -3,60 +3,60 @@ function getAllLearningJourneys(staffId) {
     var table = document.getElementById("ljList");
     axios.get("http://127.0.0.1:5006/allLearningJourney/" + staffId)
         .then(function (response) {
-            var ljList = response.data.data.learningJourney;
-            console.log(ljList)
-            // var roleList = response.data.data.role;
-            // var counter = 0
-            for(let lj in ljList){
-                // var roleName;
-                // // Get role name of the Learning Journey
-                // for (role in roleList){
-                //     if (roleList[role].roleId == ljList[lj].roleId){
-                //         roleName = roleList[role].roleName
-                //     }
-                // 
+            // var ljList = response.data.data.learningJourney;
+            console.log(response)
+
+            if(response.data.code == 404){
+                table.innerHTML = ""
+                document.getElementById("displayMsg").className = "alert alert-warning m-5"
+
+            }else{
+                var ljList = response.data.data.learningJourney;
+                table.innerHTML = ""
+
+                for(let lj in ljList){
 
 
-                table.innerHTML += `
-                <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
-                <div class="col-auto align-self-center mx-2 p-4">
-                  <b>${ljList[lj].roleName}</b>
-                </div>
-      
-                <div class="col"></div>
-
-                <div class="col-auto d-flex justify-content-end">
-                    <button id="detailBtn${ljList[lj].learningJourneyId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1"  onclick="changeBtnName(this.id)">View Details</button>
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goUpdatePage(${ljList[lj].learningJourneyId},${staffId})">Edit Details</button>
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1" onclick="deleteLj(${ljList[lj].learningJourneyId})">Delete</button>
-                </div>
-
-
-                <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
-                <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
-                    <b class="mb-2">Skills required</b>
-    
-                    <div class="container bg-white p-4">
-                      <table class="table align-items-center">
-                        <thead>
-                          <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Skill Status</th>
-                            <th scope="col">Courses</th>
-                            <th scope="col">Course Status</th>
-                          </tr>
-                        </thead>
-                        <tbody id="${ljList[lj].learningJourneyId}"> 
-                        </tbody>
-                      </table>
+                    table.innerHTML += `
+                    <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
+                    <div class="col-auto align-self-center mx-2 p-4">
+                      <b>${ljList[lj].jobName}</b>
                     </div>
-      
-                </div>
-                </div>
-                `
+          
+                    <div class="col"></div>
+    
+                    <div class="col-auto d-flex justify-content-end">
+                        <button id="detailBtn${ljList[lj].learningJourneyId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${ljList[lj].learningJourneyId}" aria-expanded="false" aria-controls="viewDetails1"  onclick="changeBtnName(this.id)">View Details</button>
+                        <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goUpdatePage(${ljList[lj].learningJourneyId},${staffId})">Edit Details</button>
+                        <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="deleteLj(${ljList[lj].learningJourneyId})">Delete</button>
+                    </div>
+    
+    
+                    <div class="collapse pt-2" id="collapseExample${ljList[lj].learningJourneyId}">
+                    <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
+                        <b class="mb-2">Skills required</b>
+        
+                        <div class="container bg-white p-4">
+                          <table class="table align-items-center">
+                            <thead>
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Skill Status</th>
+                                <th scope="col">Courses</th>
+                                <th scope="col">Course Status</th>
+                              </tr>
+                            </thead>
+                            <tbody id="${ljList[lj].learningJourneyId}"> 
+                            </tbody>
+                          </table>
+                        </div>
+          
+                    </div>
+                    </div>
+                    `
 
-                axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
+                    axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
                     .then(function (ljDetails) {
                        
                         skillDetails = ljDetails.data.data.learningJourney[1]
@@ -79,21 +79,6 @@ function getAllLearningJourneys(staffId) {
                             console.log("skillName", skillName)
 
 
-                            // detailTable.innerHTML += `
-                            // <div class="row rounded border border-1 p-3 mb-2 d-flex align-items-center bg-light mb-3">
-                            // <div class="col-1">
-                            //         <b>${skillId}</b>
-                            //     </div>
-                            //     <div class="col-3">
-                            //         <b>${skillName}</b>
-                            //     </div>
-                            //     <div class="col-3">
-                            //         <b class="p-2" style="background-color: #F95A00; color:#FFF; border-radius: 25px;" id="status${skillId}"></b>
-                            //     </div>
-                            //     <div id='${skillId}' class="col-5">
-                            //     </div>
-                            // </div>
-                            // `
                             detailTable.innerHTML += `
                             <tr>
                             <th scope="row">${skillId}</th>
@@ -113,11 +98,7 @@ function getAllLearningJourneys(staffId) {
                             for(course in courses){
                                 
                                console.log("course " + (parseInt(course)+1), courses[course])
-                            //    document.getElementById(skillId).innerHTML += `
-                            //         <div>
-                            //             <b class="p-2" style="background-color: #6F6F6F; color:#FFF; border-radius: 25px;">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</b>
-                            //         </div>
-                            //        `
+
                                 document.getElementById(skillId).innerHTML += `
                                 <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
                                 `
@@ -126,9 +107,6 @@ function getAllLearningJourneys(staffId) {
                                     if(ljDetails.data.data.courseStatus[i].courseId == courses[course]["courseId"]){
                             
                                         if(ljDetails.data.data.courseStatus[i].status == "Completed"){
-                                            // document.getElementById("skillStatus"+skillId).innerHTML = "Completed"
-                                            // document.getElementById("skillStatus"+skillId).style.backgroundColor = "#30B900"
-                                            // document.getElementById("skillStatus"+skillId).className = "btn btn-success"
                                             document.getElementById("courseStatus"+skillId).innerHTML = `
                                             <button type="button" class="btn btn-success mb-1">Completed</button><br>`
                                             completeCount += 1
@@ -160,6 +138,8 @@ function getAllLearningJourneys(staffId) {
                         }
                     );
 
+                
+            }
 
             }
         })
@@ -178,13 +158,22 @@ function changeBtnName(id){
 }
 
 function deleteLj(ljId){
-    // window.alert(ljId)
-    // console.log("you've clicked the delete button")
+    var deletePopUp = document.getElementById("deletePopUp")
+    var confirmDelete = document.getElementById("confirmDelete")
+    deletePopUp.innerHTML = `
+    Delete Learning Journey: ${ljId}
+    `
+    confirmDelete.onclick = confirmDeletion.bind(this, ljId);
+    
+}
 
+function confirmDeletion(ljId){
+    console.log("delete button pressed")
     axios.delete("http://127.0.0.1:5006/learningJourney/delete/" + ljId)
     .then(function (response) {
         if (response.status > 200 || response.status <300){
-            window.location.href = './staffViewLearningJourneys.html'
+            // window.location.href = './staffViewLearningJourneys.html'
+            getAllLearningJourneys('130001')
         } 
     })
         .catch(function (error) {
@@ -192,7 +181,9 @@ function deleteLj(ljId){
         }
     );
 
+
 }
+
 
 function goUpdatePage(ljId,staffId){
     localStorage.setItem('ljId', ljId);

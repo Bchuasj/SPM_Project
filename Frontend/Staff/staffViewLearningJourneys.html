@@ -57,7 +57,6 @@
           <li><a class="nav-link scrollto" href="#about">Learning journeys</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Skills</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Roles</a></li>
-          <li><a class="nav-link scrollto fw-light" href="#services">HR View</a></li>
           <li><a class="nav-link scrollto fw-light" href="#portfolio">Logout</a></li> <!--need create a logout look page-->
 
           <!-- additional dropdown option for navbar -->
@@ -120,6 +119,10 @@
 
       <!-- container to display all learning journeys-->
       <div class="container">
+
+        <div id="displayMsg" class="alert alert-warning m-5 d-none" role="alert">
+          There are no Learning Journeys being saved to this account. 
+        </div>
 
         <div id="ljList"></div>
         
@@ -247,6 +250,25 @@
       </div>
       <!-- end container displaying all journeys -->
 
+      </div>
+    </div>
+
+    <!-- modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deletePopUp"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Confirm deletion?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="confirmDelete" data-bs-dismiss="modal">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
 

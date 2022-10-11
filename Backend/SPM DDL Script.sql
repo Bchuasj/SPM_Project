@@ -11,19 +11,26 @@ CREATE TABLE Role (
 	PRIMARY KEY (roleId)
 );
 
+CREATE TABLE Job ( 
+	jobId int,
+	jobName varchar(100) NOT NULL,
+	isDeleted int,
+	PRIMARY KEY (jobId)
+);
+
 CREATE TABLE Skill (
 	skillId int,
 	skillName varchar(50) NOT NULL,
-	skillDesc varchar(50) NOT NULL,
+	skillDesc varchar(255) NOT NULL,
 	isDeleted int,
 	PRIMARY KEY (skillId)
 );
 
-CREATE TABLE RoleSkills (
-	roleId int,
+CREATE TABLE JobSkills (
+	jobId int,
 	skillId int,
-	CONSTRAINT rsKey PRIMARY KEY (roleId,skillId),
-	FOREIGN KEY (roleId) REFERENCES Role(roleId),
+	CONSTRAINT rsKey PRIMARY KEY (jobId,skillId),
+	FOREIGN KEY (jobId) REFERENCES Job(jobId),
 	FOREIGN KEY (skillId) REFERENCES Skill(skillId)
 );
 
@@ -61,10 +68,10 @@ CREATE TABLE SkillCourses (
 CREATE TABLE LearningJourney (
 	learningJourneyId int,
 	staffId int,
-	roleId int,
+	jobId int,
 	PRIMARY KEY (learningJourneyId),
 	FOREIGN KEY (staffId) REFERENCES Staff(staffId),
-	FOREIGN KEY (roleId) REFERENCES Role(roleId)
+	FOREIGN KEY (jobId) REFERENCES Job(jobId)
 );
 
 CREATE TABLE LearningJourneyDetails (
