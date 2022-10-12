@@ -38,7 +38,7 @@
   ======================================================== -->
 </head>
 
-<body onload = "getAllRoles()">
+<body onload = "getAllJobs()">
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center"></section>
@@ -73,8 +73,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-2 "><h1 class="logo" style="vertical-align:bottom">Jobs</h1></div>
           <div class="col-lg-9">
-            <input type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?">
-            <button class="btn btn-sm px-3 text-white" style="background-color: #106eea; margin-left: 5pt;" type = "button" onclick="getJob()">Search</button>
+            <input id = "jobInput" type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?"  onkeyup="getJob()">
           </div>
         </div>
       </div>
