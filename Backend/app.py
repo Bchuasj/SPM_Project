@@ -213,6 +213,45 @@ def getRole(roleName):
         }
     )
 
+#GET ALL JOBS
+@app.route("/job")
+def getAllJobs():
+    jobsList = Job.query.all()
+    if len(jobsList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "jobs": [job.json() for job in jobsList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Job not found."
+        }
+    )
+
+#GET JOB BY job name
+@app.route("/job/<string:jobName>")
+def getJob(jobName):
+    job = Job.query.filter_by(jobName=jobName).first()
+    if job:
+        return jsonify(
+            {
+                "code": 200,
+                "data": job.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Job not found."
+        }
+    )
+
+
 #GET JOB WITH SKILLS AFFLIATED TO IT
 @app.route("/job/<int:jobId>/skills")
 def getSkills(jobId):
