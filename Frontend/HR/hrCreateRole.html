@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Create New Role</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../Bizland/assets/img/favicon.png" rel="icon">
+  <link href="../Bizland/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../Bizland/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../Bizland/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../Bizland/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../Bizland/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../Bizland/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../Bizland/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../Bizland/assets/css/style.css" rel="stylesheet">
+
+  <!-- Axios CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo"><a href="index.html">AIO LJPS<span>.</span></a></h1>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto" href="#hero">Skills</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#about">Roles</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#services">Staff View</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#portfolio">Logout</a></li> <!--need create a logout look page-->
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Skills search bar and Skills ======= -->
+  <footer id="footer">
+    <div class="footer-newsletter">
+        <div class="row justify-content-center">
+          <div class="col-4 pb-4">
+            <h2 class="logo" style="vertical-align:bottom">Create New Role</h2>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row border border-1 bg-white py-2 mb-2 d-flex">
+            <div class="mb-3 row mt-3">
+              <!--input for role name-->
+              <label for="roleName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Name: </label>
+              <div class="col-sm col">
+                <input type="text" class="form-control" id="roleName">
+              </div>
+              <div class="col-sm-1 col-1"></div>
+            </div>
+
+            <div class="mb-3 row">
+              <!--input for role description-->
+              <label for="roleDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Description: </label>
+              <div class="col-sm col">
+                <input type="text" class="form-control" id="roleDesc">
+              </div>
+              <div class="col-sm-1 col-1"></div>
+            </div>
+
+            <div class="mb-4 row">
+              <!--input for courses to be added to new role-->
+              <label class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill ID: </label>
+                <div class="input-group col-sm col">
+                  <input type="text" class="form-control" id="skills" style = "max-width: fit-content; margin-right: 5px;">
+                  <button type = "button" class="btn btn-primary btn text-white col-sm col" style = "max-width: 20%;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllCourses()">Add Skills</button>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Courses</h5><input id = "courseInput" placeholder = "Search by Name" onkeyup="getCourse()">
+                    <!-- <button id = "searchCourse" class = "btn btn-primary btn text-white" onclick ="getCourse()">Search</button> -->
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <table id = "viewCourses"></table>
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick = "populateInput()">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 row mb-4">
+              <div class="col-sm-10 col-10"></div>
+              <button class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 10%;" onclick = "createSkill()">Create</button>
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+      <div class="copyright">
+        &copy; Copyright <strong><span>AIO LJPS</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../Bizland/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../Bizland/assets/vendor/aos/aos.js"></script>
+  <script src="../Bizland/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../Bizland/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../Bizland/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../Bizland/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../Bizland/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../Bizland/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../Bizland/assets/js/main.js"></script>
+
+  <!-- CreateUpdate JS File -->
+  <script src="hrCreateUpdate.js"></script>
+
+</body>
+
+</html>
