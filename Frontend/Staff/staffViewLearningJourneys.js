@@ -1,10 +1,9 @@
 function getAllLearningJourneys(staffId) {
-
     var table = document.getElementById("ljList");
     axios.get("http://127.0.0.1:5006/allLearningJourney/" + staffId)
         .then(function (response) {
             // var ljList = response.data.data.learningJourney;
-            console.log(response)
+            console.log('Get all Learning Journey response',response)
 
             if(response.data.code == 404){
                 table.innerHTML = ""

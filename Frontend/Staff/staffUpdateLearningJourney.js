@@ -30,7 +30,7 @@ function getAllLearningJourneys() {
                     
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
                     
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1">Delete</button>
+                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" onclick="deleteLj(${ljId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                   </div>
         
                   <!--view details of Learning Journey 1 -->
@@ -101,13 +101,13 @@ function getAllLearningJourneys() {
                     .then(function (ljDetails) {
                        
                         skillDetails = ljDetails.data.data.learningJourney[1]
-                        console.log("skill details", skillDetails);
+                        // console.log("skill details", skillDetails);
                         // console.log("test", ljList[lj].learningJourneyId)
 
                         
                         detailTable = document.getElementById(ljList[lj].learningJourneyId)
                         // detailTable = document.getElementById("500")
-                        console.log('DOM detail table', detailTable)
+                        // console.log('DOM detail table', detailTable)
 
                         existingCourses = []
                         for(detail in skillDetails){
@@ -115,10 +115,10 @@ function getAllLearningJourneys() {
 
 
                             skillId = skillDetails[detail].skills.skillId
-                            console.log("skillId", skillId)
+                            // console.log("skillId", skillId)
 
                             skillName = skillDetails[detail].skills.skillName
-                            console.log("skillName", skillName)
+                            // console.log("skillName", skillName)
 
                             detailTable.innerHTML +=
                             `<tr>
@@ -160,7 +160,7 @@ function getAllLearningJourneys() {
                                existingCourses.push(courses[course]['courseId'])
 
                                 
-                               console.log("course " + (parseInt(course)+1), courses[course])
+                            //    console.log("course " + (parseInt(course)+1), courses[course])
 
                                 // document.getElementById(skillId).innerHTML += `
                                 // <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
@@ -171,7 +171,7 @@ function getAllLearningJourneys() {
                                 `
 
                                 document.getElementById('deleteCourse'+skillId).innerHTML += `
-                                <button id="delete${skillId}" type="button" class="btn btn-danger mb-1" onclick="removeCoursesLj(${ljId},${skillId},'${courses[course]["courseId"]}',${courses.length})">Delete</button><br>
+                                <button id="delete${skillId}${courses[course]['courseId']}" type="button" class="btn btn-danger mb-1" onclick="removeCoursesLj(${ljId},${skillId},'${courses[course]["courseId"]}',${courses.length})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button><br>
                                 `
 
                                 // completeCount = 0
@@ -341,6 +341,7 @@ function addCoursesLj(ljId,skillId){
     
     // console.log("checkboxes",checkbox.length)
 
+
     var checkboxes = document.querySelectorAll("input[type=checkbox][name=addCoursesCb]");
     console.log("checboxes", checkboxes)
     
@@ -348,6 +349,7 @@ function addCoursesLj(ljId,skillId){
         if(checkboxes[cb].checked){
             addCoursesList.push(checkboxes[cb].value)
         }
+        
     }
 
     console.log("addCourseList",addCoursesList)
@@ -365,8 +367,12 @@ function addCoursesLj(ljId,skillId){
     axios.put("http://127.0.0.1:5006/learningJourney/addCourse/" + ljId + "/" + skillId, json = jsonBody)
     .then(function (response) {
         console.log(response.data.data)
-        localStorage.setItem('addStatus', true);
+        if(addCoursesList.length > 0){
+            localStorage.setItem('addStatus', true);            
+        }
         window.location.href = './staffUpdateLearningJourney.html'
+
+
 
     })
         .catch(function (error) {
@@ -374,11 +380,26 @@ function addCoursesLj(ljId,skillId){
         }
     );
 
+   
 }
 
 
 function removeCoursesLj(ljId,skillId,course,length){
 
+    // window.alert(ljId, skillId, course, length)
+    var deletePopUp = document.getElementById("deletePopUp")
+    var confirmDelete = document.getElementById("confirmDelete")
+    deletePopUp.innerHTML = `
+    <h5>Delete Course: ${course}</h5>
+    `
+
+    confirmDelete.onclick = confirmDeletion.bind(this, ljId,skillId,course,length);
+
+
+
+}
+
+function confirmDeletion(ljId,skillId,course,length){
     var jsonBody = {'data':{'courses':[course]}}
 
     // If there is only one course taken for that skill, do not allow user to delete it
@@ -403,6 +424,34 @@ function removeCoursesLj(ljId,skillId,course,length){
 
     }
 
+}
+
+// Deleting an LJ from the update skill page will redirect them to the get All Learning Journey page
+function deleteLj(ljId){
+    var deletePopUp = document.getElementById("deletePopUp")
+    var confirmDelete = document.getElementById("confirmDelete")
+    deletePopUp.innerHTML = `
+    Delete Learning Journey: ${ljId}
+    `
+    confirmDelete.onclick = confirmDeletionLj.bind(this, ljId);
+    
+}
+
+function confirmDeletionLj(ljId){
+    console.log("delete button pressed")
+    axios.delete("http://127.0.0.1:5006/learningJourney/delete/" + ljId)
+    .then(function (response) {
+        if (response.status > 200 || response.status <300){
+            window.location.href = './staffViewLearningJourneys.html'
+            // getAllLearningJourneys('130001')
+        } 
+    })
+        .catch(function (error) {
+            console.log(error);
+        }
+    );
 
 
 }
+
+
