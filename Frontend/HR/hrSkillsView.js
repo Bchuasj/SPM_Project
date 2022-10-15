@@ -24,7 +24,7 @@ function getAllSkills() {
                             <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skills[skill].skillId}" aria-expanded="false" aria-controls="collapseExample${skills[skill].skillId}" >View details</button>
                         </div>
                         <div class="col">
-                            <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
+                            <a class="btn btn-dark btn-sm px-3" href="hrUpdateSkill.html?${skills[skill].skillId}" role="button">Edit Details</a>
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${skills[skill].skillId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>

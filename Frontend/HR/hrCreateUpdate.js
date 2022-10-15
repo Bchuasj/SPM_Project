@@ -38,7 +38,6 @@ function populateInput(){
             selectedCourses.push(checkbox.id);
         }
     }
-    console.log(selectedCourses)
     document.getElementById("courses").value = selectedCourses;
 }
 
@@ -91,42 +90,46 @@ function createSkill() {
     )
 }
 
-// function getSkill(skillId){
-//     // need to pass the skillId to me 
-//     getAllCourses();
-//     axios.get(`http://127.0.0.1:5006/skill/${skillId}`)
-//         .then(function (response) {
-//             var skill = response.data.data.skill;
-//             var courses = response.data.data.courses;
-//             document.getElementById("skillName").value = skill.skillName;
-//             document.getElementById("skillDesc").value = skill.skillDesc;
-//                 select = document.getElementById("inputGroupSelect04")
-//                 for (var i = 0, l = select.options.length, o; i < l; i++ ){
-//                     o = select.options[i];
-//                     for (var j = 0, m = courses.length, p; j < m; j++ ){
-//                         p = courses[j];
-//                         if (o.value == p){
-//                             o.selected = true;
-//                 }
-// }
+function getSkill(){
+    // need to pass the skillId to me 
+    var skillId = location.search.substring(1);
+    // console.log(queryString)
+    getAllCourses();
+    axios.get(`http://127.0.0.1:5006/skill/${skillId}`)
+        .then(function (response) {
+            var skill = response.data.data.skill;
+            var courses = response.data.data.courses;
+            console.log(courses)
+            document.getElementById("skillName").value = skill.skillName;
+            document.getElementById("skillDesc").value = skill.skillDesc;
+            // based on the input values, tick the checkbox
+            for (course in courses){
+                console.log(course)
+                document.getElementById("courses").value += courses[course].courseId+","
+            }
+            document.getElementById("courses").value = document.getElementById("courses").value.slice(0, -1);
+            var checkboxes = document.querySelectorAll('input[type=checkbox]');
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (courses.includes(checkboxes[i].id)) {
+                    checkboxes[i].checked = true;
+                }
+            }
+        })
+}
 
 function updateSkill(){
+    var skillId = location.search.substring(1);
     var skillName = document.getElementById("skillName").value;
     var skillDesc = document.getElementById("skillDesc").value;
-    var courses = document.getElementById("inputGroupSelect04");
-    var selectedCourses = [];
+    var courses = document.getElementById("courses").value;
+    var selectedCourses = courses.split(",")
     if (skillName == "" || skillDesc == ""){
         alert("Please enter all the details")
         return 
     }
-    for (var i = 0; i < courses.options.length; i++) {
-        if (courses.options[i].selected) {
-            selectedCourses.push(courses.options[i].value);
-        }
-    }
     // Put request
     isDeleted = 0
-    axios.post(`http://127.0.0.1:5006/skill/update/${skillId}`,
+    axios.put(`http://127.0.0.1:5006/skill/update/${skillId}`,
         {   skill: {
                     skillName: skillName, 
                     skillDesc: skillDesc,
