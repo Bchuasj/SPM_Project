@@ -234,9 +234,27 @@ def getAllJobs():
     )
 
 #GET JOB BY job name
-@app.route("/job/<string:jobName>")
-def getJob(jobName):
+@app.route("/job/name/<string:jobName>")
+def getJobName(jobName):
     job = Job.query.filter_by(jobName=jobName).first()
+    if job:
+        return jsonify(
+            {
+                "code": 200,
+                "data": job.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Job not found."
+        }
+    )
+
+#GET JOB BY job id
+@app.route("/job/id/<int:jobId>")
+def getJobId(jobId):
+    job = Job.query.filter_by(jobId=jobId).first()
     if job:
         return jsonify(
             {
@@ -269,6 +287,147 @@ def getSkills(jobId):
         {
             "code": 404,
             "message": "No skills found."
+        }
+    )
+
+# Create a job and add jobSkill table with the skill associated to this job
+@app.route("/job/create", methods=['POST'])
+def createJob():
+    data = request.get_json()
+
+    """
+        Sample JSON Body: // Frontend has to pass this inputs to the backend
+        {  
+            "jobName": 'YouTuber',
+            "isDeleted": false,
+            "skills": ['207','209']
+        }
+    """
+        
+    try:
+        # get current max jobId
+        maxJobId = Job.query.order_by(Job.jobId.desc()).first().jobId
+        # maxJobId = 810
+        job = Job(maxJobId+1,data['jobName'],data['isDeleted'])
+        # add the new job with skills related to it to jobSkills table
+        db.session.add(job)
+        db.session.commit()
+        if data['skills']:
+            for skill in data['skills']:
+                insert = jobSkills.insert().values(jobId=maxJobId+1, skillId=skill)
+                db.session.execute(insert)
+
+        #commit the new skill and courses related to it to skillCourses table
+        db.session.commit()
+    except:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "jobName": data['jobName'],
+                    "skills": [skill for skill in data['skills']]
+                },
+                "message": "An error occurred creating the job."
+            }
+        ), 500
+
+    return jsonify(
+        {
+            "code": 201,
+            "data": {"job" :job.json(),
+                    "skills": [skill for skill in data['skills']]
+            }
+        }
+    ), 201
+
+#UPDATE Job along with jobSkills table
+@app.route("/job/update/<int:jobId>", methods=['PUT'])
+def updateJobSkills(jobId):
+
+    """
+        Sample JSON Body: // Frontend has to pass this inputs to the backend
+        {  
+            "jobName": 'Famous YouTuber',
+            "isDeleted": false,
+            "skills": ['207','209']
+        }
+    """
+    
+    job = Job.query.filter_by(jobId=jobId).first()
+    if job:
+        try:
+            data = request.get_json()
+            job.jobName = data['jobName']
+            db.session.commit()
+            # # delete all skills related to the job in jobSkills table
+            delete = jobSkills.delete().where(jobSkills.c.jobId == jobId)
+            db.session.execute(delete)
+            db.session.commit()
+            # # add the new courses related to the skill
+            if data['skills']:
+                for skill in data['skills']:
+                    insert = jobSkills.insert().values(jobId=jobId, skillId = skill)
+                    # insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
+                    db.session.execute(insert)
+                    db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "job": job.json(),
+                        "skills": [skill for skill in data['skills']]
+                    },
+                }
+            )
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                        "job": job.json(),
+                        "skills": [skill for skill in data['skills']]
+                    },
+                    "message": "An error occurred updating the job."
+                }
+            ), 500
+
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Job not found."
+        }
+    )
+
+#Soft delete job
+@app.route("/job/delete/<int:jobId>", methods=['PUT'])
+def deleteJob(jobId):
+    job = Job.query.filter_by(jobId=jobId).first()
+    if job:
+        job.isDeleted = True
+        try:
+            # skillCourses.query.filter_by(skillId=skillId).delete()
+            db.session.commit()
+        except:
+            return jsonify(
+                {
+                    "code": 500,
+                    "data": {
+                        "jobId": jobId
+                    },
+                    "message": "An error occurred deleting the skill."
+                }
+            ), 500
+
+        return jsonify(
+            {
+                "code": 200,
+                "data": job.json()
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Skill not found."
         }
     )
 
