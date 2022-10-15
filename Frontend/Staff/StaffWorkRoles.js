@@ -1,18 +1,19 @@
-function getAllJobs() {
+function getAllWorkRoles() {
     var table = document.getElementById("jobsTable");
-    axios.get("http://127.0.0.1:5006/job")
+    axios.get("http://127.0.0.1:5006/workRole")
         .then(function (response) {
-            var jobs = response.data.data.jobs;
+            console.log(response)
+            var workRoles = response.data.data.workRoles;
             var counter = 0
-            for(let job in jobs){
+            for(let role in workRoles){
                 table.innerHTML += `
-                <div name = "jobs" id = "${jobs[job].jobId}">
-                  <div class='row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center' data-bs-toggle='collapse' data-bs-target='#collapseExample${counter}' aria-expanded='false' aria-controls='collapseExample${counter}' onclick = "getJobSkill(${jobs[job].jobId})">
+                <div name = "jobs" id = "${workRoles[role].workRoleId}">
+                  <div class='row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center' data-bs-toggle='collapse' data-bs-target='#collapseExample${counter}' aria-expanded='false' aria-controls='collapseExample${counter}' onclick = "getWorkRoleSkill(${workRoles[role].workRoleId})">
                     <div class='col-2' name = 'jobId'>
-                      <b>${jobs[job].jobId}</b>
+                      <b>${workRoles[role].workRoleId}</b>
                     </div>
                     <div class='col' name = 'jobName'>
-                      <b>${jobs[job].jobName}</b>
+                      <b>${workRoles[role].workRoleName}</b>
                     </div>
                     <div class='col-3'>
                       <button type='button' class='btn btn-sm px-3 text-white' style='background-color: #106eea'>Add</button>
@@ -20,7 +21,7 @@ function getAllJobs() {
                     <div class="collapse pt-2" id="collapseExample${counter}">
                         <div class="card card-body text-start">
                         <p ><b>Skills</b></p>
-                        <span id = "jobSkill${jobs[job].jobId}"></span>
+                        <span id = "jobSkill${workRoles[role].workRoleName}"></span>
                         </div>
                     </div>
                   </div>
@@ -31,9 +32,9 @@ function getAllJobs() {
 }
 
 // implement get job skills
-function getJobSkill(jobId){
-  jobSkill = document.getElementById("jobSkill"+jobId);
-  axios.get("http://127.0.0.1:5006/job/"+jobId+"/skills")
+function getWorkRoleSkill(workRoleId){
+  workRoleSkill = document.getElementById("jobSkill"+workRoleId);
+  axios.get("http://127.0.0.1:5006/workRole/"+workRoleId+"/skills")
   .then(function (response) {
     jobSkill.innerHTML = ""
     var skills = response.data.data.skills;
@@ -49,7 +50,7 @@ function getJobSkill(jobId){
 }
 
 
-function getJob() {
+function getWorkRole() {
   // print what key is pressed
   var input, filter, jobsList,  jobName, i, txtValue, numValue;
   input = document.getElementById("jobInput");

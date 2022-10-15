@@ -13,8 +13,8 @@ CORS(app)
 db = SQLAlchemy(app)
 
 # Association table to role and skills with many to many relationship
-jobSkills = db.Table('jobSkills',
-    db.Column('jobId', db.Integer, db.ForeignKey('job.jobId'), primary_key=True),
+workRoleSkills = db.Table('workRoleSkills',
+    db.Column('workRoleId', db.Integer, db.ForeignKey('workRole.workRoleId'), primary_key=True),
     db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True)
 )
 
@@ -22,7 +22,6 @@ class Role(db.Model):
     __tablename__ = 'role'
     roleId = db.Column(db.Integer, primary_key=True, nullable=False)
     roleName = db.Column(db.String(20), nullable=False)
-    isDeleted = db.Column(db.Boolean)
     def __init__(self, roleId, roleName, isDeleted):
         self.roleId = roleId
         self.roleName = roleName
@@ -32,23 +31,22 @@ class Role(db.Model):
         return {
             "roleId": self.roleId,
             "roleName": self.roleName,
-            "isDeleted": self.isDeleted
         }
 
-class Job(db.Model):
-    __tablename__ = 'job'
-    jobId = db.Column(db.Integer, primary_key=True, nullable=False)
-    jobName = db.Column(db.String(100), nullable=False)
+class workRole(db.Model):
+    __tablename__ = 'workRole'
+    workRoleId = db.Column(db.Integer, primary_key=True, nullable=False)
+    workRoleName = db.Column(db.String(100), nullable=False)
     isDeleted = db.Column(db.Boolean)
-    def __init__(self, jobId, jobName, isDeleted):
-        self.jobId = jobId
-        self.jobName = jobName
+    def __init__(self, workRoleId, workRoleName, isDeleted):
+        self.workRoleId = workRoleId
+        self.workRoleName = workRoleName
         self.isDeleted = isDeleted
     
     def json(self):
         return {
-            "jobId": self.jobId,
-            "jobName": self.jobName,
+            "workRoleId": self.workRoleId,
+            "workRoleName": self.workRoleName,
             "isDeleted": self.isDeleted
         }
 
@@ -116,18 +114,18 @@ class LearningJourney(db.Model):
     __tablename__ = 'learningjourney'
     learningJourneyId = db.Column(db.Integer, primary_key=True, nullable=False)
     staffId = db.Column(db.Integer, nullable=False)
-    jobId = db.Column(db.Integer, nullable=False)
+    workRoleId = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, learningJourneyId, staffId, jobId):
+    def __init__(self, learningJourneyId, staffId, workRoleId):
         self.learningJourneyId = learningJourneyId
         self.staffId = staffId
-        self.jobId = jobId
+        self.workRoleId = workRoleId
 
     def json(self):
         return {
             "learningJourneyId": self.learningJourneyId,
             "staffId": self.staffId,
-            "jobId": self.jobId
+            "workRoleId": self.workRoleId
         }
 
 class Registration(db.Model):
@@ -213,67 +211,67 @@ def getRole(roleName):
         }
     )
 
-#GET ALL JOBS
-@app.route("/job")
-def getAllJobs():
-    jobsList = Job.query.all()
-    if len(jobsList):
+#GET ALL WORKROLES
+@app.route("/workRole")
+def getAllWorkRoles():
+    workRoleList = workRole.query.all()
+    if len(workRoleList):
         return jsonify(
             {
                 "code": 200,
                 "data": {
-                    "jobs": [job.json() for job in jobsList]
+                    "workRoles": [role.json() for role in workRoleList]
                 }
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "Job not found."
+            "message": "WorkRole not found."
         }
     )
 
-#GET JOB BY job name
-@app.route("/job/name/<string:jobName>")
-def getJobName(jobName):
-    job = Job.query.filter_by(jobName=jobName).first()
-    if job:
+#Get workRole by name
+@app.route("/workRole/name/<string:workRoleName>")
+def getWorkRoleName(workRoleName):
+    workRoleName = workRole.query.filter_by(workRoleName=workRoleName).first()
+    if workRoleName:
         return jsonify(
             {
                 "code": 200,
-                "data": job.json()
+                "data": workRoleName.json()
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "Job not found."
+            "message": "WorkRole not found."
         }
     )
 
-#GET JOB BY job id
-@app.route("/job/id/<int:jobId>")
-def getJobId(jobId):
-    job = Job.query.filter_by(jobId=jobId).first()
-    if job:
+#Get workRole by id
+@app.route("/workRole/id/<string:workRoleId>")
+def getWorkRoleId(workRoleId):
+    workRoleId = workRole.query.filter_by(workRoleId=workRoleId).first()
+    if workRoleId:
         return jsonify(
             {
                 "code": 200,
-                "data": job.json()
+                "data": workRoleId.json()
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "Job not found."
+            "message": "WorkRole not found."
         }
     )
 
 
-#GET JOB WITH SKILLS AFFLIATED TO IT
-@app.route("/job/<int:jobId>/skills")
-def getSkills(jobId):
-    skillsList = Skill.query.join(jobSkills, (jobSkills.c.skillId == Skill.skillId)).filter(jobSkills.c.jobId == jobId).all()
+#GET WORKROLES WITH SKILLS AFFLIATED TO IT
+@app.route("/workRole/<int:workRoleId>/skills")
+def getWorkRoleSkills(workRoleId):
+    skillsList = Skill.query.join(workRoleSkills, (workRoleSkills.c.skillId == Skill.skillId)).filter(workRoleSkills.c.workRoleId == workRoleId).all()
     if len(skillsList):
         return jsonify(
             {
@@ -290,31 +288,32 @@ def getSkills(jobId):
         }
     )
 
-# Create a job and add jobSkill table with the skill associated to this job
-@app.route("/job/create", methods=['POST'])
-def createJob():
+# Create a workRole and add workRoleSkill table with the skill associated to this workRole
+@app.route("/workRole/create", methods=['POST'])
+def createWorkRole():
     data = request.get_json()
 
     """
         Sample JSON Body: // Frontend has to pass this inputs to the backend
         {  
-            "jobName": 'YouTuber',
+            "workRoleName": "YouTuber",
             "isDeleted": false,
-            "skills": ['207','209']
+            "skills": ["207","209"]
         }
     """
         
     try:
-        # get current max jobId
-        maxJobId = Job.query.order_by(Job.jobId.desc()).first().jobId
+        # get current max workRoleId
+        # maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
+        maxWorkRoleId = workRole.query.order_by(workRole.workRoleId.desc()).first().workRoleId
         # maxJobId = 810
-        job = Job(maxJobId+1,data['jobName'],data['isDeleted'])
-        # add the new job with skills related to it to jobSkills table
-        db.session.add(job)
+        newWorkRole = workRole(maxWorkRoleId+1,data['workRoleName'],data['isDeleted'])
+        # add the new workRole with skills related to it to workRoleSkills table
+        db.session.add(newWorkRole)
         db.session.commit()
         if data['skills']:
             for skill in data['skills']:
-                insert = jobSkills.insert().values(jobId=maxJobId+1, skillId=skill)
+                insert = workRoleSkills.insert().values(workRoleId=maxWorkRoleId+1, skillId=skill)
                 db.session.execute(insert)
 
         #commit the new skill and courses related to it to skillCourses table
@@ -324,49 +323,49 @@ def createJob():
             {
                 "code": 500,
                 "data": {
-                    "jobName": data['jobName'],
+                    "workRoleName": data['workRoleName'],
                     "skills": [skill for skill in data['skills']]
                 },
-                "message": "An error occurred creating the job."
+                "message": "An error occurred creating the work role."
             }
         ), 500
 
     return jsonify(
         {
             "code": 201,
-            "data": {"job" :job.json(),
+            "data": {"workRole":newWorkRole.json(),
                     "skills": [skill for skill in data['skills']]
             }
         }
     ), 201
 
-#UPDATE Job along with jobSkills table
-@app.route("/job/update/<int:jobId>", methods=['PUT'])
-def updateJobSkills(jobId):
+#UPDATE WorkRole along with workRoleSkills table
+@app.route("/workRole/update/<int:workRoleId>", methods=['PUT'])
+def updateJobSkills(workRoleId):
 
     """
         Sample JSON Body: // Frontend has to pass this inputs to the backend
         {  
-            "jobName": 'Famous YouTuber',
+            "workRoleName": 'Famous YouTuber',
             "isDeleted": false,
             "skills": ['207','209']
         }
     """
     
-    job = Job.query.filter_by(jobId=jobId).first()
-    if job:
+    updateWorkRole = workRole.query.filter_by(workRoleId=workRoleId).first()
+    if updateWorkRole:
         try:
             data = request.get_json()
-            job.jobName = data['jobName']
+            updateWorkRole.workRoleName = data['workRoleName']
             db.session.commit()
-            # # delete all skills related to the job in jobSkills table
-            delete = jobSkills.delete().where(jobSkills.c.jobId == jobId)
+            # # delete all skills related to the workRole in workRoleSkills table
+            delete = workRoleSkills.delete().where(workRoleSkills.c.workRoleId == workRoleId)
             db.session.execute(delete)
             db.session.commit()
             # # add the new courses related to the skill
             if data['skills']:
                 for skill in data['skills']:
-                    insert = jobSkills.insert().values(jobId=jobId, skillId = skill)
+                    insert = workRoleSkills.insert().values(workRoleId=workRoleId, skillId = skill)
                     # insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
                     db.session.execute(insert)
                     db.session.commit()
@@ -374,7 +373,7 @@ def updateJobSkills(jobId):
                 {
                     "code": 200,
                     "data": {
-                        "job": job.json(),
+                        "workRole": updateWorkRole.json(),
                         "skills": [skill for skill in data['skills']]
                     },
                 }
@@ -384,26 +383,26 @@ def updateJobSkills(jobId):
                 {
                     "code": 500,
                     "data": {
-                        "job": job.json(),
+                        "workRole": updateWorkRole.json(),
                         "skills": [skill for skill in data['skills']]
                     },
-                    "message": "An error occurred updating the job."
+                    "message": "An error occurred updating the work role."
                 }
             ), 500
 
     return jsonify(
         {
             "code": 404,
-            "message": "Job not found."
+            "message": "Work role not found."
         }
     )
 
-#Soft delete job
-@app.route("/job/delete/<int:jobId>", methods=['PUT'])
-def deleteJob(jobId):
-    job = Job.query.filter_by(jobId=jobId).first()
-    if job:
-        job.isDeleted = True
+#Soft delete workRole
+@app.route("/workRole/delete/<int:workRoleId>", methods=['PUT'])
+def deleteJob(workRoleId):
+    deleteWorkRole = workRole.query.filter_by(workRoleId=workRoleId).first()
+    if deleteWorkRole:
+        deleteWorkRole.isDeleted = True
         try:
             # skillCourses.query.filter_by(skillId=skillId).delete()
             db.session.commit()
@@ -412,22 +411,22 @@ def deleteJob(jobId):
                 {
                     "code": 500,
                     "data": {
-                        "jobId": jobId
+                        "workRoleId": workRoleId
                     },
-                    "message": "An error occurred deleting the skill."
+                    "message": "An error occurred deleting the work role."
                 }
             ), 500
 
         return jsonify(
             {
                 "code": 200,
-                "data": job.json()
+                "data": deleteWorkRole.json()
             }
         )
     return jsonify(
         {
             "code": 404,
-            "message": "Skill not found."
+            "message": "WorkRole not found."
         }
     )
 
@@ -640,7 +639,7 @@ def deleteSkill(skillId):
 def getAllLearningJourney(staffId):
 
     ljList = LearningJourney.query.filter_by(staffId=staffId).all()
-    jobList = Job.query.join(LearningJourney, (LearningJourney.jobId == Job.jobId )).filter_by(staffId=staffId).all()
+    workRoleList = workRole.query.join(LearningJourney, (LearningJourney.workRoleId == workRole.workRoleId )).filter_by(staffId=staffId).all()
 
     print(type(ljList))
     
@@ -650,7 +649,7 @@ def getAllLearningJourney(staffId):
     for i in range(len(ljList)):
         res = {}
         res = ljList[i].json()
-        res['jobName'] = jobList[i].jobName
+        res['workRoleName'] = workRoleList[i].workRoleName
         resultList.append(res)
     
     print(resultList)
@@ -764,7 +763,7 @@ def createLearningJourney():
             "learningJourney": {
                 "learningJourneyId": 511, (format on id depends on your mockup data)
                 "staffId": 140008,
-                "jobId": 1
+                "workRoleId": 1
             },
             "skills":[{
                 "skillId": 207,
