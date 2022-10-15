@@ -21,7 +21,7 @@ function getAllWorkRoles() {
                     <div class="collapse pt-2" id="collapseExample${counter}">
                         <div class="card card-body text-start">
                         <p ><b>Skills</b></p>
-                        <span id = "jobSkill${workRoles[role].workRoleName}"></span>
+                        <span id = "jobSkill${workRoles[role].workRoleId}"></span>
                         </div>
                     </div>
                   </div>
@@ -33,7 +33,7 @@ function getAllWorkRoles() {
 
 // implement get job skills
 function getWorkRoleSkill(workRoleId){
-  workRoleSkill = document.getElementById("jobSkill"+workRoleId);
+  jobSkill = document.getElementById("jobSkill"+workRoleId);
   axios.get("http://127.0.0.1:5006/workRole/"+workRoleId+"/skills")
   .then(function (response) {
     jobSkill.innerHTML = ""
