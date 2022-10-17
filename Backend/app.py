@@ -778,7 +778,7 @@ def createLearningJourney():
     """
     try:
         lj = LearningJourney(**data['learningJourney'])
-        # add the new skill with courses related to it to skillCourses table
+   
         db.session.add(lj)
         db.session.commit()
         if data['skills']:
@@ -800,7 +800,7 @@ def createLearningJourney():
                     "skills": [skill for skill in data["skills"]]
              
                 },
-                "message": "An error occurred creating the skill."
+                "message": "An error occurred creating the learning journey."
             }
         ), 500
 
