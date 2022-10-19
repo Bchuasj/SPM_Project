@@ -67,13 +67,22 @@ function createSkill() {
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("courses").value;
     selectedCourses = courses.split(",")
-    console.log(selectedCourses)
-    
-    if (skillName == "" || skillDesc == ""){
-        alert("Please enter all the details")
+    if (skillName == "" && skillDesc == "" && courses == ""){
+        alert("Please fill up the fields")
+        return
+    }
+    else if (skillName == ""){
+        alert("Please enter the skill Name")
         return 
     }
-
+    else if (skillDesc == ""){
+        alert("Please enter the skill Description")
+        return
+    }
+    else if (courses == ""){
+        alert("Please select at least one course")
+        return
+    }
     // Post request
     isDeleted = 0
     axios.post("http://127.0.0.1:5006/skill/create",
@@ -123,9 +132,21 @@ function updateSkill(){
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("courses").value;
     var selectedCourses = courses.split(",")
-    if (skillName == "" || skillDesc == ""){
-        alert("Please enter all the details")
+    if (skillName == "" && skillDesc == "" && courses == ""){
+        alert("Please fill up the fields")
+        return
+    }
+    else if (skillName == ""){
+        alert("Please enter the skill Name")
         return 
+    }
+    else if (skillDesc == ""){
+        alert("Please enter the skill Description")
+        return
+    }
+    else if (courses == ""){
+        alert("Please select at least one course")
+        return
     }
     // Put request
     isDeleted = 0
