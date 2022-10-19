@@ -7,15 +7,14 @@ USE SPM;
 CREATE TABLE Role ( 
 	roleId int,
 	roleName varchar(20) NOT NULL,
-	isDeleted int,
 	PRIMARY KEY (roleId)
 );
 
-CREATE TABLE Job ( 
-	jobId int,
-	jobName varchar(100) NOT NULL,
+CREATE TABLE workRole ( 
+	workRoleId int,
+	workRoleName varchar(100) NOT NULL,
 	isDeleted int,
-	PRIMARY KEY (jobId)
+	PRIMARY KEY (workRoleId)
 );
 
 CREATE TABLE Skill (
@@ -26,11 +25,11 @@ CREATE TABLE Skill (
 	PRIMARY KEY (skillId)
 );
 
-CREATE TABLE JobSkills (
-	jobId int,
+CREATE TABLE workRoleSkills (
+	workRoleId int,
 	skillId int,
-	CONSTRAINT rsKey PRIMARY KEY (jobId,skillId),
-	FOREIGN KEY (jobId) REFERENCES Job(jobId),
+	CONSTRAINT rsKey PRIMARY KEY (workRoleId,skillId),
+	FOREIGN KEY (workRoleId) REFERENCES workRole(workRoleId),
 	FOREIGN KEY (skillId) REFERENCES Skill(skillId)
 );
 
@@ -68,10 +67,10 @@ CREATE TABLE SkillCourses (
 CREATE TABLE LearningJourney (
 	learningJourneyId int,
 	staffId int,
-	jobId int,
+	workRoleId int,
 	PRIMARY KEY (learningJourneyId),
 	FOREIGN KEY (staffId) REFERENCES Staff(staffId),
-	FOREIGN KEY (jobId) REFERENCES Job(jobId)
+	FOREIGN KEY (workRoleId) REFERENCES workRole(workRoleId)
 );
 
 CREATE TABLE LearningJourneyDetails (

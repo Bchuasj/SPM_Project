@@ -22,7 +22,7 @@ function getAllLearningJourneys() {
                 `<div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
                   
                   <div class="col-auto align-self-center mx-2 p-4">
-                  <b>${ljList[lj].jobName}</b>
+                  <b>${ljList[lj].workRoleName}</b>
                   </div>
                   
                   <div class="col-auto d-flex justify-content-end">

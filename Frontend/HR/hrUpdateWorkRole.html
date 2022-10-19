@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Create New Role</title>
+  <title>Update Work Role</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -31,7 +31,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body>
+<body onload ="getWorkRole()">
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -44,8 +44,8 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto fw-light" href="hrSkillsView.html">Skills</a></li>
-          <li><a class="nav-link scrollto" href="#about">Roles</a></li>
+          <li><a class="nav-link scrollto" href="#hero">Skills</a></li>
+          <li><a class="nav-link scrollto fw-light" href="#about">Roles</a></li>
           <li><a class="nav-link scrollto fw-light" href="#services">Staff View</a></li>
           <li><a class="nav-link scrollto fw-light" href="#portfolio">Logout</a></li> <!--need create a logout look page-->
         </ul>
@@ -60,7 +60,7 @@
     <div class="footer-newsletter">
         <div class="row justify-content-center">
           <div class="col-4 pb-4">
-            <h2 class="logo" style="vertical-align:bottom">Create New Role</h2>
+            <h2 class="logo" style="vertical-align:bottom">Update Work Role</h2>
           </div>
           <div class="col">
           </div>
@@ -70,28 +70,28 @@
           <div class="row border border-1 bg-white py-2 mb-2 d-flex">
             <div class="mb-3 row mt-5">
               <!--input for role name-->
-              <label for="roleName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Name: </label>
+              <label for="workRoleName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Name:</label>
               <div class="col-sm col">
-                <input type="text" class="form-control" id="roleName">
+                <input type="text" class="form-control" id="workRoleName">
               </div>
               <div class="col-sm-1 col-1"></div>
             </div>
 
-            <div class="mb-3 row">
+            <!-- <div class="mb-3 row"> -->
               <!--input for role description-->
-              <label for="roleDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Description: </label>
+              <!-- <label for="skillDesc" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Role Description:</label>
               <div class="col-sm col">
-                <input type="text" class="form-control" id="roleDesc">
+                <input type="text" class="form-control" id="skillDesc">
               </div>
               <div class="col-sm-1 col-1"></div>
-            </div>
+            </div> -->
 
             <div class="mb-4 row">
-              <!--input for courses to be added to new role-->
-              <label class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill ID: </label>
+              <!-- input for skills to be added (updated) to job -->
+              <label for="courseNameID" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skills:</label>
                 <div class="input-group col-sm col">
                   <input type="text" class="form-control" id="skills" style = "max-width: fit-content; margin-right: 5px;">
-                  <button type = "button" class="btn btn-primary btn text-white col-sm col" style = "max-width: 20%;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllCourses()">Add Skills</button>
+                  <button type = "button" class="btn btn-primary btn text-white col-sm col" style = "max-width: 20%;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllSkills()">Add Skills</button>
                 </div>
             </div>
 
@@ -99,14 +99,14 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Courses</h5><input id = "courseInput" placeholder = "Search by Name" onkeyup="getCourse()">
+                    <h5 class="modal-title" id="exampleModalLabel">Skills</h5><input id = "skillInput" placeholder = "Search by Name" onkeyup="getSkill()">
                     <!-- <button id = "searchCourse" class = "btn btn-primary btn text-white" onclick ="getCourse()">Search</button> -->
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    <table id = "viewCourses"></table>
+                    <table id = "viewSkills" class="w-100"></table>
                     
                   </div>
                   <div class="modal-footer">
@@ -117,8 +117,11 @@
               </div>
             </div>
             <div class="mb-3 row mb-4">
-              <div class="col-sm-10 col-10"></div>
-              <button class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 10%;" onclick = "createSkill()">Create</button>
+              <div class="col-sm-10 col-10"> 
+                <div id="statusMsg"></div>
+              </div>
+    
+              <button class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 10%;" onclick = "updateWorkRole()">Update</button>
 
               </div>
             </div>
@@ -152,7 +155,7 @@
   <script src="../Bizland/assets/js/main.js"></script>
 
   <!-- CreateUpdate JS File -->
-  <script src="hrCreateUpdate.js"></script>
+  <script src="hrUpdateWorkRole.js"></script>
 
 </body>
 
