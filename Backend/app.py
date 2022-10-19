@@ -269,14 +269,35 @@ def getWorkRoleId(workRoleId):
 
 
 #GET WORKROLES WITH SKILLS AFFLIATED TO IT
-@app.route("/workRole/<int:workRoleId>/skills")
+# @app.route("/workRole/<int:workRoleId>/skills")
+# def getWorkRoleSkills(workRoleId):
+#     skillsList = Skill.query.join(workRoleSkills, (workRoleSkills.c.skillId == Skill.skillId)).filter(workRoleSkills.c.workRoleId == workRoleId).all()
+#     if len(skillsList):
+#         return jsonify(
+#             {
+#                 "code": 200,
+#                 "data": {
+#                     "skills": [skill.json() for skill in skillsList]
+#                 }
+#             }
+#         )
+#     return jsonify(
+#         {
+#             "code": 404,
+#             "message": "No skills found."
+#         }
+#     )
+
+@app.route("/workRole/<int:workRoleId>")
 def getWorkRoleSkills(workRoleId):
+    role = workRole.query.filter_by(workRoleId=workRoleId).first()
     skillsList = Skill.query.join(workRoleSkills, (workRoleSkills.c.skillId == Skill.skillId)).filter(workRoleSkills.c.workRoleId == workRoleId).all()
-    if len(skillsList):
+    if role:
         return jsonify(
             {
                 "code": 200,
                 "data": {
+                    "workRole": role.json(),
                     "skills": [skill.json() for skill in skillsList]
                 }
             }
@@ -287,6 +308,7 @@ def getWorkRoleSkills(workRoleId):
             "message": "No skills found."
         }
     )
+
 
 # Create a workRole and add workRoleSkill table with the skill associated to this workRole
 @app.route("/workRole/create", methods=['POST'])

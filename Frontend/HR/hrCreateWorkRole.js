@@ -88,12 +88,12 @@ function createRole() {
         .then(function (response) {
             console.log("Create Role response",response);
             document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Role has been created successfully!</b>"
+            document.getElementById("statusMsg").innerHTML = "<b>Work Role has been created successfully!</b>"
         }
     ).catch(function (error) {
         console.log(error);
         document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the role</b>"
+        document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Work Role</b>"
     })
 }
 
