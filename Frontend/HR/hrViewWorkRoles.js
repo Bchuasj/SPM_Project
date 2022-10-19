@@ -129,10 +129,10 @@ function searchWorkRoleName(searchInput, workRolesTable){
                         <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRole.workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRole.workRoleId}">View details</button>
                     </div>
                     <div class="col">
-                        <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
+                        <a class="btn btn-dark btn-sm px-3" role="button" href="hrUpdateWorkRole.html?${workRole.workRoleId}">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${workRole.workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteWorkRole(${workRole.workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${workRole.workRoleId}">
                         <div class="card card-body text-start">
@@ -181,10 +181,10 @@ function searchWorkRoleId(searchInput, workRolesTable){
                         <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRole.workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRole.workRoleId}">View details</button>
                     </div>
                     <div class="col">
-                        <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
+                        <a class="btn btn-dark btn-sm px-3" role="button" href="hrUpdateWorkRole.html?${workRole.workRoleId}">Edit Details</a>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteSkill(${workRole.workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+                        <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteWorkRole(${workRole.workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                     </div>
                     <div class="collapse pt-2" id="collapseExample${workRole.workRoleId}">
                         <div class="card card-body text-start">
