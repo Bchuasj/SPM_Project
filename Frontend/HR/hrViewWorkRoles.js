@@ -27,7 +27,7 @@ function getAllWorkRoles() {
                             <a class="btn btn-dark btn-sm px-3" href="hrUpdateWorkRole.html?${roles[role].workRoleId}" role="button">Edit Details</a>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteRole(${roles[role].workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
+                            <button type="button" class="btn btn-danger btn-sm px-3" onclick="deleteWorkRole(${roles[role].workRoleId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                         </div>
                         <div class="collapse pt-2" id="collapseExample${roles[role].workRoleId}">
                            <div class="card card-body text-start">
@@ -209,22 +209,23 @@ function searchWorkRoleId(searchInput, workRolesTable){
     );
 }
 
-function deleteSkill(skillId){
+function deleteWorkRole(workRoleId){
+    console.log("pop up delete warning")
     var deletePopUp = document.getElementById("deletePopUp")
     var confirmDelete = document.getElementById("confirmDelete")
     deletePopUp.innerHTML = `
-    Delete skill: ${skillId}
+    Delete role: ${workRoleId}
     `
-    confirmDelete.onclick = confirmDeletion.bind(this, skillId);
+    confirmDelete.onclick = confirmDeletion.bind(this, workRoleId);
     
 }
 
-function confirmDeletion(skillId){
+function confirmDeletion(workRoleId){
     console.log("delete button pressed")
-    axios.put("http://127.0.0.1:5006/skill/delete/" + skillId)
+    axios.put("http://127.0.0.1:5006/workRole/delete/" + workRoleId)
         .then(function (response) {
             console.log(response)
-            getAllSkills()
+            getAllWorkRoles()
         })
         .catch(function (error) {
             console.log(error);
