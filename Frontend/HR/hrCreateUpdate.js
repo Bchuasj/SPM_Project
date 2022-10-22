@@ -95,8 +95,14 @@ function createSkill() {
     })
         .then(function (response) {
             console.log(response);
+            document.getElementById("statusMsg").className = "text-success"
+            document.getElementById("statusMsg").innerHTML = "<b>Skill has been created successfully!</b>"
         }
-    )
+    ).catch(function (error) {
+        console.log(error);
+        document.getElementById("statusMsg").className = "text-danger"
+        document.getElementById("statusMsg").innerHTML = "<b>Unable to create skill!</b>"
+    })
 }
 
 function getSkill(){
@@ -160,6 +166,12 @@ function updateSkill(){
     })
         .then(function (response) {
             console.log(response);
+            document.getElementById("statusMsg").className = "text-success"
+            document.getElementById("statusMsg").innerHTML = "<b>Skill has been updated successfully!</b>"
         }
-    )
+    ).catch(function (error) {
+        console.log(error);
+        document.getElementById("statusMsg").className = "text-danger"
+        document.getElementById("statusMsg").innerHTML = "<b>Unable to update skill!</b>"
+    })
 }
