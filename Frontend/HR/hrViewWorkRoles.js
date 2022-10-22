@@ -49,7 +49,7 @@ function getAllWorkRoles() {
 }
 
 function getSkillsForWorkRoles(roleId){
-    axios.get("http://127.0.0.1:5006/workRole/"+ roleId)
+    axios.get("http://127.0.0.1:5006/workRole/"+ roleId + "/skills")
         .then(function (response) {
             
             var skills = response.data.data.skills

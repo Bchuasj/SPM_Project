@@ -288,7 +288,7 @@ def getWorkRoleId(workRoleId):
 #         }
 #     )
 
-@app.route("/workRole/<int:workRoleId>")
+@app.route("/workRole/<int:workRoleId>/skills")
 def getWorkRoleSkills(workRoleId):
     role = workRole.query.filter_by(workRoleId=workRoleId).first()
     skillsList = Skill.query.join(workRoleSkills, (workRoleSkills.c.skillId == Skill.skillId)).filter(workRoleSkills.c.workRoleId == workRoleId).all()
