@@ -261,10 +261,13 @@ function getAllLearningJourneys() {
                 document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Deleted successfully!</span>"
             } else if(localStorage.getItem('addStatus')){
                 document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Course(s) added successfully!</span>"
+            } else if (localStorage.getItem("neutralStatus")){
+                document.getElementById("editStatusMsg").innerHTML = "<span class='text-secondary'>No Course(s) selected</span>"
             }
 
             localStorage.removeItem('addStatus');
             localStorage.removeItem('deleteStatus');
+            localStorage.removeItem('neutralStatus')
             // localStorage.clear()
 
             
@@ -369,6 +372,8 @@ function addCoursesLj(ljId,skillId){
         console.log(response.data.data)
         if(addCoursesList.length > 0){
             localStorage.setItem('addStatus', true);            
+        } else{
+            localStorage.setItem('neutralStatus', true);     
         }
         window.location.href = './staffUpdateLearningJourney.html'
 
