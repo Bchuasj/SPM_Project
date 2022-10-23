@@ -588,12 +588,26 @@ def updateSkillCourses(skillId):
             skill.skillDesc = data['skill']['skillDesc']
             skill.isDeleted = data['skill']['isDeleted']
             db.session.commit()
-            # delete all courses related to the skill in skillCourses table
-            delete = skillCourses.delete().where(skillCourses.c.skillId == skillId)
-            db.session.execute(delete)
-            db.session.commit()
-            # add the new courses related to the skill
             if data['courses']:
+                # check if the courses do exist in the course table
+                for course in data['courses']:
+                    courseExist = Course.query.filter_by(courseId=course).first()
+                    if not courseExist:
+                        return jsonify(
+                            {
+                                "code": 404,
+                                "data": {
+                                    "skillId": skillId,
+                                    "courses": [course for course in data['courses']]
+                                },
+                                "message": "Course does not exist."
+                            }
+                        ), 404
+                # delete all courses related to the skill in skillCourses table
+                delete = skillCourses.delete().where(skillCourses.c.skillId == skillId)
+                db.session.execute(delete)
+                db.session.commit()
+                # add the new courses related to the skill
                 for course in data['courses']:
                     insert = skillCourses.insert().values(skillId=skill.skillId, courseId=course)
                     db.session.execute(insert)
@@ -608,9 +622,6 @@ def updateSkillCourses(skillId):
                 }
             )
         except:
-            # remove the new skill
-            db.session.delete(skill)
-            db.session.commit()
             return jsonify(
                 {
                     "code": 500,
