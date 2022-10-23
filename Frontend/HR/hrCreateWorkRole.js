@@ -93,26 +93,43 @@ function createRole() {
         skillIdMsg.className = "text-danger mx-1"
         // alert("Please enter at least 1 skill!")
         return 
-    } 
+    } else {
 
-    // Post request
-    isDeleted = 0
-    axios.post("http://127.0.0.1:5006/workRole/create",
-        {   
-            workRoleName: workRoleName, 
-            isDeleted: isDeleted,
-            skills: selectedSkills
-    })
+        // Get request to check if work role name already exists
+        axios.get(`http://127.0.0.1:5006/workRole/name/${workRoleName}`)
         .then(function (response) {
-            console.log("Create Role response",response);
-            document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Work Role has been created successfully!</b>"
-        }
-    ).catch(function (error) {
-        console.log(error);
-        document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Work Role</b>"
-    })
+            if (response.data.data.workRoleName){
+                workRoleNameMsg.innerHTML = "Please enter a unique work role name"
+                workRoleNameMsg.className = "text-danger mx-3"
+                return
+            }
+        }).catch(function (){
+            // Post request to create skill if skill name does not exist
+                // Post request
+            isDeleted = 0
+            axios.post("http://127.0.0.1:5006/workRole/create",
+                {   
+                    workRoleName: workRoleName, 
+                    isDeleted: isDeleted,
+                    skills: selectedSkills
+            })
+                .then(function (response) {
+                    console.log("Create Role response",response);
+                    document.getElementById("statusMsg").className = "text-success"
+                    document.getElementById("statusMsg").innerHTML = "<b>Work Role has been created successfully!</b>"
+                }
+            ).catch(function (error) {
+                console.log(error);
+                document.getElementById("statusMsg").className = "text-danger"
+                document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Work Role</b>"
+            })
+                    
+                })
+
+
+    }
+
+
 }
 
 // for update
