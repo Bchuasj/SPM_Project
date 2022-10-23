@@ -68,19 +68,23 @@ function createSkill() {
     var courses = document.getElementById("courses").value;
     selectedCourses = courses.split(",")
     if (skillName == "" && skillDesc == "" && courses == ""){
-        alert("Please fill up the fields")
+        document.getElementById("statusMsg").className = "text-danger"
+        document.getElementById("statusMsg").innerHTML = "<b>Please fill up the fields!</b>"
         return
     }
     else if (skillName == ""){
-        alert("Please enter the skill Name")
+        document.getElementById("skillNameMsg").className = "text-danger"
+        document.getElementById("skillNameMsg").innerHTML = "<b>Please enter the skill Name!</b>"
         return 
     }
     else if (skillDesc == ""){
-        alert("Please enter the skill Description")
+        document.getElementById("skillDescMsg").className = "text-danger"
+        document.getElementById("skillDescMsg").innerHTML = "<b>Please enter the skill Description!</b>"
         return
     }
     else if (courses == ""){
-        alert("Please select at least one course")
+        document.getElementById("courseIdMsg").className = "text-danger"
+        document.getElementById("courseIdMsg").innerHTML = "<b>Please select at least one course!</b>"
         return
     }
     // Get request to check if skill name already exists
@@ -148,19 +152,23 @@ function updateSkill(){
     var courses = document.getElementById("courses").value;
     var selectedCourses = courses.split(",")
     if (skillName == "" && skillDesc == "" && courses == ""){
-        alert("Please fill up the fields")
+        document.getElementById("statusMsg").className = "text-danger"
+        document.getElementById("statusMsg").innerHTML = "<b>Please fill up the fields!</b>"
         return
     }
     else if (skillName == ""){
-        alert("Please enter the skill Name")
+        document.getElementById("skillNameMsg").className = "text-danger"
+        document.getElementById("skillNameMsg").innerHTML = "<b>Please enter the skill Name!</b>"
         return 
     }
     else if (skillDesc == ""){
-        alert("Please enter the skill Description")
+        document.getElementById("skillDescMsg").className = "text-danger"
+        document.getElementById("skillDescMsg").innerHTML = "<b>Please enter the skill Description!</b>"
         return
     }
     else if (courses == ""){
-        alert("Please select at least one course")
+        document.getElementById("courseIdMsg").className = "text-danger"
+        document.getElementById("courseIdMsg").innerHTML = "<b>Please select at least one course!</b>"
         return
     }
     // Put request
