@@ -83,26 +83,35 @@ function createSkill() {
         alert("Please select at least one course")
         return
     }
-    // Post request
-    isDeleted = 0
-    axios.post("http://127.0.0.1:5006/skill/create",
-        {   skill: {
-                    skillName: skillName, 
-                    skillDesc: skillDesc,
-                    isDeleted: isDeleted
-                }, 
-        courses: selectedCourses
-    })
+    // Get request to check if skill name already exists
+    axios.get(`http://127.0.0.1:5006/skill/name/${skillName}`)
         .then(function (response) {
-            console.log(response);
-            document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Skill has been created successfully!</b>"
-        }
-    ).catch(function (error) {
-        console.log(error);
-        document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Unable to create skill!</b>"
-    })
+            if (response.data.data.skillName){
+                alert("Please enter a unique skill name")
+                return
+            }
+        }).catch(function (){
+            // Post request to create skill if skill name does not exist
+            isDeleted = 0
+            axios.post("http://127.0.0.1:5006/skill/create",
+                {   skill: {
+                            skillName: skillName, 
+                            skillDesc: skillDesc,
+                            isDeleted: isDeleted
+                        }, 
+                courses: selectedCourses
+            })
+                .then(function (response) {
+                    console.log(response);
+                    document.getElementById("statusMsg").className = "text-success"
+                    document.getElementById("statusMsg").innerHTML = "<b>Skill has been created successfully!</b>"
+                }
+            ).catch(function (error) {
+                console.log(error);
+                document.getElementById("statusMsg").className = "text-danger"
+                document.getElementById("statusMsg").innerHTML = "<b>Unable to create skill!</b>"
+            })
+        })
 }
 
 function getSkill(){
