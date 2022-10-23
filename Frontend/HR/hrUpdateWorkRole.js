@@ -123,7 +123,7 @@ function getWorkRole(){
     var workRoleId = location.search.substring(1);
     // console.log(queryString)
     getAllWorkRoles();
-    axios.get(`http://127.0.0.1:5006/workRole/${workRoleId}`)
+    axios.get(`http://127.0.0.1:5006/workRole/${workRoleId}/skills`)
         .then(function (response) {
             console.log(response)
             var workRole = response.data.data.workRole;
@@ -150,24 +150,72 @@ function updateWorkRole(){
     console.log("id",workRoleId)
     var workRoleName = document.getElementById("workRoleName").value;
     var skills = document.getElementById("skills").value;
+    var workRoleNameMsg = document.getElementById("roleNameMsg")
+    var skillIdMsg = document.getElementById("skillIdMsg")
     var selectedSkills = skills.split(",")
-    if (workRoleName == "" || selectedSkills[0] < 1){
-        alert("Please enter all the details")
+
+    
+    workRoleNameMsg.innerHTML = ""
+    skillIdMsg.innerText = ""
+
+    if (workRoleName == ""){
+        // <div id="roleNameMsg" class="text-danger mx-3">Please fill in a work role name</div>
+        // workRoleName = "Please enter a work role name"
+        // document.getElementById("roleName").className = "form-control text-danger fw-bold"
+        // document.getElementById("roleName").value = "Please enter a work role name"
+        workRoleNameMsg.innerHTML = "Please fill in a work role name"
+        workRoleNameMsg.className = "text-danger mx-3"
+        return
+    } else if (selectedSkills[0] < 1){
+        skillIdMsg.innerText = "Please fill in at least 1 skill"
+        skillIdMsg.className = "text-danger mx-1"
+        // alert("Please enter at least 1 skill!")
         return 
-    }
-    // Put request
-    isDeleted = 0
-    axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
-        {           
-            workRoleName: workRoleName,
-            isDeleted: isDeleted,
-            skills: selectedSkills
+    } else {
+
+        isDeleted = 0
+        axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
+            {           
+                workRoleName: workRoleName,
+                isDeleted: isDeleted,
+                skills: selectedSkills
+            
+        })
+            .then(function (response) {
+                console.log(response);
+                document.getElementById("statusMsg").className = "text-success"
+                document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
+            }
+        )
+
+        // Get request to check if work role name already exists
+        // axios.get(`http://127.0.0.1:5006/workRole/name/${workRoleName}`)
+        // .then(function (response) {
+        //     if (response.data.data.workRoleName){
+        //         workRoleNameMsg.innerHTML = "Please enter a unique work role name"
+        //         workRoleNameMsg.className = "text-danger mx-3"
+        //         return
+        //     }
+        // }).catch(function (){
+        //         // Put request
+        //         isDeleted = 0
+        //         axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
+        //             {           
+        //                 workRoleName: workRoleName,
+        //                 isDeleted: isDeleted,
+        //                 skills: selectedSkills
+                    
+        //         })
+        //             .then(function (response) {
+        //                 console.log(response);
+        //                 document.getElementById("statusMsg").className = "text-success"
+        //                 document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
+        //             }
+        //         )
+                                
+        //     })
         
-    })
-        .then(function (response) {
-            console.log(response);
-            document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
-        }
-    )
+
+    }
+
 }
