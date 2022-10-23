@@ -91,7 +91,8 @@ function createSkill() {
     axios.get(`http://127.0.0.1:5006/skill/name/${skillName}`)
         .then(function (response) {
             if (response.data.data.skillName){
-                alert("Please enter a unique skill name")
+                document.getElementById("skillNameMsg").className = "text-danger"
+                document.getElementById("skillNameMsg").innerHTML = "<b>Please enter a unique skill name!</b>"
                 return
             }
         }).catch(function (){
