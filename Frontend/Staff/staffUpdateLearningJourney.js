@@ -28,7 +28,7 @@ function getAllLearningJourneys() {
                   <div class="col-auto d-flex justify-content-end">
                     <button id="detailBtn${ljId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#editDetails${ljList[lj].learningJourneyId}" aria-expanded="true" aria-controls="viewDetails1" onclick="changeBtnName(this.id)">Hide Details</button>
                     
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
+                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goViewLjPage()">Confirm Changes</button>
                     
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" onclick="deleteLj(${ljId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                   </div>
@@ -452,6 +452,11 @@ function confirmDeletionLj(ljId){
     );
 
 
+}
+
+
+function goViewLjPage(){
+    window.location.href = './staffViewLearningJourneys.html'
 }
 
 
