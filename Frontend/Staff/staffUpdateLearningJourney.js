@@ -409,7 +409,7 @@ function confirmDeletion(ljId,skillId,course,length){
 
     // If there is only one course taken for that skill, do not allow user to delete it
     if(length <= 1){
-        document.getElementById("editStatusMsg").innerHTML = "<span class='text-warning'>A skill must have at least 1 course!</span>"
+        document.getElementById("editStatusMsg").innerHTML = "<span class='text-warning'>A minimum of 1 course must be <br> inside a Learning Journey's skill</span>"
     }
     else{
         axios.delete("http://127.0.0.1:5006/learningJourney/removeCourse/" + ljId + "/" + skillId, jsonBody)
