@@ -28,7 +28,7 @@ function getAllLearningJourneys() {
                   <div class="col-auto d-flex justify-content-end">
                     <button id="detailBtn${ljId}" type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#editDetails${ljList[lj].learningJourneyId}" aria-expanded="true" aria-controls="viewDetails1" onclick="changeBtnName(this.id)">Hide Details</button>
                     
-                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Confirm Changes</button>
+                    <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1" onclick="goViewLjPage()">Confirm Changes</button>
                     
                     <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" onclick="deleteLj(${ljId})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                   </div>
@@ -261,10 +261,13 @@ function getAllLearningJourneys() {
                 document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Deleted successfully!</span>"
             } else if(localStorage.getItem('addStatus')){
                 document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Course(s) added successfully!</span>"
+            } else if (localStorage.getItem("neutralStatus")){
+                document.getElementById("editStatusMsg").innerHTML = "<span class='text-secondary'>No Course(s) selected</span>"
             }
 
             localStorage.removeItem('addStatus');
             localStorage.removeItem('deleteStatus');
+            localStorage.removeItem('neutralStatus')
             // localStorage.clear()
 
             
@@ -369,6 +372,8 @@ function addCoursesLj(ljId,skillId){
         console.log(response.data.data)
         if(addCoursesList.length > 0){
             localStorage.setItem('addStatus', true);            
+        } else{
+            localStorage.setItem('neutralStatus', true);     
         }
         window.location.href = './staffUpdateLearningJourney.html'
 
@@ -404,7 +409,7 @@ function confirmDeletion(ljId,skillId,course,length){
 
     // If there is only one course taken for that skill, do not allow user to delete it
     if(length <= 1){
-        document.getElementById("editStatusMsg").innerHTML = "<span class='text-warning'>A skill must have at least 1 course!</span>"
+        document.getElementById("editStatusMsg").innerHTML = "<span class='text-warning'>A minimum of 1 course must be <br> inside a Learning Journey's skill</span>"
     }
     else{
         axios.delete("http://127.0.0.1:5006/learningJourney/removeCourse/" + ljId + "/" + skillId, jsonBody)
@@ -452,6 +457,11 @@ function confirmDeletionLj(ljId){
     );
 
 
+}
+
+
+function goViewLjPage(){
+    window.location.href = './staffViewLearningJourneys.html'
 }
 
 

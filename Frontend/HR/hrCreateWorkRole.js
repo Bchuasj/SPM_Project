@@ -66,14 +66,22 @@ function getSkill() {
     }
   }
 
+
+
 function createRole() {
     var workRoleName = document.getElementById("roleName").value;
     var skills = document.getElementById("skills").value;
     selectedSkills = skills.split(",")
     console.log("Selected Skills",selectedSkills)
     
-    if (workRoleName == "" || selectedSkills[0] < 1){
-        alert("Please enter all the details")
+    if (workRoleName == ""){
+        // workRoleName = "Please enter a work role name"
+        // document.getElementById("roleName").className = "form-control text-danger fw-bold"
+        // document.getElementById("roleName").value = "Please enter a work role name"
+        alert("Please enter a work role name!")
+        return
+    } else if (selectedSkills[0] < 1){
+        alert("Please enter at least 1 skill!")
         return 
     }
 
