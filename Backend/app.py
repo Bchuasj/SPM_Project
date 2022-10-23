@@ -554,6 +554,9 @@ def createSkill():
         #commit the new skill and courses related to it to skillCourses table
         db.session.commit()
     except:
+        # remove the new skill
+        db.session.delete(skill)
+        db.session.commit()
         return jsonify(
             {
                 "code": 500,
@@ -605,6 +608,9 @@ def updateSkillCourses(skillId):
                 }
             )
         except:
+            # remove the new skill
+            db.session.delete(skill)
+            db.session.commit()
             return jsonify(
                 {
                     "code": 500,
