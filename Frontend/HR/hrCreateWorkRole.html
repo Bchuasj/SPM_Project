@@ -71,8 +71,9 @@
             <div class="mb-3 row mt-5">
               <!--input for role name-->
               <label for="roleName" class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Work Role Name: </label>
-              <div class="col-sm col">
+              <div class="col-sm col text-start">
                 <input type="text" class="form-control" id="roleName" >
+                <div id="roleNameMsg" ></div>
               </div>
               <div class="col-sm-1 col-1"></div>
             </div>
@@ -86,13 +87,18 @@
               <div class="col-sm-1 col-1"></div>
             </div> -->
 
-            <div class="mb-4 row">
+            <div class="mb-1 row">
               <!--input for courses to be added to new role-->
               <label class="fw-bold col-sm-2 col-2 col-form-label" style="margin-left: 10%;">Skill ID: </label>
                 <div class="input-group col-sm col">
                   <input type="text" class="form-control" id="skills" style = "max-width: fit-content; margin-right: 5px;">
                   <button type = "button" class="btn btn-primary btn text-white col-sm col" style = "max-width: 20%;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllSkills()">Add Skills</button>
                 </div>
+            </div>
+
+            
+            <div class="mb-1 row text-center w-75">
+              <div id="skillIdMsg"></div>
             </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -69,21 +69,31 @@ function getSkill() {
 
 
 function createRole() {
+
     var workRoleName = document.getElementById("roleName").value;
     var skills = document.getElementById("skills").value;
+    var workRoleNameMsg = document.getElementById("roleNameMsg")
+    var skillIdMsg = document.getElementById("skillIdMsg")
     selectedSkills = skills.split(",")
     console.log("Selected Skills",selectedSkills)
+
+    workRoleNameMsg.innerHTML = ""
+    skillIdMsg.innerText = ""
     
     if (workRoleName == ""){
+        // <div id="roleNameMsg" class="text-danger mx-3">Please fill in a work role name</div>
         // workRoleName = "Please enter a work role name"
         // document.getElementById("roleName").className = "form-control text-danger fw-bold"
         // document.getElementById("roleName").value = "Please enter a work role name"
-        alert("Please enter a work role name!")
+        workRoleNameMsg.innerHTML = "Please fill in a work role name"
+        workRoleNameMsg.className = "text-danger mx-3"
         return
     } else if (selectedSkills[0] < 1){
-        alert("Please enter at least 1 skill!")
+        skillIdMsg.innerText = "Please fill in at least 1 skill"
+        skillIdMsg.className = "text-danger mx-1"
+        // alert("Please enter at least 1 skill!")
         return 
-    }
+    } 
 
     // Post request
     isDeleted = 0
