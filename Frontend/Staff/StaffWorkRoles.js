@@ -13,21 +13,23 @@ function getAllWorkRoles() {
         for(let workRole in workRoles){
             if (workRoles[workRole].isDeleted == false) {
                 workRolesTable.innerHTML += `
-                <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                    <div class="col-sm-3 col-3">
-                        <b>${workRoles[workRole].workRoleId}</b>
-                    </div>
-                    <div class="col-sm-6 col-6">
-                        <b>${workRoles[workRole].workRoleName}</b>
-                    </div>
-                    <div class="col-sm col">
-                        <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRoles[workRole].workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRoles[workRole].workRoleId}" >View details</button>
-                    </div>
-                    <div class="collapse pt-2" id="collapseExample${workRoles[workRole].workRoleId}">
-                        <div class="card card-body text-start">
-                            <p><b>Skills required</b></p>
-                            <br><br>
-                            <div id="workRoleSkills${workRoles[workRole].workRoleId}"></div>
+                <div name = "workRoles" id = "${workRoles[workRole].workRoleId}">
+                    <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
+                        <div class="col-sm-3 col-3" name = "workRoleId">
+                            <b>${workRoles[workRole].workRoleId}</b>
+                        </div>
+                        <div class="col-sm-6 col-6" name = "workRoleName">
+                            <b>${workRoles[workRole].workRoleName}</b>
+                        </div>
+                        <div class="col-sm col">
+                            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRoles[workRole].workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRoles[workRole].workRoleId}" >View details</button>
+                        </div>
+                        <div class="collapse pt-2" id="collapseExample${workRoles[workRole].workRoleId}">
+                            <div class="card card-body text-start">
+                                <p><b>Skills required</b></p>
+                                <br><br>
+                                <div id="workRoleSkills${workRoles[workRole].workRoleId}"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -37,8 +39,8 @@ function getAllWorkRoles() {
         }
     }) 
     .catch(function (error) {
-      console.log(error);
-  }
+        console.log(error);
+    }
 );  
     
 }
@@ -85,142 +87,42 @@ function getSkillsForWorkRole(workRoleId){
 
 // SEARCH
 function searchWorkRoles() {
-  var searchInput = document.getElementById("searchInput").value
-  var workRolesTable = document.getElementById("workRolesTable")
-
-  if(searchInput == ''){
-      getAllWorkRoles()
-      return
-  }
-
-  if (isNaN(parseInt(searchInput))){
-      searchWorkRoleName(searchInput, workRolesTable)
-  } else {
-      searchWorkRoleId(searchInput, workRolesTable)
-  }
-  
+    // print what key is pressed
+    var input, filter, workRolesList,  workRoleName, i, txtValue, numValue;
+    input = document.getElementById("searchInput");
+    workRolesList = document.getElementsByName("workRoles");
+    // check if input is string
+    if (isNaN(input.value)){
+        console.log(input.value)
+        filter = input.value.toUpperCase();
+        jobNameList = document.getElementsByName("workRoleName");
+        for (i = 0; i < jobNameList.length; i++) {
+            workRoleName = jobNameList[i];
+            txtValue = workRoleName.textContent || workRoleName.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            workRolesList[i].style.display = "";
+            } else {
+            workRolesList[i].style.display = "none";
+            }
+        }
+    }
+    else if (!isNaN(input.value) && input.value != ""){
+        console.log(input.value)
+        workRoleIdList = document.getElementsByName("workRoleId");
+        for (i = 0; i < workRoleIdList.length; i++) {
+            jobId = workRoleIdList[i];
+            numValue = jobId.textContent || jobId.innerText;
+            if (numValue.indexOf(input.value) > -1) {
+            workRolesList[i].style.display = "";
+            } 
+            else {
+            workRolesList[i].style.display = "none";
+            }
+        }
+    }
+    else{
+        for (i = 0; i < workRolesList.length; i++) {
+            workRolesList[i].style.display = "";
+        }
+    }
 }
-
-function searchWorkRoleName(searchInput, workRolesTable){
-  // var searchInput = document.getElementById("searchInput").value
-  // var skillsTable = document.getElementById("skillsTable")
-
-  console.log(searchInput)
-  axios.get("http://127.0.0.1:5006/workRole/name/" + searchInput)
-      .then(function (response) {
-          // console.log(response);
-          var workRole = response.data.data;
-          // console.log(response.data.code)
-          // console.log(skill)
-          if (response.data.code == 200 && workRole.isDeleted == false){
-              // console.log("here")
-              workRolesTable.innerHTML =   `
-              <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                  <div class="col-sm-3 col-3">
-                      <b>${workRole.workRoleId}</b>
-                  </div>
-                  <div class="col-sm-6 col-6">
-                      <b>${workRole.workRoleName}</b>
-                  </div>
-                  <div class="col-sm col">
-                      <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRole.workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRole.workRoleId}">View details</button>
-                  </div>
-                  <div class="collapse pt-2" id="collapseExample${workRole.workRoleId}">
-                      <div class="card card-body text-start">
-                          <p><b>Skills required</b></p>
-                          <br><br>
-                          <div id="workRoleSkills${workRole.workRoleId}"></div>
-                      </div>
-                  </div>
-              </div>
-              `
-              getSkillsForWorkRole(workRole.workRoleId)
-
-          } else {
-              workRolesTable.innerHTML = "<p>No work roles found.</p>";
-          }
-  })
-      .catch(function (error) {
-          console.log(error);
-      }
-  );
-}
-
-function searchWorkRoleId(searchInput, workRolesTable){
-  // var searchInput = document.getElementById("searchInput").value
-  // var skillsTable = document.getElementById("skillsTable")
-  console.log("search id")
-  axios.get("http://127.0.0.1:5006/workRole/id/" + searchInput)
-      .then(function (response) {
-          // console.log(response);
-          var workRole = response.data.data;
-          // console.log(skill.isDeleted)
-          // console.log(response.data.code)
-          if (response.data.code == 200 && workRole.isDeleted == false){
-              workRolesTable.innerHTML =   `
-              <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                  <div class="col-sm-3 col-3">
-                      <b>${workRole.workRoleId}</b>
-                  </div>
-                  <div class="col-sm-6 col-6">
-                      <b>${workRole.workRoleName}</b>
-                  </div>
-                  <div class="col-sm col">
-                      <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${workRole.workRoleId}" aria-expanded="false" aria-controls="collapseExample${workRole.workRoleId}">View details</button>
-                  </div>
-                  <div class="collapse pt-2" id="collapseExample${workRole.workRoleId}">
-                      <div class="card card-body text-start">
-                          <p><b>Courses</b></p>
-                          <br><br>
-                          <div id="workRoleSkills${workRole.workRoleId}"></div>
-                      </div>
-                  </div>
-              </div>
-              `
-              getSkillsForWorkRole(workRole.workRoleId)
-
-          } else {
-              workRolesTable.innerHTML = "<p>No work roles found.</p>";
-
-          }
-  })
-      .catch(function (error) {
-          console.log(error);
-      }
-  );
-}
-
-// function getWorkRole() {
-//   // print what key is pressed
-//   var input, filter, jobsList,  jobName, i, txtValue, numValue;
-//   input = document.getElementById("jobInput");
-//   jobsList = document.getElementsByName("jobs");
-//   // check if input is string
-//   if (isNaN(input.value)){
-//     filter = input.value.toUpperCase();
-//     jobNameList = document.getElementsByName("jobName");
-//     for (i = 0; i < jobNameList.length; i++) {
-//       jobName = jobNameList[i];
-//       txtValue = jobName.textContent || jobName.innerText;
-//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//         jobsList[i].style.display = "";
-//       } else {
-//         jobsList[i].style.display = "none";
-//       }
-//     }
-//   }
-//   else if (!isNaN(input.value) && input.value != ""){
-//     jobIdList = document.getElementsByName("jobId");
-//     for (i = 0; i < jobIdList.length; i++) {
-//       jobId = jobIdList[i];
-//       numValue = jobId.textContent || jobId.innerText;
-//       if (numValue.indexOf(input.value) > -1) {
-//         jobsList[i].style.display = "";
-//       } 
-//       else {
-//         jobsList[i].style.display = "none";
-//       }
-//     }
-//   }
-// }
-
