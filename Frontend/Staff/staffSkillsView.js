@@ -13,23 +13,25 @@ function getAllSkills() {
                 // console.log(skills[skill])
                 if (skills[skill].isDeleted == false) {
                     skillsTable.innerHTML += `
-                    <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                        <div class="col-sm-3 col-3">
-                            <b>${skills[skill].skillId}</b>
-                        </div>
-                        <div class="col-sm-6 col-6">
-                            <b>${skills[skill].skillName}</b>
-                        </div>
-                        <div class="col-sm col">
-                            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skills[skill].skillId}" aria-expanded="false" aria-controls="collapseExample${skills[skill].skillId}" >View details</button>
-                        </div>
-                        <div class="collapse pt-2" id="collapseExample${skills[skill].skillId}">
-                            <div class="card card-body text-start">
-                                <p><b>Description</b></p>
-                                <p>${skills[skill].skillDesc}</p>
-                                <p><b>Courses</b></p>
-                                <br><br>
-                                <div id="skillCourses${skills[skill].skillId}"></div>
+                    <div name = "skills" id = "${skills[skill].skillId}">
+                        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
+                            <div class="col-sm-3 col-3" name = "skillId">
+                                <b>${skills[skill].skillId}</b>
+                            </div>
+                            <div class="col-sm-6 col-6" name = "skillName">
+                                <b>${skills[skill].skillName}</b>
+                            </div>
+                            <div class="col-sm col">
+                                <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skills[skill].skillId}" aria-expanded="false" aria-controls="collapseExample${skills[skill].skillId}" >View details</button>
+                            </div>
+                            <div class="collapse pt-2" id="collapseExample${skills[skill].skillId}">
+                                <div class="card card-body text-start">
+                                    <p><b>Description</b></p>
+                                    <p>${skills[skill].skillDesc}</p>
+                                    <p><b>Courses</b></p>
+                                    <br><br>
+                                    <div id="skillCourses${skills[skill].skillId}"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,115 +88,44 @@ function getCoursesForSkill(skillId){
 }
 
 function searchSkills() {
-    var searchInput = document.getElementById("searchInput").value
-    var skillsTable = document.getElementById("skillsTable")
-
-    if(searchInput == ''){
-        getAllSkills()
-        return
-    }
-
-    if (isNaN(parseInt(searchInput))){
-        searchSkillName(searchInput, skillsTable)
-    } else {
-        searchSkillId(searchInput, skillsTable)
-    }
-    
-}
-
-function searchSkillName(searchInput, skillsTable){
-    // var searchInput = document.getElementById("searchInput").value
-    // var skillsTable = document.getElementById("skillsTable")
-
-    console.log(searchInput)
-    axios.get("http://127.0.0.1:5006/skill/name/" + searchInput)
-        .then(function (response) {
-            console.log(response);
-            var skill = response.data.data;
-            // console.log(response.data.code)
-            // console.log(skill)
-            if (response.data.code == 200 && skill.isDeleted == false){
-                // console.log("here")
-                skillsTable.innerHTML =   `
-                <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                    <div class="col-sm-3 col-3">
-                        <b>${skill.skillId}</b>
-                    </div>
-                    <div class="col-sm-6 col-6">
-                        <b>${skill.skillName}</b>
-                    </div>
-                    <div class="col-sm col">
-                        <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skill.skillId}" aria-expanded="false" aria-controls="collapseExample${skill.skillId}">View details</button>
-                    </div>
-                    <div class="collapse pt-2" id="collapseExample${skill.skillId}">
-                        <div class="card card-body text-start">
-                            <p><b>Description</b></p>
-                            <p>${skill.skillDesc}</p>
-                            <p><b>Courses</b></p>
-                            <br><br>
-                            <div id="skillCourses${skill.skillId}"></div>
-                        </div>
-                    </div>
-                </div>
-                `
-                getCoursesForSkill(skill.skillId)
-
+    // print what key is pressed
+    var input, filter, SkillsList,  skillName, i, txtValue, numValue;
+    input = document.getElementById("searchInput");
+    SkillsList = document.getElementsByName("skills");
+    // check if input is string
+    if (isNaN(input.value)){
+        console.log(input.value)
+        filter = input.value.toUpperCase();
+        skillNameList = document.getElementsByName("skillName");
+        for (i = 0; i < skillNameList.length; i++) {
+            skillName = skillNameList[i];
+            txtValue = skillName.textContent || skillName.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            SkillsList[i].style.display = "";
             } else {
-                skillsTable.innerHTML = "<p>No skills found.</p>";
+            SkillsList[i].style.display = "none";
             }
-    })
-        .catch(function (error) {
-            console.log(error);
         }
-    );
-}
-
-function searchSkillId(searchInput, skillsTable){
-    // var searchInput = document.getElementById("searchInput").value
-    // var skillsTable = document.getElementById("skillsTable")
-
-    axios.get("http://127.0.0.1:5006/skill/id/" + searchInput)
-        .then(function (response) {
-            console.log(response);
-            var resp = response.data.data;
-            // console.log(skill.isDeleted)
-            // console.log(response.data.code)
-            if (response.data.code == 200 && resp.skills.isDeleted == false){
-                console.log("skill id")
-                var skill = resp.skills
-                skillsTable.innerHTML =   `
-                <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                    <div class="col-sm-3 col-3">
-                        <b>${skill.skillId}</b>
-                    </div>
-                    <div class="col-sm-6 col-6">
-                        <b>${skill.skillName}</b>
-                    </div>
-                    <div class="col-sm col">
-                        <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample${skill.skillId}" aria-expanded="false" aria-controls="collapseExample${skill.skillId}">View details</button>
-                    </div>
-                    <div class="collapse pt-2" id="collapseExample${skill.skillId}">
-                        <div class="card card-body text-start">
-                            <p><b>Description</b></p>
-                            <p>${skill.skillDesc}</p>
-                            <p><b>Courses</b></p>
-                            <br><br>
-                            <div id="skillCourses${skill.skillId}"></div>
-                        </div>
-                    </div>
-                </div>
-                `
-                getCoursesForSkill(skill.skillId)
-
-            } else {
-                skillsTable.innerHTML = "<p>No skills found.</p>";
-
+    }
+    else if (!isNaN(input.value) && input.value != ""){
+        console.log(input.value)
+        skillIdList = document.getElementsByName("skillId");
+        for (i = 0; i < skillIdList.length; i++) {
+            jobId = skillIdList[i];
+            numValue = jobId.textContent || jobId.innerText;
+            if (numValue.indexOf(input.value) > -1) {
+            SkillsList[i].style.display = "";
+            } 
+            else {
+            SkillsList[i].style.display = "none";
             }
-    })
-        .catch(function (error) {
-            console.log(error);
         }
-    );
+    }
+    else{
+        for (i = 0; i < SkillsList.length; i++) {
+            SkillsList[i].style.display = "";
+        }
+    }
 }
 
 // =================== AXIOS TEMPLATE ====================
