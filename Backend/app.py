@@ -22,10 +22,9 @@ class Role(db.Model):
     __tablename__ = 'role'
     roleId = db.Column(db.Integer, primary_key=True, nullable=False)
     roleName = db.Column(db.String(20), nullable=False)
-    def __init__(self, roleId, roleName, isDeleted):
+    def __init__(self, roleId, roleName):
         self.roleId = roleId
         self.roleName = roleName
-        self.isDeleted = isDeleted
     
     def json(self):
         return {
@@ -33,7 +32,7 @@ class Role(db.Model):
             "roleName": self.roleName,
         }
 
-class workRole(db.Model):
+class WorkRole(db.Model):
     __tablename__ = 'workRole'
     workRoleId = db.Column(db.Integer, primary_key=True, nullable=False)
     workRoleName = db.Column(db.String(100), nullable=False)
@@ -79,13 +78,13 @@ class Course(db.Model):
     courseStatus = db.Column(db.String(15))
     courseType = db.Column(db.String(10))
     courseCategory = db.Column(db.String(50))
-    def __init__(self, courseId, courseName, courseDesc, courseType, courseCategory, isDeleted):
+    def __init__(self, courseId, courseName, courseDesc,courseStatus, courseType, courseCategory):
         self.courseId = courseId
         self.courseName = courseName
         self.courseDesc = courseDesc
+        self.courseStatus = courseStatus
         self.courseType = courseType
         self.courseCategory = courseCategory
-        self.isDeleted = isDeleted
 
     def json(self):
         return {
@@ -93,7 +92,8 @@ class Course(db.Model):
             "courseName": self.courseName,
             "courseDesc": self.courseDesc,
             "courseStatus": self.courseStatus,
-            "courseType": self.courseType
+            "courseType": self.courseType,
+            "courseCategory": self.courseCategory
             }
 
 # Association table to course and skills with many to many relationship
@@ -106,7 +106,7 @@ skillCourses = db.Table('skillCourses',
 learningJourneyDetails = db.Table('learningJourneyDetails',
     db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True),
     db.Column('courseId', db.String(20), db.ForeignKey('course.courseId'), primary_key=True),
-    db.Column('learningJourneyId', db.Integer, db.ForeignKey('learningJourney.learningJourneyId'),primary_key=True)
+    db.Column('learningJourneyId', db.Integer, db.ForeignKey('learningjourney.learningJourneyId'),primary_key=True)
 )
 
 
@@ -214,7 +214,7 @@ def getRole(roleName):
 #GET ALL WORKROLES
 @app.route("/workRole")
 def getAllWorkRoles():
-    workRoleList = workRole.query.all()
+    workRoleList = WorkRole.query.all()
     if len(workRoleList):
         return jsonify(
             {
@@ -234,7 +234,7 @@ def getAllWorkRoles():
 #Get workRole by name
 @app.route("/workRole/name/<string:workRoleName>")
 def getWorkRoleName(workRoleName):
-    workRoleName = workRole.query.filter_by(workRoleName=workRoleName).first()
+    workRoleName = WorkRole.query.filter_by(workRoleName=workRoleName).first()
     if workRoleName:
         return jsonify(
             {
@@ -252,7 +252,7 @@ def getWorkRoleName(workRoleName):
 #Get workRole by id
 @app.route("/workRole/id/<string:workRoleId>")
 def getWorkRoleId(workRoleId):
-    workRoleId = workRole.query.filter_by(workRoleId=workRoleId).first()
+    workRoleId = WorkRole.query.filter_by(workRoleId=workRoleId).first()
     if workRoleId:
         return jsonify(
             {
@@ -290,7 +290,7 @@ def getWorkRoleId(workRoleId):
 
 @app.route("/workRole/<int:workRoleId>/skills")
 def getWorkRoleSkills(workRoleId):
-    role = workRole.query.filter_by(workRoleId=workRoleId).first()
+    role = WorkRole.query.filter_by(workRoleId=workRoleId).first()
     skillsList = Skill.query.join(workRoleSkills, (workRoleSkills.c.skillId == Skill.skillId)).filter(workRoleSkills.c.workRoleId == workRoleId).all()
     if role:
         return jsonify(
@@ -327,9 +327,9 @@ def createWorkRole():
     try:
         # get current max workRoleId
         # maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
-        maxWorkRoleId = workRole.query.order_by(workRole.workRoleId.desc()).first().workRoleId
+        maxWorkRoleId = WorkRole.query.order_by(WorkRole.workRoleId.desc()).first().workRoleId
         # maxJobId = 810
-        newWorkRole = workRole(maxWorkRoleId+1,data['workRoleName'],data['isDeleted'])
+        newWorkRole = WorkRole(maxWorkRoleId+1,data['workRoleName'],data['isDeleted'])
         # add the new workRole with skills related to it to workRoleSkills table
         db.session.add(newWorkRole)
         db.session.commit()
@@ -374,7 +374,7 @@ def updateJobSkills(workRoleId):
         }
     """
     
-    updateWorkRole = workRole.query.filter_by(workRoleId=workRoleId).first()
+    updateWorkRole = WorkRole.query.filter_by(workRoleId=workRoleId).first()
     if updateWorkRole:
         try:
             data = request.get_json()
@@ -422,7 +422,7 @@ def updateJobSkills(workRoleId):
 #Soft delete workRole
 @app.route("/workRole/delete/<int:workRoleId>", methods=['PUT'])
 def deleteJob(workRoleId):
-    deleteWorkRole = workRole.query.filter_by(workRoleId=workRoleId).first()
+    deleteWorkRole = WorkRole.query.filter_by(workRoleId=workRoleId).first()
     if deleteWorkRole:
         deleteWorkRole.isDeleted = True
         try:
@@ -678,7 +678,7 @@ def deleteSkill(skillId):
 def getAllLearningJourney(staffId):
 
     ljList = LearningJourney.query.filter_by(staffId=staffId).all()
-    workRoleList = workRole.query.join(LearningJourney, (LearningJourney.workRoleId == workRole.workRoleId )).filter_by(staffId=staffId).all()
+    workRoleList = WorkRole.query.join(LearningJourney, (LearningJourney.workRoleId == WorkRole.workRoleId )).filter_by(staffId=staffId).all()
 
     print(type(ljList))
     
