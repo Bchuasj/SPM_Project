@@ -49,34 +49,13 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <h1 class="logo"><a href="#">AIO LJPS<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="Mask group.png" alt=""></a> -->
 
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto" href="#about">Learning journeys</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Skills</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Roles</a></li>
-          <li><a class="nav-link scrollto fw-light" href="../Login/login.html">Logout</a></li> <!--need create a logout look page-->
-
-          <!-- additional dropdown option for navbar -->
-          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> -->
+          <li><a class="nav-link scrollto fw-light" href="../Login/login.html">Logout</a></li>
         </ul>
       </nav><!-- navbar -->
 
@@ -85,45 +64,19 @@
 
   <!-- ======= Viewing all the Learning Journeys ======= -->
   <footer id="footer">
-
     <div class="footer-newsletter">
       <div class="container pb-4">
-        <div class="row justify-content-center">
-
-          <!-- learning journey heading -->
-          <div class = "pt-4">
-            <div class="row mb-4">
-              <div class="col-9 d-flex justify-content-start">
-                <h1 class="logo" style="vertical-align:bottom">&nbsp; Learning Journeys</h1>
-              </div>
-              
-              <div class="pt-3 col-3">
-                <a class="btn btn-sm text-white" href="" role="button" style="background-color: #ef7f3e;">+ Create New Learning Journey</a>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col-lg-6"></div> -->
-
-        <!-- </div>  -->
-
-        <!-- <div class="col-lg-6"> -->
-          <!-- <form action="" method="get">
-            <input type="text" name="roles" style="width: 90%;" placeholder="What role are you looking for?"><input type="submit" value="Search">
-          </form> -->
-        <!-- </div>  -->
-        <!-- </div> -->
-      </div>
-
-      <!-- Use for create new role (next sprint)-->
-      <!-- create new skill
-      <div class="container pb-4">
         <div class="row">
-          <div class="col-10"></div>
-          <div class="col">
-            <a class="btn btn-sm text-white" href="#" role="button" style="background-color: #ef7f3e;">+ Create New Skill</a>
-          </div>
+          <!-- learning journey heading -->
+            <div class="col-9 d-flex align-content-start">
+              <h2 class="logo" style="vertical-align:bottom">&nbsp; Learning Journeys</h2>
+            </div>
+            
+            <div class="pt-3 col-3">
+              <a class="btn btn-sm text-white" href="staffCreateLearningJourney.html" role="button" style="background-color: #ef7f3e;">+ Create New Learning Journey</a>
+            </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- container to display all learning journeys-->
       <div class="container">
@@ -133,132 +86,9 @@
         </div>
 
         <div id="ljList"></div>
-        
-        <!-- Learning Journey 1 container -->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between"> -->
-          
-          <!-- Learning Journey 1 role and buttons -->
-          <!-- <div class="col-auto align-self-center mx-2 p-4">
-            <b>HR Manager</b>
-          </div>
-          
-          <div class="col-auto d-flex justify-content-end">
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails1" aria-expanded="false" aria-controls="viewDetails1">View Details</button>
-            
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Edit Details</button>
-            
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney1" aria-expanded="false" aria-controls="deleteLearningJourney1">Delete</button>
-          </div> -->
-
-          <!--view details of Learning Journey 1 -->
-          <!-- <div class="collapse pt-2" id="viewDetails1">
-            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
-                <b class="mb-2">Skills required</b>
-
-                <div class="container bg-white p-4">
-                  <table class="table align-items-center">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Skill Status</th>
-                        <th scope="col">Courses</th>
-                        <th scope="col">Course Status</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr>
-                        <th scope="row">221</th>
-                        <td>Analytics</td>
-                        <td><button type="button" class="btn btn-warning">Incomplete</button></td>
-                        <td>
-                            <a class="btn btn-primary mb-1" href="#" role="button">C120 Computation</a><br>
-                            <a class="btn btn-primary" href="#" role="button">C121 CRMA</a>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-warning mb-1">Incomplete</button><br>
-                            <button type="button" class="btn btn-success">Complete</button>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row">122</th>
-                        <td>Business Negotiation</td>
-                        <td><button type="button" class="btn btn-warning">Incomplete</button></td>
-                        <td>No course in progress</td>
-                        <td>Nil</td>
-                      </tr>
-
-                      <tr>
-                        <th scope="row">123</th>
-                        <td>Market Research</td>
-                        <td><button type="button" class="btn btn-success">Complete</button></td>
-                        <td>
-                          <a class="btn btn-primary" href="#" role="button">C121 CRMA</a>
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-success">Complete</button>
-                      </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-            </div>
-          </div>
-
-        </div> -->
-        <!-- Learning Journey 1 container end -->
-
-
-        <!-- Learning Journey 2 container -->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between"> -->
-
-          <!-- Learning Journey 2 role and buttons -->
-          <!-- <div class="col-auto align-self-center mx-2 p-4">
-            <b>Operations Manager</b>
-          </div>
-          
-          <div class="col-auto d-flex justify-content-end">
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#viewDetails2" aria-expanded="false" aria-controls="viewDetails2">View Details</button>
-            
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails2" aria-expanded="false" aria-controls="editDetails2">Edit Details</button>
-            
-            <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #ed4242" data-bs-toggle="collapse" data-bs-target="#deleteLearningJourney2" aria-expanded="false" aria-controls="deleteLearningJourney2">Delete</button>
-          </div> -->
-
-          <!--view details of Learning Journey 1 -->
-          <!-- <div class="collapse pt-2" id="viewDetails2">
-            <div class="card card-body text-start" style="background-color: rgb(211, 224, 239)">
-                <b class="mb-2">Skills required</b>
-
-                <div class="container bg-white p-4 align-items-center">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Skill Status</th>
-                        <th scope="col">Courses</th>
-                        <th scope="col">Course Status</th>
-                      </tr>
-                    </thead>
-
-                    <tbody></tbody>
-                  </table>
-                </div>
-
-            </div>
-          </div>
-
-        </div> -->
-        <!-- Learning Journey 2 container end -->
 
       </div>
       <!-- end container displaying all journeys -->
-
-      </div>
     </div>
 
     <!-- modal -->
