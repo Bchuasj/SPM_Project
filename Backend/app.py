@@ -168,7 +168,7 @@ def getAllCourses():
     return jsonify(
         {
             "code": 404,
-            "message": "No course found."
+            "message": "Course not found."
         }
     )
 
@@ -189,7 +189,7 @@ def getAllRoles():
     return jsonify(
         {
             "code": 404,
-            "message": "No role found."
+            "message": "Role not found."
         }
     )
 
@@ -305,7 +305,7 @@ def getWorkRoleSkills(workRoleId):
     return jsonify(
         {
             "code": 404,
-            "message": "No skills found."
+            "message": "Skill not found."
         }
     )
 
@@ -327,7 +327,9 @@ def createWorkRole():
     try:
         # get current max workRoleId
         # maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
-        maxWorkRoleId = WorkRole.query.order_by(WorkRole.workRoleId.desc()).first().workRoleId
+        maxWorkRoleId = 0
+        if WorkRole.query.count() > 0:
+            maxWorkRoleId = WorkRole.query.order_by(WorkRole.workRoleId.desc()).first().workRoleId
         # maxJobId = 810
         newWorkRole = WorkRole(maxWorkRoleId+1,data['workRoleName'],data['isDeleted'])
         # add the new workRole with skills related to it to workRoleSkills table
@@ -344,10 +346,6 @@ def createWorkRole():
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                    "workRoleName": data['workRoleName'],
-                    "skills": [skill for skill in data['skills']]
-                },
                 "message": "An error occurred creating the work role."
             }
         ), 500
@@ -415,7 +413,7 @@ def updateJobSkills(workRoleId):
     return jsonify(
         {
             "code": 404,
-            "message": "Work role not found."
+            "message": "WorkRole not found."
         }
     )
 
@@ -468,7 +466,7 @@ def getAllSkills():
     return jsonify(
         {
             "code": 404,
-            "message": "No skill found."
+            "message": "Skill not found."
         }
     )
 
@@ -530,7 +528,7 @@ def getCourses(skillId):
     return jsonify(
         {
             "code": 404,
-            "message": "No skills found."
+            "message": "Skill not found."
         }
     )
 
@@ -539,9 +537,12 @@ def getCourses(skillId):
 @app.route("/skill/create", methods=['POST'])
 def createSkill():
     data = request.get_json()
+    skill = None
     try:
         # get current max skillId
-        maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
+        maxSkillId = 0
+        if Skill.query.count() > 0:
+            maxSkillId = Skill.query.order_by(Skill.skillId.desc()).first().skillId
         skill = Skill(maxSkillId+1,data['skill']['skillName'],data['skill']['skillDesc'],data['skill']['isDeleted'])
         # add the new skill with courses related to it to skillCourses table
         db.session.add(skill)
@@ -555,15 +556,12 @@ def createSkill():
         db.session.commit()
     except:
         # remove the new skill
-        db.session.delete(skill)
-        db.session.commit()
+        if skill != None:
+            db.session.delete(skill)
+            db.session.commit()
         return jsonify(
             {
                 "code": 500,
-                "data": {
-                    "skillId": skill.skillId,
-                    "courses": [course for course in data['courses']]
-                },
                 "message": "An error occurred creating the skill."
             }
         ), 500
@@ -602,7 +600,7 @@ def updateSkillCourses(skillId):
                                 },
                                 "message": "Course does not exist."
                             }
-                        ), 404
+                        )
                 # delete all courses related to the skill in skillCourses table
                 delete = skillCourses.delete().where(skillCourses.c.skillId == skillId)
                 db.session.execute(delete)
