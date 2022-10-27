@@ -128,7 +128,7 @@ class TestGetAllCourses(TestApp):
         self.assertEqual(response.json, 
                 {
             "code": 404,
-            "message": "No course found."
+            "message": "Course not found."
         }
         )
 
@@ -163,7 +163,7 @@ class TestGetAllRoles(TestApp):
         self.assertEqual(response.json, 
             {
                 "code": 404,
-                "message": "No role found."
+                "message": "Role not found."
             }
         )
 
@@ -322,34 +322,382 @@ class TestGetWorkRoleSkills(TestApp):
         self.assertEqual(response.json, 
             {
                 "code": 404,
-                "message": "No skills found."
+                "message": "Skill not found."
             }
         )
 
-# STOPPED HERE
-
-# class TestCreateWorkRole(TestApp):
-#     def test_create_workrole(self):
-#         response = self.client.post("/workRole/create", json={
-#             "workRoleName": "Technical Lead"
-#         })
-#         self.assertEqual(response.json, {
-#                 "code": 200,
-#                 "data": {
-#                     "workRoleId": 1,
-#                     "workRoleName": "Technical Lead",
-#                     "isDeleted": False
-#                 }
+class TestCreateWorkRole(TestApp):
+    def test_create_workrole(self):
+        response = self.client.post("/workRole/create", data=json.dumps({
+            "workRoleName": "Technical Lead",
+            "isDeleted": False,
+            "skills": ["207","208"]
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                "code": 201,
+                "data": {
+                    "skills": ["207","208"],
+                    "workRole": {
+                        "workRoleId": 1,
+                        "workRoleName": "Technical Lead",
+                        "isDeleted": False
+                    }
+                }
             
-#         })
+        })
     
-#     def test_create_workrole_fail(self):
-#         response = self.client.post("/workRole", json={
-#             "workRoleName": "Technical Lead"
-#         })
-#         self.assertEqual(response.json, {
-#                 "code": 400,
-#                 "message": "WorkRole already exists."
-#             })
+    def test_create_workrole_fail(self):
+        response = self.client.post("/workRole/create", data=json.dumps({
+            "isDeleted": False,
+            "skills": ["207","208"]
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                "code": 500,
+                "message": "An error occurred creating the work role."
+            })
+    
+
+class TestUpdateWorkRole(TestApp):
+    def test_update_workrole(self):
+        w1 = WorkRole(workRoleId=800,workRoleName='Technical Lead', isDeleted=0)
+        db.session.add(w1)
+        db.session.commit()
+
+        response = self.client.put("/workRole/update/800", data=json.dumps({
+            "workRoleName": "Senior Developer",
+            "isDeleted": False,
+            "skills": ["207","208"]
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                "code": 200,
+                "data": {
+                    "skills": ["207","208"],
+                    "workRole": {
+                        "workRoleId": 800,
+                        "workRoleName": "Senior Developer",
+                        "isDeleted": False
+                    }
+                }
+            
+        })
+    
+    def test_update_workrole_fail(self):
+        response = self.client.put("/workRole/update/800", data=json.dumps({
+            "workRoleName": "Senior Developer",
+            "isDeleted": False,
+            "skills": ["207","208"]
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                "code": 404,
+                "message": "WorkRole not found."
+            })
+
+class TestSoftDeleteWorkRole(TestApp):
+    def test_soft_delete_workrole(self):
+        w1 = WorkRole(workRoleId=800,workRoleName='Technical Lead', isDeleted=0)
+        db.session.add(w1)
+        db.session.commit()
+
+        response = self.client.put("/workRole/delete/800")
+        self.assertEqual(response.json, {
+                "code": 200,
+                "data": {
+                    "workRoleId": 800,
+                    "workRoleName": "Technical Lead",
+                    "isDeleted": True
+                }
+            
+        })
+    
+    def test_soft_delete_workrole_fail(self):
+        response = self.client.put("/workRole/delete/800")
+        self.assertEqual(response.json, {
+                "code": 404,
+                "message": "WorkRole not found."
+            })
+
+class TestGetAllSkills(TestApp):
+    def test_get_all_skills(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        s2 = Skill(skillId=2,skillName='Java',skillDesc='Java',isDeleted=0)
+        db.session.add(s1)
+        db.session.add(s2)
+        db.session.commit()
+
+        response = self.client.get("/skill")
+        self.assertEqual(response.json, 
+            {
+                "code": 200,
+                "data": {
+                    "skills": [
+                        {
+                        "skillId": 1,
+                        "skillName": 'Python',
+                        "skillDesc": 'Python',
+                        "isDeleted": False
+                        },
+                        {
+                        "skillId": 2,
+                        "skillName": 'Java',
+                        "skillDesc": 'Java',
+                        "isDeleted": False
+                        }]
+                }
+            }
+        )
+    
+    def test_get_all_skills_fail(self):
+        response = self.client.get("/skill")
+        self.assertEqual(response.json, 
+            {
+                "code": 404,
+                "message": "Skill not found."
+            }
+        )
+
+class TestGetSkillByName(TestApp):
+    def test_get_skill_by_name(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        db.session.add(s1)
+        db.session.commit()
+
+        response = self.client.get("/skill/name/Python")
+        self.assertEqual(response.json, {
+                "code": 200,
+                "data": {
+                    "skillId": 1,
+                    "skillName": "Python",
+                    "skillDesc": "Python",
+                    "isDeleted": False
+                }
+            
+        })
+    
+    def test_get_skill_by_name_fail(self):
+        response = self.client.get("/skill/name/Python")
+        self.assertEqual(response.json, {
+                "code": 404,
+                "message": "Skill not found."
+            })
+
+class TestGetSkillById(TestApp):
+    def test_get_skill_by_id(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        db.session.add(s1)
+        db.session.commit()
+
+        response = self.client.get("/skill/id/1")
+        self.assertEqual(response.json, {
+                "code": 200,
+                "data": {
+                    "skills": {
+                    "skillId": 1,
+                    "skillName": "Python",
+                    "skillDesc": "Python",
+                    "isDeleted": False
+                    }
+                }
+            
+        })
+    
+    def test_get_skill_by_id_fail(self):
+        response = self.client.get("/skill/id/1")
+        self.assertEqual(response.json, {
+                "code": 404,
+                "message": "Skill not found."
+            })
+
+class TestGetSkillAndCourses(TestApp):
+    def test_get_skill_and_courses(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        c1 = Course(courseId="COR001",courseName='Systems Thinking and Design',courseDesc='This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,',
+        courseStatus='Active', courseType='Internal',courseCategory='Core')
+        sc1 = skillCourses.insert().values(skillId=1,courseId="COR001")
+        db.session.add(s1)
+        db.session.add(c1)
+        db.session.execute(sc1)
+        db.session.commit()
+
+        response = self.client.get("/skill/1")
+        self.assertEqual(response.json, 
+            {
+                "code": 200,
+                "data": {
+                    "courses": [
+                        {
+                        "courseId": "COR001",
+                        "courseName": 'Systems Thinking and Design',
+                        "courseDesc": 'This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,',
+                        "courseStatus": "Active",
+                        "courseType": "Internal",
+                        "courseCategory": "Core"
+                        }],
+                    "skill": {
+                        "isDeleted": False,
+                        "skillId": 1,
+                        "skillName": "Python",
+                        "skillDesc": "Python"
+                    }
+                }
+            }
+        )
+    
+    def test_get_skill_and_courses_fail(self):
+        response = self.client.get("/skill/1")
+        self.assertEqual(response.json, 
+            {
+                "code": 404,
+                "message": "Skill not found."
+            }
+        )
+
+class TestCreateSkill(TestApp):
+    def test_create_skill(self):
+        response = self.client.post("/skill/create", data=json.dumps({
+                    "skill": {
+                        "skillName": 200,
+                        "skillDesc": "hello",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 201,
+                        "data": {
+                            "courses": [
+                                "COR001",
+                                "COR002"
+                            ],
+                            "skill": {
+                                "isDeleted": False,
+                                "skillDesc": "hello",
+                                "skillId": 1,
+                                "skillName": "200"
+                            }
+                        }
+                    })
+
+    def test_create_skill_fail(self):
+        response = self.client.post("/skill/create", data=json.dumps({
+                    "skill": {
+                        "skillName": "asd",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 500,
+                        "message": "An error occurred creating the skill."
+                    })
+
+class TestUpdateSkill(TestApp):
+    def test_update_skill(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        c1 = Course(courseId="COR001",courseName='Systems Thinking and Design',courseDesc='This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,',
+        courseStatus='Active', courseType='Internal',courseCategory='Core')
+        c2 = Course(courseId="COR002",courseName='Systems Thinking and Design',courseDesc='This foundation module aims to introduce students to the fundamental concepts and underlying principles of systems thinking,',
+        courseStatus='Active', courseType='Internal',courseCategory='Core')
+        sc = skillCourses.insert().values(skillId=1,courseId="COR001")
+        db.session.add(s1)
+        db.session.add(c1)
+        db.session.add(c2)
+        db.session.execute(sc)
+        db.session.commit()
+
+        response = self.client.put("/skill/update/1", data=json.dumps({
+                    "skill": {
+                        "skillName": "Python",
+                        "skillDesc": "hello",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 200,
+                        "data": {
+                            "courses": [
+                                "COR001",
+                                "COR002"
+                            ],
+                            "skill": {
+                                "isDeleted": False,
+                                "skillDesc": "hello",
+                                "skillId": 1,
+                                "skillName": "Python"
+                            }
+                        }
+                    })
+
+    def test_update_skill_fail(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        db.session.add(s1)
+        db.session.commit()
+        response = self.client.put("/skill/update/1", data=json.dumps({
+                    "skill": {
+                        "skillName": "Python",
+                        "skillDesc": "hello",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 404,
+                        "data": {
+                            "courses": [
+                                "COR001",
+                                "COR002"
+                            ],
+                            "skillId": 1
+                        },
+                        "message": "Course does not exist."
+                    })
+
+    def test_update_skill_fail_2(self):
+        response = self.client.put("/skill/update/1", data=json.dumps({
+                    "skill": {
+                        "skillName": "Python",
+                        "skillDesc": "hello",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 404,
+                        "message": "Skill not found."
+                    })
+
+class TestSoftDeleteSkill(TestApp):
+    def test_soft_delete_skill(self):
+        s1 = Skill(skillId=1,skillName='Python',skillDesc='Python',isDeleted=0)
+        db.session.add(s1)
+        db.session.commit()
+
+        response = self.client.put("/skill/delete/1")
+        self.assertEqual(response.json, {
+                        "code": 200,
+                        "data": {
+                            "isDeleted": True,
+                            "skillDesc": "Python",
+                            "skillId": 1,
+                            "skillName": "Python"
+                        }
+                    })
+
+    def test_soft_delete_skill_fail(self):
+        response = self.client.put("/skill/delete/1")
+        self.assertEqual(response.json, {
+                        "code": 404,
+                        "message": "Skill not found."
+                    })
+
 if __name__ == '__main__':
     unittest.main()
