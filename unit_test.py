@@ -699,5 +699,205 @@ class TestSoftDeleteSkill(TestApp):
                         "message": "Skill not found."
                     })
 
+class TestGetAllLearningJourney(TestApp):
+    def test_get_all_learning_journey(self):
+        lj1 = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+        # lj1Role = workRoles.insert().values(workRoleId=800,skillId=1)
+        lj1Role = WorkRole(workRoleId=803,workRoleName="Product Manager",isDeleted=0)
+        lj2 = LearningJourney(learningJourneyId=501,staffId=130001,workRoleId=804)
+        lj2Role = WorkRole(workRoleId=804,workRoleName="Business Analyst",isDeleted=0)
+        db.session.add(lj1)
+        db.session.add(lj1Role)
+        db.session.add(lj2)
+        db.session.add(lj2Role)
+        db.session.commit()
+
+        response = self.client.get("/allLearningJourney/130001")
+        self.assertEqual(response.json, 
+                {
+            "code": 200,
+            "data": {
+                "learningJourney": [
+                    {
+                        "learningJourneyId": 500, 
+                        "staffId": 130001, 
+                        "workRoleId": 803, 
+                        "workRoleName": "Product Manager"
+                    }, 
+                    {
+                        "learningJourneyId": 501, 
+                        "staffId": 130001, 
+                        "workRoleId": 804, 
+                        "workRoleName": "Business Analyst"
+                    }
+                    ]
+            }
+        }
+        )
+
+    def test_get_all_learning_journey_fail(self):
+        response = self.client.get("/allLearningJourney/130001")
+        self.assertEqual(response.json, 
+                {
+            "code": 404,
+            "message": "No Learning Journey found."
+        }
+        )
+
+# Not Working as of now
+# class TestGetLearningJourney(TestApp):
+#     def test_get_learning_journey(self):
+#         lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+#         c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='This course will address the gaps to build consensus and utilise knowledge of conflict management techniques to diffuse tensions and achieve resolutions effectively in the best interests of the organisation.',
+#         courseStatus='Active', courseType='External',courseCategory='Management')
+#         s1 = Skill(skillId=207,skillName='Communication',skillDesc='Effective interaction between stakeholders',isDeleted=0)
+#         # lj1Role = workRoles.insert().values(workRoleId=800,skillId=1)
+#         # lj2 = LearningJourney(learningJourneyId=501,staffId=130001,workRoleId=804)
+#         c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to undertake self-assessment in relation to one',
+#         courseStatus='Active', courseType='External',courseCategory='Management')
+#         s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
+#         r1 = Registration(regId=1,courseId="COR002",staffId=130001,regStatus="Registered",completionStatus="Completed")
+#         r2 = Registration(regId=245,courseId="COR001",staffId=130001,regStatus="Registered",completionStatus="Completed")
+#         db.session.add(lj)
+#         db.session.add(c1)
+#         db.session.add(c2)
+#         # db.session.add(lj2)
+#         db.session.add(s1)
+#         db.session.add(s2)
+#         db.session.add(r1)
+#         db.session.add(r2)
+#         db.session.commit()
+
+#         response = self.client.get("/learningJourney/500/130001")
+#         self.assertEqual(response.json, 
+#             {
+#                 "code": 200, 
+#                 "data": {
+#                     "courseStatus": [
+#                     {
+#                         "courseId": "MGT002", 
+#                         "status": "Incomplete"
+#                     }, 
+#                     {
+#                         "courseId": "MGT004", 
+#                         "status": "Incomplete"
+#                     }
+#                     ], 
+#                     "learningJourney": [
+#                     {
+#                         "learningJourneyId": 500, 
+#                         "staffId": 130001, 
+#                         "workRoleId": 803
+#                     }, 
+#                     [
+#                         {
+#                         "skills": {
+#                             "courses": [
+#                             {
+#                                 "courseId": "MGT002", 
+#                                 "courseName": "Workplace Conflict Management for Professionals"
+#                             }
+#                             ], 
+#                             "skillId": 207, 
+#                             "skillName": "Communication"
+#                         }
+#                         }, 
+#                         {
+#                         "skills": {
+#                             "courses": [
+#                             {
+#                                 "courseId": "MGT004", 
+#                                 "courseName": "Personal Effectiveness for Leaders"
+#                             }
+#                             ], 
+#                             "skillId": 208, 
+#                             "skillName": "Problem Solving"
+#                         }
+#                         }
+#                     ]
+#                     ]
+#                 }
+#             }
+#         )
+
+
+#     # Do one for getSkillCourses (helper function)
+
+#     def test_get_learning_journey_fail(self):
+#         response = self.client.get("/learningJourney/500/130001")
+#         self.assertEqual(response.json, 
+#                 {
+#             "code": 404,
+#             "message": "No Learning Journey found."
+#         }
+#         )
+
+# class TestCreateLearningJourney(TestApp):
+#     def test_create_learning_journey(self):
+#         response = self.client.post("/learningJourney/create", data=json.dumps({
+#                     "learningJourney": {
+#                         "learningJourneyId": 511,
+#                         "staffId": 140008,
+#                         "workRoleId": 810
+#                     },
+#                     "skills":[{
+#                         "skillId": 207,
+#                         "courses": ["MGT002"]
+#                     },
+#                     {   
+#                         "skillId":208,
+#                         "courses": ["MGT002"]
+#                     }]
+#                 }),
+#         content_type='application/json')
+#         self.assertEqual(response.json, {
+#                     {
+#                         "code": 201,
+#                         "data": {
+#                             "learningJourneyId": 511,
+#                             "skills": [
+#                                 {
+#                                     "courses": [
+#                                         "MGT002"
+#                                     ],
+#                                     "skillId": 207
+#                                 },
+#                                 {
+#                                     "courses": [
+#                                         "MGT002"
+#                                     ],
+#                                     "skillId": 208
+#                                 }
+#                             ]
+#                         }
+#                     }
+#                     })
+
+#     def test_create_learning_journey_fail(self):
+#         response = self.client.post("/learningJourney/create", data=json.dumps({
+#                     "learningJourney": {
+#                         "learningJourneyId": 511,
+#                         "staffId": 140008,
+#                         "workRoleId": 999
+#                     },
+#                     "skills":[{
+#                         "skillId": 207,
+#                         "courses": ["MGT002"]
+#                     },
+#                     {   
+#                         "skillId":208,
+#                         "courses": ["MGT002"]
+#                     }]
+#                 }),
+#         content_type='application/json')
+#         self.assertEqual(response.json, {
+#                         "code": 500,
+#                         "message": "An error occurred creating the learning journey."
+#                     })
+
+
+
+
+
 if __name__ == '__main__':
     unittest.main()

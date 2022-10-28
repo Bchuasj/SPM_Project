@@ -714,7 +714,7 @@ def getAllLearningJourney(staffId):
 # Get a specific Learning Journey of a specific staff
 @app.route("/learningJourney/<int:learningJourneyId>/<int:staffId>")
 def getLearningJourney(learningJourneyId,staffId):
-    ljList = LearningJourney.query.filter_by(learningJourneyId = learningJourneyId).all()
+    ljList = LearningJourney.query.filter_by(learningJourneyId = learningJourneyId).filter_by(staffId=staffId).all()
     courseList = Course.query.join(learningJourneyDetails, (learningJourneyDetails.c.courseId == Course.courseId )).filter_by(learningJourneyId=learningJourneyId).all()
     skillList = Skill.query.join(learningJourneyDetails, (learningJourneyDetails.c.skillId == Skill.skillId )).filter_by(learningJourneyId=learningJourneyId).all()
 
@@ -739,12 +739,11 @@ def getLearningJourney(learningJourneyId,staffId):
     print("Course status",courseStatus)
 
 
-    # Append role Name, Course Name, course Status into the list of a specific Learning Journey so that easier retrieval
+    # Append role Name, Course Name, course Status into the list of a specific Learning Journey for easier retrieval
     resultList = []
 
     for i in range(len(ljList)):
         res = ljList[i].json()
-        
         tempSkillList = []
         for skill in skillList:
             tempSkill = {}
@@ -766,7 +765,7 @@ def getLearningJourney(learningJourneyId,staffId):
     print(resultList)
 
   
-    if courseList:
+    if ljList:
         return jsonify(
             {
                 "code": 200,
@@ -798,7 +797,7 @@ def createLearningJourney():
         Sample JSON Body: // Frontend has to pass this inputs to the backend
         {  
             "learningJourney": {
-                "learningJourneyId": 511, (format on id depends on your mockup data)
+                "learningJourneyId": 511,
                 "staffId": 140008,
                 "workRoleId": 1
             },
