@@ -83,6 +83,15 @@ CREATE TABLE LearningJourneyDetails (
 	FOREIGN KEY (learningJourneyId) REFERENCES LearningJourney(learningJourneyId)
 );
 
+CREATE TABLE StaffSkills (
+	staffId int,
+	skillId int,
+	CONSTRAINT rsKey PRIMARY KEY (staffId, skillId),
+	FOREIGN KEY (staffId) REFERENCES Course(staffId),
+	FOREIGN KEY (skillId) REFERENCES Skill(skillId)
+);
+
+
 CREATE TABLE Registration ( 
 	regId int,
 	courseId varchar(20),
