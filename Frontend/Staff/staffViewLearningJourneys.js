@@ -83,6 +83,7 @@ function getAllLearningJourneys(staffId) {
                             <th scope="row">${skillId}</th>
                             <td>${skillName}</td>
                             <td id="skillStatus${skillId}">
+                                <button type="button" class="btn btn-warning">Incomplete</button>
                             </td>
                             <td id='${skillId}'>
                             </td>
@@ -101,34 +102,35 @@ function getAllLearningJourneys(staffId) {
                                 document.getElementById(skillId).innerHTML += `
                                 <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
                                 `
-                                completeCount = 0
+                                // completeCount = 0
+                                // document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
+                                // console.log("Course Status, ", ljDetails.data.data.courseStatus)
                                 for(i in ljDetails.data.data.courseStatus){
                                     if(ljDetails.data.data.courseStatus[i].courseId == courses[course]["courseId"]){
                             
                                         if(ljDetails.data.data.courseStatus[i].status == "Completed"){
-                                            document.getElementById("courseStatus"+skillId).innerHTML = `
+                                            document.getElementById("courseStatus"+skillId).innerHTML += `
                                             <button type="button" class="btn btn-success mb-1">Completed</button><br>`
-                                            completeCount += 1
+                                            completeCount = 1 // to prevent skill status to be updated
+                                            // The moment there is a course completed for a skill, straightaway update skill status
+                                            document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-success">Completed</button>`
                                         }
                                         else{
-                                            // document.getElementById("skillStatus"+skillId).innerHTML = "Incomplete"
-                                            // document.getElementById("status"+skillId).style.backgroundColor = "#F95A00"
-                                            // document.getElementById("skillStatus"+skillId).className = "btn btn-warning"
-                                            document.getElementById("courseStatus"+skillId).innerHTML = `
+                                            document.getElementById("courseStatus"+skillId).innerHTML += `
                                             <button type="button" class="btn btn-warning mb-1">Incomplete</button><br>`
 
 
                                         }
                                         
                                     }
+                                    //  console.log("completeCount in loop", completeCount)
                                 }
 
-                                if (completeCount > 0){
-                                    document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-success">Completed</button>`
-                                } else {
-                                    document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
-                                }
-                                
+                                // console.log("completeCount outside loop to be set to skills status", completeCount)
+
+                                // if (completeCount == 0){
+                                //     document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
+                                // } 
                             }
                         }
                     })
