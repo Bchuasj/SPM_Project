@@ -102,9 +102,7 @@ function getAllLearningJourneys(staffId) {
                                 document.getElementById(skillId).innerHTML += `
                                 <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
                                 `
-                                // completeCount = 0
-                                // document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
-                                // console.log("Course Status, ", ljDetails.data.data.courseStatus)
+
                                 for(i in ljDetails.data.data.courseStatus){
                                     if(ljDetails.data.data.courseStatus[i].courseId == courses[course]["courseId"]){
                             
@@ -123,14 +121,9 @@ function getAllLearningJourneys(staffId) {
                                         }
                                         
                                     }
-                                    //  console.log("completeCount in loop", completeCount)
+
                                 }
 
-                                // console.log("completeCount outside loop to be set to skills status", completeCount)
-
-                                // if (completeCount == 0){
-                                //     document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-warning">Incomplete</button>`
-                                // } 
                             }
                         }
                     })
