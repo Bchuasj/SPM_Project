@@ -300,7 +300,7 @@ function getSkillsCourses(skillId,existingCourses){
             skillsCoursesList = response.data.data.courses
             console.log("skillCoursesList", skillsCoursesList)
 
-            console.l
+            
             if(skillsCoursesList.length == existingCourses.length){
                 document.getElementById("modalBody"+skillId).innerHTML = `<div class="alert alert-warning text-center" role="alert">
                 All of the available courses for this skill is already been selected.

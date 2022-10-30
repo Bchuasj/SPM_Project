@@ -39,8 +39,9 @@
   Alternatively we can try simulate this but for now I shall just hardcode
   the session stored for the StaffID for simplicity -->
 
-<body onload="getAllLearningJourneys()">
+<body>
 <!-- <body> -->
+
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center"></section>
@@ -54,7 +55,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="#about">Learning Journeys</a></li>
+          <li><a class="nav-link scrollto" href="../Staff/staffViewLearningJourneys.html">Learning Journeys</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Skills</a></li>
           <li><a class="nav-link scrollto fw-light" href="#hero">Roles</a></li>
           <li><a class="nav-link scrollto fw-light" href="../Login/login.html">Logout</a></li>
@@ -84,25 +85,28 @@
             <!--input for workRole to be added to Learning Journey-->
             <label for="workRoles" class="fw-bold col-2 col-form-label">Work Role: </label>
             <div class="input-group col-sm col">
-              <input type="text" class="form-control" id="workRoles" style = "max-width: fit-content; margin-right: 5px;">
+              <input type="text" id="workRole" class="form-control" id="workRoles" style = "max-width: fit-content; margin-right: 5px;">
               <!--
                 need change this to getAllWorkRoles onclick, once line 88 populated, shows all the skills related to this work role at line 95
                 also need to change the data-bs-target of line 92, currently points to delete, shld be showing all the work roles
               -->
-              <button type = "button" class="btn text-white col-sm col" style = "max-width: 20%; background-color: #106eea;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllCourses()">Add Work Role</button>
+              <button type = "button" class="btn text-white col-sm col" style = "max-width: 20%; background-color: #106eea;" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick= "getAllWorkRoles()">Add Work Role</button>
             </div>
           </div>
           <div id="ljList">
             <!--
               rmb to delete the product manager in the ljList as well as all 3 buttons hide details, confirm changes and delete
             -->
+
+            </div>
+            </div>
+
           </div>
 
           <div class="row mt-4">
             <div class="col-8"></div>
             <div class="col-4 d-flex justify-content-end">
-                <!--onclick need change to createLearningJourney instead of createSkill-->
-                <button class="btn text-white col-sm col" style="background-color: #ef7f3e; max-width: 30%;" onclick = "createSkill()">Create</button>
+              
             </div>
           </div>
       
@@ -110,23 +114,27 @@
     </div>
       
 
-      <div class="modal fade" id="exampleModal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deletePopUp"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex justify-content-between">
-              <p>Confirm deletion?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="confirmDelete" data-bs-dismiss="modal">Delete</button>
-            </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Work Roles</h5><input id = "courseInput" placeholder = "Search by Name/ID" onkeyup="getWorkRole()">
+            <!-- <button id = "searchWorkRole" class = "btn btn-primary btn text-white" onclick ="getCourse()">Search</button> -->
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table id = "viewWorkRoles" class="w-100"></table>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick = "populateInput()">Save changes</button> -->
           </div>
         </div>
       </div>
+    </div>
 
   
     <div class="container py-4">
@@ -147,7 +155,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="staffUpdateLearningJourney.js"></script>
+  <script src="staffCreateLearningJourney.js"></script>
   <script src="../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="../BizLand/assets/vendor/aos/aos.js"></script>
   <script src="../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

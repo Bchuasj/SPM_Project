@@ -830,9 +830,8 @@ def createLearningJourney():
         Sample JSON Body: // Frontend has to pass this inputs to the backend
         {  
             "learningJourney": {
-                "learningJourneyId": 511,
                 "staffId": 140008,
-                "workRoleId": 1
+                "workRoleId": 800
             },
             "skills":[{
                 "skillId": 207,
@@ -845,18 +844,22 @@ def createLearningJourney():
         }
 
     """
+
     try:
-        lj = LearningJourney(**data['learningJourney'])
+        maxLjId = 0
+        if LearningJourney.query.count() > 0:
+            maxLjId = LearningJourney.query.order_by(LearningJourney.learningJourneyId.desc()).first().learningJourneyId
+        lj = LearningJourney(maxLjId+1,**data['learningJourney'])
    
         db.session.add(lj)
         db.session.commit()
         if data['skills']:
             for skill in data['skills']:
                 for course in skill["courses"]:
-                    print(data['learningJourney']['learningJourneyId'])
+                    # print(data['learningJourney']['learningJourneyId'])
                     print(skill['skillId'])
                     print(course)
-                    insert = learningJourneyDetails.insert().values(learningJourneyId=data['learningJourney']['learningJourneyId'],skillId=skill['skillId'], courseId=course)
+                    insert = learningJourneyDetails.insert().values(learningJourneyId=maxLjId+1,skillId=skill['skillId'], courseId=course)
                     db.session.execute(insert)
 
         db.session.commit()
@@ -865,7 +868,7 @@ def createLearningJourney():
             {
                 "code": 500,
                 "data": {
-                    "learningJourneyId": data['learningJourney']['learningJourneyId'],
+                    "learningJourneyId": maxLjId+1,
                     "skills": [skill for skill in data["skills"]]
              
                 },
@@ -877,7 +880,7 @@ def createLearningJourney():
         {
             "code": 201,
             "data": { 
-                "learningJourneyId": data['learningJourney']['learningJourneyId'],
+                "learningJourneyId": maxLjId+1,
                 "skills": [skill for skill in data["skills"]]
             }
         }
