@@ -2,6 +2,7 @@
 /// copied from hrViewWorkRoles.js  ///
 //////////////////////////////////////
 
+//  change to getAllStaff()
 function getAllRoles() {
     var workRolesTable = document.getElementById("workRolesTable")
     axios.get("http://127.0.0.1:5006/workRole")
@@ -46,6 +47,7 @@ function getAllRoles() {
     );
 }
 
+// need to change to getAllCompletedSkillsForStaff()
 function getSkillsForWorkRoles(roleId){
     axios.get("http://127.0.0.1:5006/workRole/"+ roleId + "/skills")
         .then(function (response) {
@@ -87,6 +89,7 @@ function getSkillsForWorkRoles(roleId){
     );
 }
 
+// need to change to searchStaff()
 function searchWorkRoles() {
     // print what key is pressed
     var input, filter, workRolesList,  workRoleName, i, txtValue, numValue;
