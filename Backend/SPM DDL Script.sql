@@ -87,7 +87,7 @@ CREATE TABLE StaffSkills (
 	staffId int,
 	skillId int,
 	CONSTRAINT rsKey PRIMARY KEY (staffId, skillId),
-	FOREIGN KEY (staffId) REFERENCES Course(staffId),
+	FOREIGN KEY (staffId) REFERENCES Staff(staffId),
 	FOREIGN KEY (skillId) REFERENCES Skill(skillId)
 );
 
