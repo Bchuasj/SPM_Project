@@ -92,6 +92,7 @@ function searchWorkRoles() {
     var input, filter, workRolesList,  workRoleName, i, txtValue, numValue;
     input = document.getElementById("searchInput");
     workRolesList = document.getElementsByName("workRoles");
+    console.log(workRolesList)
     // check if input is string
     if (isNaN(input.value)){
         console.log(input.value)
@@ -127,36 +128,3 @@ function searchWorkRoles() {
         }
     }
 }
-
-function deleteWorkRole(workRoleId){
-    console.log("pop up delete warning")
-    var deletePopUp = document.getElementById("deletePopUp")
-    var confirmDelete = document.getElementById("confirmDelete")
-    deletePopUp.innerHTML = `
-    Delete role: ${workRoleId}
-    `
-    confirmDelete.onclick = confirmDeletion.bind(this, workRoleId);
-    
-}
-
-function confirmDeletion(workRoleId){
-    console.log("delete button pressed")
-    axios.put("http://127.0.0.1:5006/workRole/delete/" + workRoleId)
-        .then(function (response) {
-            console.log(response)
-            getAllWorkRoles()
-        })
-        .catch(function (error) {
-            console.log(error);
-        }
-        );
-}
-// =================== AXIOS TEMPLATE ====================
-// axios.get("http://127.0.0.1:5006/skill/id/" + searchInput)
-// .then(function (response) {
-// })
-// .catch(function (error) {
-//     console.log(error);
-
-// }
-// );
