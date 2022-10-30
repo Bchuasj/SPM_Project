@@ -744,93 +744,105 @@ class TestGetAllLearningJourney(TestApp):
         }
         )
 
-# Not Working as of now
-# class TestGetLearningJourney(TestApp):
-#     def test_get_learning_journey(self):
-#         lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
-#         c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='This course will address the gaps to build consensus and utilise knowledge of conflict management techniques to diffuse tensions and achieve resolutions effectively in the best interests of the organisation.',
-#         courseStatus='Active', courseType='External',courseCategory='Management')
-#         s1 = Skill(skillId=207,skillName='Communication',skillDesc='Effective interaction between stakeholders',isDeleted=0)
-#         # lj1Role = workRoles.insert().values(workRoleId=800,skillId=1)
-#         # lj2 = LearningJourney(learningJourneyId=501,staffId=130001,workRoleId=804)
-#         c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to undertake self-assessment in relation to one',
-#         courseStatus='Active', courseType='External',courseCategory='Management')
-#         s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
-#         r1 = Registration(regId=1,courseId="COR002",staffId=130001,regStatus="Registered",completionStatus="Completed")
-#         r2 = Registration(regId=245,courseId="COR001",staffId=130001,regStatus="Registered",completionStatus="Completed")
-#         db.session.add(lj)
-#         db.session.add(c1)
-#         db.session.add(c2)
-#         # db.session.add(lj2)
-#         db.session.add(s1)
-#         db.session.add(s2)
-#         db.session.add(r1)
-#         db.session.add(r2)
-#         db.session.commit()
+# Test get learning journey of staff
+class TestGetLearningJourney(TestApp):
 
-#         response = self.client.get("/learningJourney/500/130001")
-#         self.assertEqual(response.json, 
-#             {
-#                 "code": 200, 
-#                 "data": {
-#                     "courseStatus": [
-#                     {
-#                         "courseId": "MGT002", 
-#                         "status": "Incomplete"
-#                     }, 
-#                     {
-#                         "courseId": "MGT004", 
-#                         "status": "Incomplete"
-#                     }
-#                     ], 
-#                     "learningJourney": [
-#                     {
-#                         "learningJourneyId": 500, 
-#                         "staffId": 130001, 
-#                         "workRoleId": 803
-#                     }, 
-#                     [
-#                         {
-#                         "skills": {
-#                             "courses": [
-#                             {
-#                                 "courseId": "MGT002", 
-#                                 "courseName": "Workplace Conflict Management for Professionals"
-#                             }
-#                             ], 
-#                             "skillId": 207, 
-#                             "skillName": "Communication"
-#                         }
-#                         }, 
-#                         {
-#                         "skills": {
-#                             "courses": [
-#                             {
-#                                 "courseId": "MGT004", 
-#                                 "courseName": "Personal Effectiveness for Leaders"
-#                             }
-#                             ], 
-#                             "skillId": 208, 
-#                             "skillName": "Problem Solving"
-#                         }
-#                         }
-#                     ]
-#                     ]
-#                 }
-#             }
-#         )
+    def test_get_learning_journey(self):
+        lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+        c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='This course will address the gaps to build consensus and utilise knowledge of conflict management techniques to diffuse tensions and achieve resolutions effectively in the best interests of the organisation.',
+        courseStatus='Active', courseType='External',courseCategory='Management')
+        s1 = Skill(skillId=207,skillName='Communication',skillDesc='Effective interaction between stakeholders',isDeleted=0)
+        sc1 = skillCourses.insert().values(skillId=207,courseId="MGT002")
+        c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to undertake self-assessment in relation to one',
+        courseStatus='Active', courseType='External',courseCategory='Management')
+        s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
+        sc2 = skillCourses.insert().values(skillId=208,courseId="MGT004")
+        r1 = Registration(regId=1,courseId="MGT002",staffId=130001,regStatus="Registered",completionStatus="Incomplete")
+        r2 = Registration(regId=245,courseId="MGT004",staffId=130001,regStatus="Registered",completionStatus="Incomplete")
+        wr = WorkRole(workRoleId=803,workRoleName="Product Manager",isDeleted=0)
+        wrs1 = workRoleSkills.insert().values(workRoleId=803,skillId=208)
+        wrs2 = workRoleSkills.insert().values(workRoleId=803,skillId=207)
+        ljd1 = learningJourneyDetails.insert().values(skillId=207,courseId="MGT002",learningJourneyId=500)
+        ljd2 = learningJourneyDetails.insert().values(skillId=208,courseId="MGT004",learningJourneyId=500)
+
+        db.session.add(lj)
+        db.session.add(c1)
+        db.session.add(c2)
+        db.session.add(s1)
+        db.session.add(s2)
+        db.session.execute(sc1)
+        db.session.execute(sc2)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(wr)
+        db.session.execute(wrs1)
+        db.session.execute(wrs2)
+        db.session.execute(ljd1)
+        db.session.execute(ljd2)
+        db.session.commit()
+
+        response = self.client.get("/learningJourney/500/130001")
+        self.assertEqual(response.json, 
+            {
+                "code": 200, 
+                "data": {
+                    "courseStatus": [
+                    {
+                        "courseId": "MGT002", 
+                        "status": "Incomplete"
+                    }, 
+                    {
+                        "courseId": "MGT004", 
+                        "status": "Incomplete"
+                    }
+                    ], 
+                    "learningJourney": [
+                    {
+                        "learningJourneyId": 500, 
+                        "staffId": 130001, 
+                        "workRoleId": 803
+                    }, 
+                    [
+                        {
+                        "skills": {
+                            "courses": [
+                            {
+                                "courseId": "MGT002", 
+                                "courseName": "Workplace Conflict Management for Professionals"
+                            }
+                            ], 
+                            "skillId": 207, 
+                            "skillName": "Communication"
+                        }
+                        }, 
+                        {
+                        "skills": {
+                            "courses": [
+                            {
+                                "courseId": "MGT004", 
+                                "courseName": "Personal Effectiveness for Leaders"
+                            }
+                            ], 
+                            "skillId": 208, 
+                            "skillName": "Problem Solving"
+                        }
+                        }
+                    ]
+                    ]
+                }
+            }
+        )
 
 
-#     # Do one for getSkillCourses (helper function)
 
-#     def test_get_learning_journey_fail(self):
-#         response = self.client.get("/learningJourney/500/130001")
-#         self.assertEqual(response.json, 
-#                 {
-#             "code": 404,
-#             "message": "No Learning Journey found."
-#         }
-#         )
+    def test_get_learning_journey_fail(self):
+        response = self.client.get("/learningJourney/500/130001")
+        self.assertEqual(response.json, 
+                {
+            "code": 404,
+            "message": "No Learning Journey found."
+        }
+        )
 
 # class TestCreateLearningJourney(TestApp):
 #     def test_create_learning_journey(self):
@@ -896,7 +908,185 @@ class TestGetAllLearningJourney(TestApp):
 #                     })
 
 
+class TestAddCourseToLearningJourney(TestApp):
+    def test_add_course_to_learning_journey(self):
+        lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+        c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c3 = Course(courseId="MGT003",courseName='Managing Workplace Stress',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        s1 = Skill(skillId=207,skillName='Communication',skillDesc='The ability to express ideas effectively',isDeleted=0)
+        sc1 = skillCourses.insert().values(skillId=207,courseId="MGT002")
+        s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
+        sc2 = skillCourses.insert().values(skillId=208,courseId="MGT004")
+        sc3 = skillCourses.insert().values(skillId=208,courseId="MGT003")
+        r1 = Registration(regId=1,courseId="MGT002",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r2 = Registration(regId=245,courseId="MGT004",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r3 = Registration(regId=246,courseId="MGT003",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        wr = WorkRole(workRoleId=803,workRoleName="Product Manager",isDeleted=0)
+        wrs1 = workRoleSkills.insert().values(workRoleId=803,skillId=208)
+        wrs2 = workRoleSkills.insert().values(workRoleId=803,skillId=207)
+        ljd1 = learningJourneyDetails.insert().values(skillId=207,courseId="MGT002",learningJourneyId=500)
+        ljd2 = learningJourneyDetails.insert().values(skillId=208,courseId="MGT004",learningJourneyId=500)
 
+        db.session.add(lj)
+        db.session.add(c1)
+        db.session.add(c2)
+        db.session.add(c3)
+        db.session.add(s1)
+        db.session.add(s2)
+        db.session.execute(sc1)
+        db.session.execute(sc2)
+        db.session.execute(sc3)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(r3)
+        db.session.add(wr)
+        db.session.execute(wrs1)
+        db.session.execute(wrs2)
+        db.session.execute(ljd1)
+        db.session.execute(ljd2)
+        db.session.commit()
+
+        response = self.client.put("/learningJourney/addCourse/500/208", data=json.dumps({
+            "courses": ["MGT003"]
+
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                    "code": 200,
+                    "data": {
+                        "skill": 208,
+                        "courses": ["MGT003"]
+                    },
+                    "message": "Course(s) Added!"
+                })
+
+    def test_add_course_to_learning_journey_fail(self):
+        lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+        c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c3 = Course(courseId="MGT003",courseName='Managing Workplace Stress',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        s1 = Skill(skillId=207,skillName='Communication',skillDesc='The ability to express ideas effectively',isDeleted=0)
+        sc1 = skillCourses.insert().values(skillId=207,courseId="MGT002")
+        s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
+        sc2 = skillCourses.insert().values(skillId=208,courseId="MGT004")
+        sc3 = skillCourses.insert().values(skillId=208,courseId="MGT003")
+        r1 = Registration(regId=1,courseId="MGT002",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r2 = Registration(regId=245,courseId="MGT004",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r3 = Registration(regId=246,courseId="MGT003",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        wr = WorkRole(workRoleId=803,workRoleName="Product Manager",isDeleted=0)
+        wrs1 = workRoleSkills.insert().values(workRoleId=803,skillId=208)
+        wrs2 = workRoleSkills.insert().values(workRoleId=803,skillId=207)
+        ljd1 = learningJourneyDetails.insert().values(skillId=207,courseId="MGT002",learningJourneyId=500)
+        ljd2 = learningJourneyDetails.insert().values(skillId=208,courseId="MGT004",learningJourneyId=500)
+        ljd3 = learningJourneyDetails.insert().values(skillId=208,courseId="MGT003",learningJourneyId=500)
+        db.session.add(lj)
+        db.session.add(c1)
+        db.session.add(c2)
+        db.session.add(c3)
+        db.session.add(s1)
+        db.session.add(s2)
+        db.session.execute(sc1)
+        db.session.execute(sc2)
+        db.session.execute(sc3)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(r3)
+        db.session.add(wr)
+        db.session.execute(wrs1)
+        db.session.execute(wrs2)
+        db.session.execute(ljd1)
+        db.session.execute(ljd2)
+        db.session.execute(ljd3)
+        db.session.commit()
+
+        response = self.client.put("/learningJourney/addCourse/500/208", data=json.dumps({
+            "courses": ["MGT003"]
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json,{
+                    "code": 500,
+                    "data": {
+                        "skill": 208,
+                        "courses": ["MGT003"]
+                    },
+                    "message": "This course already exist in the learning journey."
+                })
+
+    def test_add_course_to_learning_journey_fail2(self):
+        response = self.client.put("/learningJourney/addCourse/501/208", data=json.dumps({
+            "courses": ["MGT003"]
+
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+            "code": 404,
+            "message": "Learning Journey not found."
+        })
+
+class TestDeleteCourseFromLearningJourney(TestApp):
+    def test_delete_course_from_learning_journey(self):
+        lj = LearningJourney(learningJourneyId=500,staffId=130001,workRoleId=803)
+        c1 = Course(courseId="MGT002",courseName='Workplace Conflict Management for Professionals',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c2 = Course(courseId="MGT004",courseName='Personal Effectiveness for Leaders',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        c3 = Course(courseId="MGT003",courseName='Managing Workplace Stress',courseDesc='Learners will be able to acquire the skills and knowledge to manage conflict in the workplace',courseStatus='Active', courseType='External',courseCategory='Management')
+        s1 = Skill(skillId=207,skillName='Communication',skillDesc='The ability to express ideas effectively',isDeleted=0)
+        sc1 = skillCourses.insert().values(skillId=207,courseId="MGT002")
+        s2 = Skill(skillId=208,skillName='Problem Solving',skillDesc='Achieving a goal by overcoming obstacles',isDeleted=0)
+        sc2 = skillCourses.insert().values(skillId=208,courseId="MGT004")
+        sc3 = skillCourses.insert().values(skillId=208,courseId="MGT003")
+        r1 = Registration(regId=1,courseId="MGT002",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r2 = Registration(regId=245,courseId="MGT004",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        r3 = Registration(regId=246,courseId="MGT003",staffId=130001,regStatus="Registered",completionStatus="Completed")
+        wr = WorkRole(workRoleId=803,workRoleName="Product Manager",isDeleted=0)
+        wrs1 = workRoleSkills.insert().values(workRoleId=803,skillId=208)
+        wrs2 = workRoleSkills.insert().values(workRoleId=803,skillId=207)
+        ljd1 = learningJourneyDetails.insert().values(skillId=207,courseId="MGT002",learningJourneyId=500)
+        ljd2 = learningJourneyDetails.insert().values(skillId=208,courseId="MGT004",learningJourneyId=500)
+
+        db.session.add(lj)
+        db.session.add(c1)
+        db.session.add(c2)
+        db.session.add(c3)
+        db.session.add(s1)
+        db.session.add(s2)
+        db.session.execute(sc1)
+        db.session.execute(sc2)
+        db.session.execute(sc3)
+        db.session.add(r1)
+        db.session.add(r2)
+        db.session.add(r3)
+        db.session.add(wr)
+        db.session.execute(wrs1)
+        db.session.execute(wrs2)
+        db.session.execute(ljd1)
+        db.session.execute(ljd2)
+        db.session.commit()
+
+        response = self.client.delete("/learningJourney/removeCourse/500/208", data=json.dumps({
+            "courses": ["MGT004"]
+
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                    "code": 200,
+                    "data": {
+                        "skill": 208,
+                        "courses": ["MGT004"]
+                    },
+                    "message": "Course(s) Deleted!"
+                })
+
+    def test_delete_course_from_learning_journey_fail2(self):
+        response = self.client.put("/learningJourney/addCourse/501/208", data=json.dumps({
+            "courses": ["MGT003"]
+
+        }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+            "code": 404,
+            "message": "Learning Journey not found."
+        })
 
 
 if __name__ == '__main__':
