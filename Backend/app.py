@@ -935,7 +935,7 @@ def addCourseLJ(learningJourneyId,skillId):
     return jsonify(
         {
             "code": 404,
-            "message": "Learning Journey not found not found."
+            "message": "Learning Journey not found."
         }
     )
 
@@ -990,7 +990,7 @@ def removeCourseLJ(learningJourneyId,skillId):
     return jsonify(
         {
             "code": 404,
-            "message": "Learning Journey not found not found."
+            "message": "Learning Journey not found."
         }
     )
 
