@@ -96,6 +96,39 @@ class Course(db.Model):
             "courseCategory": self.courseCategory
             }
 
+class Staff(db.Model):
+    __tablename__ = 'staff'
+    staffId = db.Column(db.Integer, primary_key=True, nullable=False)
+    staffFName = db.Column(db.String(50), nullable=False)
+    staffLName = db.Column(db.String(50), nullable=False)
+    dept = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    role = db.Column(db.Integer)
+
+    def __init__(self, staffId, staffFName, staffLName, dept, email, role):
+        self.staffId = staffId
+        self.staffFName = staffFName
+        self.staffLName = staffLName
+        self.dept = dept
+        self.email = email
+        self.role = role
+
+    def json(self):
+        return {
+            "staffId": self.staffId,
+            "staffFName": self.staffFName,
+            "staffLName": self.staffLName,
+            "dept": self.dept,
+            "email": self.email,
+            "role": self.role
+            }
+
+# Association table to staff and skills with many to many relationship
+staffSkills = db.Table('staffSkills',
+    db.Column('staffId', db.Integer, db.ForeignKey('staff.staffId'), primary_key=True),
+    db.Column('skillId', db.Integer, db.ForeignKey('skill.skillId'), primary_key=True)
+)
+
 # Association table to course and skills with many to many relationship
 skillCourses = db.Table('skillCourses',
     db.Column('courseId', db.String(20), db.ForeignKey('course.courseId'), primary_key=True),
@@ -1000,6 +1033,50 @@ def deleteLearningJourney(learningJourneyId):
             "message": "Learning Journey not found."
         }
     )
+
+# STAFF
+# Get all staff
+@app.route("/staff")
+def getAllStaff():
+    staffList = Staff.query.all()
+    if len(staffList):
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "staff": [staff.json() for staff in staffList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Staff not found."
+        }
+    )
+
+# Get skills for staff
+@app.route("/staff/<int:staffId>/skills") 
+def getStaffSkills(staffId):
+    staff = Staff.query.filter_by(staffId=staffId).first()
+    skillsList = Skill.query.join(staffSkills, (staffSkills.c.skillId == Skill.skillId)).filter(staffSkills.c.staffId == staffId).all()
+    if staff:
+        return jsonify(
+            {
+                "code": 200,
+                "data": {
+                    "staff": staff.json(),
+                    "skills": [skill.json() for skill in skillsList]
+                }
+            }
+        )
+    return jsonify(
+        {
+            "code": 404,
+            "message": "Staff not found."
+        }
+    )
+
 
 
 if __name__ == '__main__':
