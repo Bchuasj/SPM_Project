@@ -32,7 +32,7 @@
 </head>
 
 <!-- to change onload function -->
-<body onload="getAllRoles()">
+<body onload="getAllStaff()">
 
   <!-- ======= Top Blue Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -68,7 +68,7 @@
           <div class="col-lg-9" style = "padding-top: 30px;">
               
               <!-- to change onkeyup function -->
-              <input type="text" style="width: 89%;" placeholder="What roles are you looking for?" id="searchInput" onkeyup = "searchWorkRoles()">
+              <input type="text" style="width: 89%;" placeholder="Search for staff by name and id" id="searchInput" onkeyup = "searchStaff()">
 
           </div>
         </div>
@@ -79,7 +79,7 @@
         <!-- header for skills -->
         <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center" style="background-color: rgb(211, 224, 239);">
           <div class="col">
-            <b>ID</b>
+            <b>Staff ID</b>
           </div>
           <div class="col">
             <b>Name</b>
@@ -88,64 +88,11 @@
             <b>Department</b>
           </div>
           <div class="col">
-            <b>Completed Skills</b>
           </div>
         </div>
 
         <!-- Staff Table -->
-        <div id="workRolesTable"></div>
-
-        <!-- example query -->
-        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col">
-            <b>130001</b>
-          </div>
-          <div class="col">
-            <b>John Sim (HARD CODED)</b>
-          </div>
-          <div class="col">
-            <b>Chairman</b>
-          </div>
-          <div class="col">
-            <b>Leadership, Critical Thinking, Communication </b>
-          </div>
-
-          <!--view details of skills-->
-          <!-- <div class="collapse pt-2" id="collapseExample">
-            <div class="card card-body text-start">
-              <p><b>Description</b></p>
-              Learn how to pacify businessmen.
-            </div>
-          </div>
-        </div> -->
-
-        <!--skill 002-->
-        <!-- <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-          <div class="col">
-            <b>002</b>
-          </div>
-          <div class="col-4">
-            <b>Market Research</b>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #106eea" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">View details</button>
-          </div>
-          <div class="col">
-            <a class="btn btn-dark btn-sm px-3" href="#" role="button">Edit Details</a>
-          </div>
-          <div class="col">
-            <button type="button" class="btn btn-danger btn-sm px-4">Delete</button>
-          </div> -->
-          <!--view details of skills-->
-          <!-- <div class="collapse pt-2" id="collapseExample1">
-            <div class="card card-body text-start">
-              <p><b>Description</b></p>
-              Learn how to properly research in markets.
-            </div>
-          </div>
-        </div> -->
-
-      </div>
+        <div id="staffTable"></div>
     </div>
 
     <div class="container py-4">
@@ -175,7 +122,8 @@
   <script src="../Bizland/assets/js/main.js"></script>
 
   <!-- View JS File -->
-  <script src="hrViewAllStaff.js"></script>
+  <!-- <script src="hrViewAllStaff.js"></script> -->
+  <script src="hrViewStaff.js"></script>
 
 </body>
 

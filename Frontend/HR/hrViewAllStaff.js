@@ -1,92 +1,85 @@
-////////////////////////////////////////
-/// copied from hrViewWorkRoles.js  ///
-//////////////////////////////////////
-
-//  change to getAllStaff()
-function getAllRoles() {
-    var workRolesTable = document.getElementById("workRolesTable")
-    axios.get("http://127.0.0.1:5006/workRole")
+function getAllStaff() {
+    console.log("here")
+    var staffTable = document.getElementById("staffTable")
+    axios.get("http://127.0.0.1:5006/staff")
         .then(function (response) {
-            var roles = response.data.data.workRoles;
-            console.log(roles)
-            if(roles.length == 0){
-                workRolesTable.innerHTML = "<p>No roles found.</p>";
+            var staff = response.data.data.staff;
+            console.log(staff)
+            if(staff.length == 0){
+                staffTable.innerHTML = "<p>No roles found.</p>";
                 return
             }
-            workRolesTable.innerHTML = "";
-            for(let role in roles){
+            staffTable.innerHTML = "";
+            for(let person in staff){
                 // console.log(skills[skill])
-                if (roles[role].isDeleted == false) {
-                    workRolesTable.innerHTML += `
-                    <div name = "workRoles" id = "${roles[role].workRoleId}">
-                        <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
-                            <div class="col-2" name = "workRoleId">
-                                <b>${roles[role].workRoleId}</b>
-                            </div>
-                            <div class="col-2" name = "workRoleName">
-                                <b>${roles[role].workRoleName}</b>
-                            </div>
+                staffTable.innerHTML += `
+                <div name = "staff" id = "${staff[person].staffId}">
+                    <div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center">
+                        <div class="col-2" name = "workRoleId">
+                            <b>${staff[person].staffId}</b>
+                        </div>
+                        <div class="col-2" name = "workRoleName">
+                            <b>${staff[person].staffName}</b>
+                        </div>
 
-                            <div class="collapse pt-2" id="collapseExample${roles[role].workRoleId}">
-                            <div class="card card-body text-start">
-                                    <p><b>Skills</b></p>
-                                    <br><br>
-                                    <div id="workRoleSkills${roles[role].workRoleId}"></div>
-                                </div>
+                        <div class="collapse pt-2" id="collapseExample${staff[person].staffId}">
+                        <div class="card card-body text-start">
+                                <p><b>Skills</b></p>
+                                <br><br>
+                                <div id="workRoleSkills${staff[person].staffId}"></div>
                             </div>
                         </div>
                     </div>
-                    `
-                    getSkillsForWorkRoles(roles[role].workRoleId)
-                }
+                </div>
+                `
+                getSkillsForStaff(staff[person].staffId)
             }
-        })   
-        .catch(function (error) {
+        }).catch(function (error) {
             console.log(error);
         }
     );
 }
 
 // need to change to getAllCompletedSkillsForStaff()
-function getSkillsForWorkRoles(roleId){
-    axios.get("http://127.0.0.1:5006/workRole/"+ roleId + "/skills")
-        .then(function (response) {
+function getSkillsForStaff(staffId){
+    // axios.get("http://127.0.0.1:5006/workRole/"+ roleId + "/skills")
+    //     .then(function (response) {
             
-            var skills = response.data.data.skills
+    //         var skills = response.data.data.skills
             
-            if(skills.length == 0){
-                return 
-            }
+    //         if(skills.length == 0){
+    //             return 
+    //         }
 
-            var roleSkills = document.getElementById("workRoleSkills" + roleId)
-            roleSkills.innerHTML = `
-            <table class="table align-items-center">
-                <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody id="skillDetails${roleId}"> 
-                </tbody>
-            </table>
-            `
-            var skillDetails = document.getElementById("skillDetails" + roleId)
-            for(let skill in skills){
-                skillDetails.innerHTML += `
-                    <tr>
-                        <td>${skills[skill].skillId}</td>
-                        <td>${skills[skill].skillName}</td>
-                    </tr>
-                `
-            }
+    //         var roleSkills = document.getElementById("workRoleSkills" + roleId)
+    //         roleSkills.innerHTML = `
+    //         <table class="table align-items-center">
+    //             <thead>
+    //                 <tr>
+    //                 <th>ID</th>
+    //                 <th>Name</th>
+    //                 </tr>
+    //             </thead>
+    //             <tbody id="skillDetails${roleId}"> 
+    //             </tbody>
+    //         </table>
+    //         `
+    //         var skillDetails = document.getElementById("skillDetails" + roleId)
+    //         for(let skill in skills){
+    //             skillDetails.innerHTML += `
+    //                 <tr>
+    //                     <td>${skills[skill].skillId}</td>
+    //                     <td>${skills[skill].skillName}</td>
+    //                 </tr>
+    //             `
+    //         }
             
-        })
-        .catch(function (error) {
-            console.log(error);
-            // getAllSkills()
-        }
-    );
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //         // getAllSkills()
+    //     }
+    // );
 }
 
 // need to change to searchStaff()
