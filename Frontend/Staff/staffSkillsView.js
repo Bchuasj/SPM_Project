@@ -96,10 +96,12 @@ function searchSkills() {
     if (isNaN(input.value)){
         console.log(input.value)
         filter = input.value.toUpperCase();
+        filter = filter.replace(/ /g, '');
         skillNameList = document.getElementsByName("skillName");
         for (i = 0; i < skillNameList.length; i++) {
             skillName = skillNameList[i];
             txtValue = skillName.textContent || skillName.innerText;
+            txtValue = txtValue.replace(/ /g, '');
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
             SkillsList[i].style.display = "";
             } else {

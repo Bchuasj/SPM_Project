@@ -95,10 +95,12 @@ function searchWorkRoles() {
     if (isNaN(input.value)){
         console.log(input.value)
         filter = input.value.toUpperCase();
+        filter = filter.replace(/ /g, '');
         jobNameList = document.getElementsByName("workRoleName");
         for (i = 0; i < jobNameList.length; i++) {
             workRoleName = jobNameList[i];
             txtValue = workRoleName.textContent || workRoleName.innerText;
+            txtValue = txtValue.replace(/ /g, '');
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
             workRolesList[i].style.display = "";
             } else {
