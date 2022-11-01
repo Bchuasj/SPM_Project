@@ -1,9 +1,12 @@
 function getAllSkills() {
+    console.log("get all skills");
     var skillsTable = document.getElementById("skillsTable")
+    console.log(skillsTable)
     axios.get("http://127.0.0.1:5006/skill")
         .then(function (response) {
+            console.log(response.data.data.skills)
             var skills = response.data.data.skills;
-            // console.log(skills)
+            console.log(skills)
             if(skills.length == 0){
                 skillsTable.innerHTML = "<p>No skills found.</p>";
                 return
