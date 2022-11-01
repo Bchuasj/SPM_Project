@@ -1,7 +1,7 @@
 import unittest
 import flask_testing
 import json
-from Backend.app import app, db, Role, WorkRole, Skill, Course, LearningJourney, Registration, workRoleSkills, skillCourses, learningJourneyDetails
+from Backend.app import app, db, Role, WorkRole, Skill, Course, LearningJourney, Registration, Staff, workRoleSkills, skillCourses, learningJourneyDetails, staffSkills
 
 
 class TestApp(flask_testing.TestCase):
@@ -1087,6 +1087,95 @@ class TestDeleteCourseFromLearningJourney(TestApp):
             "code": 404,
             "message": "Learning Journey not found."
         })
+
+class TestGetAllStaff(TestApp):
+    def test_get_all_staff(self):
+        s1 = Staff(staffId=130001,staffFName='John',staffLName='Doe',dept='IT',email='john@allinone.com.sg',role=2)
+        db.session.add(s1)
+        db.session.commit()
+
+        response = self.client.get("/staff")
+        self.assertEqual(response.json, 
+            {
+                "code": 200,
+                "data": {
+                    "staff": [
+                        {
+                        "staffId": 130001,
+                        "staffFName": 'John',
+                        "staffLName": 'Doe',
+                        "dept": 'IT',
+                        "email": 'john@allinone.com.sg',
+                        "role": 2
+                        }]
+                }
+            }
+        )
+    
+    def test_get_all_staff_fail(self):
+        response = self.client.get("/staff")
+        self.assertEqual(response.json, 
+            {
+                "code": 404,
+                "message": "Staff not found."
+            }
+        )
+
+class TestGetStaffSkill(TestApp):
+    def test_get_staff_skill(self):
+        s1 = Staff(staffId=130001,staffFName='John',staffLName='Doe',dept='IT',email='john@allinone.com.sg',role=2)
+        sk1 = Skill(skillId=207,skillName='Communication',skillDesc='The ability to express ideas effectively',isDeleted=0)
+        ss1 = staffSkills.insert().values(staffId=130001,skillId=207)
+        db.session.add(s1)
+        db.session.add(sk1)
+        db.session.execute(ss1)
+        db.session.commit()
+
+        response = self.client.get("/staff/130001/skills")
+        self.assertEqual(response.json,
+            {
+                "code": 200,
+                "data": {
+                    "staff": {
+                        "staffId": 130001,
+                        "staffFName": 'John',
+                        "staffLName": 'Doe',
+                        "dept": 'IT',
+                        "email": 'john@allinone.com.sg',
+                        "role": 2,
+                    },
+                    "skills": [
+                        {
+                        "skillId": 207,
+                        "skillName": 'Communication',
+                        "skillDesc": 'The ability to express ideas effectively',
+                        "isDeleted": False
+                        }]
+                }
+            }
+        )
+
+    def test_get_staff_skill_fail1(self):
+        s1 = Staff(staffId=130001,staffFName='John',staffLName='Doe',dept='IT',email='john@allinone.com.sg',role=2)
+        db.session.add(s1)
+        db.session.commit()
+        response = self.client.get("/staff/130001/skills")
+        self.assertEqual(response.json,
+            {
+                "code": 404,
+                "message": "Skill not found."
+            }
+        )
+        
+    def test_get_staff_skill_fail2(self):
+        response = self.client.get("/staff/130001/skills")
+        self.assertEqual(response.json,
+            {
+                "code": 404,
+                "message": "Staff not found."
+            }
+        )
+
 
 
 if __name__ == '__main__':
