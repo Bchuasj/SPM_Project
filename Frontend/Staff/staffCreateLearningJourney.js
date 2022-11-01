@@ -33,7 +33,8 @@ function selectWorkRole(workRoleId,workRoleName){
     axios.get("http://127.0.0.1:5006/workRole/"+ workRoleId +"/skills")
         .then(function (response) {
             var skillList = response.data.data.skills;
-            console.log("skillList", skillList)
+            console.log("skillList", skillList.length)
+            localStorage.setItem("totalSkills",skillList.length)
 
             table.innerHTML =
             `<div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
@@ -42,9 +43,6 @@ function selectWorkRole(workRoleId,workRoleName){
               <b>${workRoleName}</b>
               </div>
               
-              <div class="col-auto d-flex justify-content-end"> 
-                <button type="button" class="btn btn-sm px-3 text-white m-2" style="background-color: #282c30" data-bs-toggle="collapse" data-bs-target="#editDetails1" aria-expanded="false" aria-controls="editDetails1">Save Changes</button>
-              </div>
     
               <!--view details of Learning Journey 1 -->
               <div class="collapse show" ">
@@ -437,54 +435,107 @@ function selectCourses(skillId){
 }
 
 function createLj(staffId){
+    document.getElementById("statusMsg").innerHTML = ""
     var workRoleName = document.getElementById("workRole").value
 
     console.log("Skills taken", localStorage.getItem("skills"))
-
-    skills = localStorage.getItem("skills").split(",")
     workRoleId = localStorage.getItem("workRoleId")
-    console.log("Skills Arr", skills)
 
-    skillsDict = {"skills":[]}
 
-    for(i in skills){
-        tempDict = {"skillId" : skills[i],"courses" : []}
+    axios.get("http://127.0.0.1:5006/allLearningJourney/"+ staffId)
+    .then(function (response) {
+        var lj = response.data.data.learningJourney;
+        console.log("All LJ", lj)
 
-        var checkboxes = document.querySelectorAll("input[type=checkbox][name=addCoursesCb"+skills[i]+"]");
-    
-        for (cb in checkboxes){
-            if(checkboxes[cb].checked){
-                // selectedCoursesList.push(checkboxes[cb].value)
-                tempDict["courses"].push(checkboxes[cb].value.split(",")[0])
+        for(i in lj){
+            if(lj[i].workRoleId == workRoleId){
+                console.log("workRoleId", workRoleId)
+                console.log("lj.workRoleId", lj[i].workRoleId)
+                localStorage.setItem("roleExist",false)
             }
-            
         }
-        skillsDict["skills"].push(tempDict)
+
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
+    roleExist = true
+    if(localStorage.getItem("roleExist")){
+        roleExist = false
     }
 
-    console.log("Skills Dict", skillsDict)
+    console.log("roleExist", roleExist)
+  
 
-    axios.post("http://127.0.0.1:5006/learningJourney/create",
-    {   
-        learningJourney: {
-            "staffId": staffId,
-            "workRoleId": workRoleId
-        },
-        skills: skillsDict["skills"]
-    })
-        .then(function (response) {
-            console.log("Create LJ response",response);
-            document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Learning Journey has been created successfully!</b>"
-        }
-    ).catch(function (error) {
-        console.log(error);
+    if(!roleExist){
         document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Learning Journey</b>"
-    })
+        document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
+        localStorage.clear()
+    }
+    else if(!localStorage.getItem("skills")){
+        document.getElementById("statusMsg").className = "text-danger"
+        document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
+    }else{
+        skills = localStorage.getItem("skills").split(",")
+        console.log("Skills Arr Length", skills)
+        console.log("Total Skills", )
 
 
-    localStorage.clear();
 
+        if(skills.length != localStorage.getItem("totalSkills")){
+            document.getElementById("statusMsg").className = "text-danger"
+            document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
+        }else {
+            skillsDict = {"skills":[]}
+
+            for(i in skills){
+                tempDict = {"skillId" : skills[i],"courses" : []}
+
+                var checkboxes = document.querySelectorAll("input[type=checkbox][name=addCoursesCb"+skills[i]+"]");
+            
+                for (cb in checkboxes){
+                    if(checkboxes[cb].checked){
+                        // selectedCoursesList.push(checkboxes[cb].value)
+                        tempDict["courses"].push(checkboxes[cb].value.split(",")[0])
+                    }
+                    
+                }
+                skillsDict["skills"].push(tempDict)
+            }
+
+            console.log("Skills Dict", skillsDict)
+
+            axios.post("http://127.0.0.1:5006/learningJourney/create",
+            {   
+                learningJourney: {
+                    "staffId": staffId,
+                    "workRoleId": workRoleId
+                },
+                skills: skillsDict["skills"]
+            })
+                .then(function (response) {
+                    console.log("Create LJ response",response);
+                    document.getElementById("statusMsg").className = "text-success"
+                    document.getElementById("statusMsg").innerHTML = "<b>Learning Journey has been created successfully!</b>"
+                }
+            ).catch(function (error) {
+                console.log(error);
+                document.getElementById("statusMsg").className = "text-danger"
+                document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Learning Journey</b>"
+            })
+
+
+            localStorage.clear();
+
+
+        }
+
+        
+
+    }
+
+    
 
 }
