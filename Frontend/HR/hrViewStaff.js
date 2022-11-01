@@ -124,11 +124,15 @@ function searchByStaff() {
         // console.log(input.value)
         // console.log(staffList)
         filter = input.value.toUpperCase();
+        filter = filter.replace(/ /g, '');
+
         var staffNameList = document.getElementsByName("staffName");
         for (i = 0; i < staffNameList.length; i++) {
 
             staffName = staffNameList[i];
             txtValue = staffName.textContent || staffName.innerText;
+            txtValue = txtValue.replace(/ /g, '');
+
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
             staffList[i].style.display = "";
             } else {
@@ -169,7 +173,8 @@ function searchBySkill() {
         // console.log(input.value)
         // console.log(staffList)
         filter = input.value.toUpperCase();
-
+        filter = filter.replace(/ /g, '');
+        
         for (i = 0; i < staffList.length; i++){
             var skillEleId = "staffSkills" + staffList[i].id
             var skillEle = document.getElementById(skillEleId)
@@ -189,6 +194,7 @@ function searchBySkill() {
             for (j = 0; j < skillList.length; j++){
                 // console.log(skillList[j].innerText)
                 txtValue = skillList[j].innerText 
+                txtValue = txtValue.replace(/ /g, '');
 
                 // Only check if it has not already been shown 
                 if (shown == 0){
