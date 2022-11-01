@@ -1064,15 +1064,24 @@ def getStaffSkills(staffId):
     staff = Staff.query.filter_by(staffId=staffId).first()
     skillsList = Skill.query.join(staffSkills, (staffSkills.c.skillId == Skill.skillId)).filter(staffSkills.c.staffId == staffId).all()
     if staff:
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "staff": staff.json(),
-                    "skills": [skill.json() for skill in skillsList]
+        if len(skillsList) > 0:
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "staff": staff.json(),
+                        "skills": [skill.json() for skill in skillsList]
+                    }
                 }
-            }
-        )
+            )
+        else:
+            return jsonify(
+                {
+                    "code": 404,
+                    "message": "Skill not found."
+                }
+            )
+
     return jsonify(
         {
             "code": 404,
