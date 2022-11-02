@@ -82,12 +82,12 @@ function getAllLearningJourneys(staffId) {
                             <tr>
                             <th scope="row">${skillId}</th>
                             <td>${skillName}</td>
-                            <td id="skillStatus${skillId}">
+                            <td id="skillStatus${skillId}${ljList[lj].learningJourneyId}">
                                 <button type="button" class="btn btn-warning">Incomplete</button>
                             </td>
-                            <td id='${skillId}'>
+                            <td id='course${skillId}${ljList[lj].learningJourneyId}'>
                             </td>
-                            <td id='courseStatus${skillId}'>
+                            <td id='courseStatus${skillId}${ljList[lj].learningJourneyId}'>
                                 <!--<button type="button" class="btn btn-warning mb-1">Incomplete</button><br>
                                 <button type="button" class="btn btn-success">Complete</button>-->
                             </td>
@@ -98,8 +98,8 @@ function getAllLearningJourneys(staffId) {
                             for(course in courses){
                                 
                                console.log("course " + (parseInt(course)+1), courses[course])
-
-                                document.getElementById(skillId).innerHTML += `
+                                //stop here
+                                document.getElementById("course"+skillId+ljList[lj].learningJourneyId).innerHTML += `
                                 <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
                                 `
 
@@ -107,14 +107,14 @@ function getAllLearningJourneys(staffId) {
                                     if(ljDetails.data.data.courseStatus[i].courseId == courses[course]["courseId"]){
                             
                                         if(ljDetails.data.data.courseStatus[i].status == "Completed"){
-                                            document.getElementById("courseStatus"+skillId).innerHTML += `
+                                            document.getElementById("courseStatus"+skillId+ljList[lj].learningJourneyId).innerHTML += `
                                             <button type="button" class="btn btn-success mb-1">Completed</button><br>`
                                             completeCount = 1 // to prevent skill status to be updated
                                             // The moment there is a course completed for a skill, straightaway update skill status
-                                            document.getElementById("skillStatus"+skillId).innerHTML =`<button type="button" class="btn btn-success">Completed</button>`
+                                            document.getElementById("skillStatus"+skillId+ljList[lj].learningJourneyId).innerHTML =`<button type="button" class="btn btn-success">Completed</button>`
                                         }
                                         else{
-                                            document.getElementById("courseStatus"+skillId).innerHTML += `
+                                            document.getElementById("courseStatus"+skillId+ljList[lj].learningJourneyId).innerHTML += `
                                             <button type="button" class="btn btn-warning mb-1">Incomplete</button><br>`
 
 
