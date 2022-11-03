@@ -1,9 +1,3 @@
-// var roleExist = false
-
-// function clearSessions(){
-//     localStorage.clear()
-//     console.log("localstorage length",localStorage.length)
-// }
 function getAllWorkRoles() {
 
     var workRolesList = document.getElementById("viewWorkRoles") 
@@ -139,116 +133,10 @@ function selectWorkRole(workRoleId,workRoleName){
                   </div>
                 </div>
               </div>`
-
-                // if (ljList[lj].learningJourneyId == ljId){
-                
-
-                // axios.get("http://127.0.0.1:5006/learningJourney/" + ljList[lj].learningJourneyId + "/" + staffId)
-                //     .then(function (ljDetails) {
-                       
-                //         skillDetails = ljDetails.data.data.learningJourney[1]
-                        
-                //         detailTable = document.getElementById(ljList[lj].learningJourneyId)
-                //         existingCourses = []
-                //         for(detail in skillDetails){
-
-
-                //             skillId = skillDetails[detail].skills.skillId
-
-                //             skillName = skillDetails[detail].skills.skillName
-
-                //             detailTable.innerHTML +=
-                //             `<tr>
-                //             <th scope="row">${skillId}</th>
-                //             <td>${skillName}</td>
-                //             <td id='addCourse${skillId}'>
-                //                <!-- <a class="btn btn-primary mb-1" href="#" role="button">C120 Computation</a><br>
-                //                 <a class="btn btn-primary" href="#" role="button">C121 CRMA</a><br>
-                //                 <button type="button" class="btn btn-outline-primary mt-5">+ Add Course</button>-->
-                //             </td>
-                //             <td id='deleteCourse${skillId}'>
-                //                 <!--<button type="button" class="btn btn-danger mb-1">Delete</button><br>
-                //                 <button type="button" class="btn btn-danger">Delete</button>
-                //                 <p></p>-->
-                //             </td>
-                //             </tr>
-                //             `
-
-
-                //             courses = skillDetails[detail].skills.courses
-                //             console.log('courses length', courses.length)
-                //             for(course in courses){
-
-                //                existingCourses.push(courses[course]['courseId'])
-
-
-                //                 document.getElementById('addCourse'+skillId).innerHTML += `
-                //                 <a class="btn btn-primary mb-1" href="#" role="button">${courses[course]["courseId"] + " " + courses[course]["courseName"]}</a><br>
-                //                 `
-
-                //                 document.getElementById('deleteCourse'+skillId).innerHTML += `
-                //                 <button id="delete${skillId}${courses[course]['courseId']}" type="button" class="btn btn-danger mb-1" onclick="removeCoursesLj(${ljId},${skillId},'${courses[course]["courseId"]}',${courses.length})" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button><br>
-                //                 `
-                                
-                //             }
-
-
-
-                //             document.getElementById('addCourse'+skillId).innerHTML += `
-                //             <button id="add${skillId}" type="button" class="btn btn-outline-primary mt-5" data-bs-toggle="modal" data-bs-target="#modalAdd${skillId}" onclick="getSkillsCourses(${skillId},existingCourses)">+ Add Course</button>
-                //             `
-
-                //             detailTable.innerHTML += `<div class="modal fade" id="modalAdd${skillId}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                //             <div class="modal-dialog modal-lg">
-                //                <div class="modal-content">
-                                
-                //                 <div class="modal-header">
-                //                   <h5 class="modal-title" id="exampleModalLabel">Add Courses</h5>
-                //                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                //                 </div>
-
-                //                 <div id='modalBody${skillId}' class="modal-body">
-                //                 <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-dark text-light">
-                //                     <div class="col-4">
-                //                         <b>Course ID</b>
-                //                     </div>
-                //                     <div class="col-4">
-                //                         <b>Course Name</b>
-                //                     </div>
-                //                     <div class="col-4">
-                //                         <b>Add to Learning Journey</b>
-                //                     </div>
-                //                 </div>
-                //                 </div>
-
-                //                 <div class="modal-footer">
-                //                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                //                   <button type="button" class="btn btn-primary" onclick="addCoursesLj(${ljId},${skillId})">Save changes</button>
-                //                 </div>
-
-                //               </div>
-                //             </div>
-                //           </div>`
-
-                //         }
-                //     })
-                //         .catch(function (error) {
-                //             console.log(error);
-                //         }
-                //     );
-
-
-                // }         
+      
 
             }
 
-            // if (localStorage.getItem('deleteStatus')){
-            //     document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Deleted successfully!</span>"
-            // } else if(localStorage.getItem('addStatus')){
-            //     document.getElementById("editStatusMsg").innerHTML = "<span class='text-success'>Course(s) added successfully!</span>"
-            // } else if (localStorage.getItem("neutralStatus")){
-            //     document.getElementById("editStatusMsg").innerHTML = "<span class='text-secondary'>No Course(s) selected</span>"
-            // }
 
             
 
@@ -267,15 +155,6 @@ function getSkillsCourses(skillId){
         axios.get("http://127.0.0.1:5006/skill/" + skillId)
         .then(function (response) {
             var  skillsCoursesList = response.data.data.courses;
-            // console.log("courses", courses)
-            // <button type = "button" class="btn text-white col-sm col"  onclick="selectRole()">Add Work Role</button>
-            // console.log("Work Roles,", workRoles)
-            // coursesList.innerHTML = "<tr><th>Course ID</th><th>Course Name</th>"
-            // for(let course in courses){
-            //     var courseId = courses[course].courseId
-            //     var courseName = courses[course].courseName
-            //     coursesList.innerHTML += `<tr><td>${courseId}</td><td> <button type = "button" class="btn text-white col-sm col bg-primary" data-bs-dismiss="modal" onclick="selectRole(${courseId},'${courseName}')">${courseName}</button></td><td>`
-            //     }
 
             for(sc in skillsCoursesList){
                 document.getElementById("modalBody"+skillId).innerHTML += `
@@ -301,54 +180,6 @@ function getSkillsCourses(skillId){
     }
 
    
-    
-    // if(childCount == 1){ // To prevent calling of function when data is already loaded into the modal
-    //     axios.get("http://127.0.0.1:5006/skill/" + skillId)
-    //     .then(function (response) {
-    //         console.log(response.data.data)
-    
-    //         skillsCoursesList = response.data.data.courses
-    //         console.log("skillCoursesList", skillsCoursesList)
-
-    //         console.l
-    //         if(skillsCoursesList.length == existingCourses.length){
-    //             document.getElementById("modalBody"+skillId).innerHTML = `<div class="alert alert-warning text-center" role="alert">
-    //             All of the available courses for this skill is already been selected.
-    //           </div>`
-
-    //         }else {
-    //             for(sc in skillsCoursesList){
-    //                 if(!existingCourses.includes(skillsCoursesList[sc].courseId)){
-    //                     document.getElementById("modalBody"+skillId).innerHTML += `
-    //                     <div class="row rounded border border-1 py-2 mb-2 d-flex align-items-center bg-light">
-    //                     <div class="col-4">
-    //                         <b>${skillsCoursesList[sc].courseId}</b>
-    //                     </div>
-    //                     <div class="col-5">
-    //                     <b>${skillsCoursesList[sc].courseName}</b>
-    //                     </div>
-    //                     <div class="col-3">
-    //                         <b><input type="checkbox" name="addCoursesCb" id="cb${skillId}${skillsCoursesList[sc].courseId}" value="${skillsCoursesList[sc].courseId}"></b>
-    //                     </div>
-    //                     </div>`
-    
-    //                 }
-    //             }
-    //         }
-
-
-
-            
-    
-    
-        // })
-        //     .catch(function (error) {
-        //         console.log("Error Message: ",error.response.data.message);
-        //     }
-        // );
-    
-
-    // }
 
 
 }
@@ -403,36 +234,7 @@ function selectCourses(skillId){
             </div>
             `
             counter += 1
-            // document.getElementById('deleteCourse'+skillId).innerHTML += `
-            // <button id="delete${skillId}${selectedCoursesList[course]}" type="button" class="btn btn-danger mb-1" onclick="" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button><br>
-            // `
-           
-    
-    
-            // console.log("courses that fulfill this skill",skillDetails[detail])
-    
-    
-            // courseId = selectedCoursesList[course]
-            // // console.log("skillId", skillId)
-    
-            // skillName = skillDetails[detail].skills.skillName
-            // // console.log("skillName", skillName)
-    
-            // detailTable.innerHTML +=
-            // `<tr>
-            // <th scope="row">${skillId}</th>
-            // <td>${skillName}</td>
-            // <td id='addCourse${skillId}'>
-            //    <!-- <a class="btn btn-primary mb-1" href="#" role="button">C120 Computation</a><br>
-            //     <a class="btn btn-primary" href="#" role="button">C121 CRMA</a><br>
-            //     <button type="button" class="btn btn-outline-primary mt-5">+ Add Course</button>-->
-            // </td>
-            // <td id='deleteCourse${skillId}'>
-            //     <!--<button type="button" class="btn btn-danger mb-1">Delete</button><br>
-            //     <button type="button" class="btn btn-danger">Delete</button>
-            //     <p></p>-->
-            // </td>
-            // </tr>
+
             
         }
     
@@ -479,20 +281,7 @@ function createLj(staffId,workRoleId){
         console.log(error);
     })
 
-    // if(localStorage.getItem("roleExist")){
-    //     roleExist = true
-    // }
-
-
-    // console.log("roleExist", roleExist)
-  
-
-    // if(roleExist){
-    //     document.getElementById("statusMsg").className = "text-danger"
-    //     document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
-    //     localStorage.clear()
-    // }
-    // else 
+ 
     if(!localStorage.getItem("skills")){
         document.getElementById("statusMsg").className = "text-danger"
         document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated </b>"
@@ -518,12 +307,6 @@ function createLj(staffId,workRoleId){
 
 
 
-        // if(skills.length != localStorage.getItem("totalSkills")){
-        //     document.getElementById("statusMsg").className = "text-danger"
-        //     document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
-            
-        //     //localStorage.clear();
-        // }else {
             skillsDict = {"skills":[]}
 
             for(i in skills){
@@ -542,20 +325,6 @@ function createLj(staffId,workRoleId){
             }
 
             console.log("Skills Dict", skillsDict)
-
-            // check if there are courses in the skill key of the skillsDict variable 
-            // for(i in skillsDict){
-            //     counter = 0
-            //     console.log("whyy",skillsDict[i][counter].courses)
-            //     if(skillsDict[i]["0"].courses.length == 0){
-            //         document.getElementById("statusMsg").className = "text-danger"
-            //         document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for the skill" + skillsDict[i].skillId +" </b>"
-            //         break
-
-            //     }
-            //     counter += 1
-
-            // }
 
             console.log("SkillsDict skills length", skillsDict.skills.length)
 
