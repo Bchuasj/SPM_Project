@@ -1,5 +1,9 @@
+// var roleExist = false
 
-
+// function clearSessions(){
+//     localStorage.clear()
+//     console.log("localstorage length",localStorage.length)
+// }
 function getAllWorkRoles() {
 
     var workRolesList = document.getElementById("viewWorkRoles") 
@@ -27,14 +31,16 @@ function selectWorkRole(workRoleId,workRoleName){
 
     document.getElementById("workRole").value = workRoleName;
 
-    localStorage.setItem("workRoleId", workRoleId)
+    // localStorage.setItem("workRoleId", workRoleId)
 
     var table = document.getElementById("ljList");
     axios.get("http://127.0.0.1:5006/workRole/"+ workRoleId +"/skills")
         .then(function (response) {
             var skillList = response.data.data.skills;
-            console.log("skillList", skillList.length)
             localStorage.setItem("totalSkills",skillList.length)
+            console.log("This is to store the number of skills needed for the LJ so we can check whether the number of courses for a skill matches the number of skills")
+            // console.log("skillList", skillList.length)
+            console.log("totalSkills", localStorage.getItem("totalSkills"))
 
             table.innerHTML =
             `<div class="row rounded border border-1 bg-white py-2 mb-2 d-flex align-items-center justify-content-between">
@@ -75,7 +81,7 @@ function selectWorkRole(workRoleId,workRoleName){
 
             <div class="col-auto d-flex justify-content-end"> 
                 <!--onclick need change to createLearningJourney instead of createSkill-->
-                <button class="btn text-white col-sm col m-3" style="background-color:#ef7f3e;" onclick = "createLj(130001)">Create</button>
+                <button class="btn text-white col-sm col m-3" style="background-color:#ef7f3e;" onclick = "createLj(130001,${workRoleId})">Create</button>
              </div>
             `
 
@@ -380,16 +386,23 @@ function selectCourses(skillId){
 
     function addCourse(selectedCoursesList){
 
-
+        counter = 0
         for(course in selectedCoursesList){
 
 
+     
 
             document.getElementById('addCourse'+skillId).innerHTML += `
+            <div class="row" id=courseRow${skillId}${counter}>
+            <div class="col-8">
             <a class="btn btn-primary mb-1" href="#" role="button">${selectedCoursesList[course].split(',')[0] + " " + selectedCoursesList[course].split(',')[1]}</a>
-            <br>
+            </div>
+            <div class="col">
+            <button type="button" class="btn btn-danger mb-1" onclick="removeCourse(${skillId},${counter},'${selectedCoursesList[course].split(',')[0]}')">Remove</button><br>
+            </div>
+            </div>
             `
-    
+            counter += 1
             // document.getElementById('deleteCourse'+skillId).innerHTML += `
             // <button id="delete${skillId}${selectedCoursesList[course]}" type="button" class="btn btn-danger mb-1" onclick="" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button><br>
             // `
@@ -434,12 +447,14 @@ function selectCourses(skillId){
 
 }
 
-function createLj(staffId){
+function createLj(staffId,workRoleId){
+
+    console.log("from createLJ workroleid", workRoleId)
+
     document.getElementById("statusMsg").innerHTML = ""
     var workRoleName = document.getElementById("workRole").value
 
-    console.log("Skills taken", localStorage.getItem("skills"))
-    workRoleId = localStorage.getItem("workRoleId")
+    // workRoleId = localStorage.getItem("workRoleId")
 
 
     axios.get("http://127.0.0.1:5006/allLearningJourney/"+ staffId)
@@ -449,9 +464,12 @@ function createLj(staffId){
 
         for(i in lj){
             if(lj[i].workRoleId == workRoleId){
-                console.log("workRoleId", workRoleId)
-                console.log("lj.workRoleId", lj[i].workRoleId)
-                localStorage.setItem("roleExist",false)
+                console.log("role does exist in LJ already")
+                // roleExist = true
+                document.getElementById("statusMsg").className = "text-danger"
+                document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
+                localStorage.clear()
+                break
             }
         }
 
@@ -461,33 +479,51 @@ function createLj(staffId){
         console.log(error);
     })
 
-    roleExist = true
-    if(localStorage.getItem("roleExist")){
-        roleExist = false
-    }
+    // if(localStorage.getItem("roleExist")){
+    //     roleExist = true
+    // }
 
-    console.log("roleExist", roleExist)
+
+    // console.log("roleExist", roleExist)
   
 
-    if(!roleExist){
+    // if(roleExist){
+    //     document.getElementById("statusMsg").className = "text-danger"
+    //     document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
+    //     localStorage.clear()
+    // }
+    // else 
+    if(!localStorage.getItem("skills")){
         document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
-        localStorage.clear()
-    }
-    else if(!localStorage.getItem("skills")){
-        document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
+        document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated </b>"
+        // localStorage.clear()
     }else{
-        skills = localStorage.getItem("skills").split(",")
-        console.log("Skills Arr Length", skills)
-        console.log("Total Skills", )
+        skillsList = localStorage.getItem("skills").split(",")
+        console.log("Skills taken", localStorage.getItem("skills"))
+        console.log("Skills List", skillsList)
+
+
+        skills = []
+
+        for(i in skillsList){
+            if(!skills.includes(skillsList[i])){
+                skills.push(skillsList[i])
+            }
+
+        }
+
+        console.log("Skills List (Duplicates Removed)", skills)
+        console.log("Total Skills", localStorage.getItem("totalSkills"))
 
 
 
-        if(skills.length != localStorage.getItem("totalSkills")){
-            document.getElementById("statusMsg").className = "text-danger"
-            document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
-        }else {
+
+        // if(skills.length != localStorage.getItem("totalSkills")){
+        //     document.getElementById("statusMsg").className = "text-danger"
+        //     document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
+            
+        //     //localStorage.clear();
+        // }else {
             skillsDict = {"skills":[]}
 
             for(i in skills){
@@ -507,34 +543,59 @@ function createLj(staffId){
 
             console.log("Skills Dict", skillsDict)
 
-            axios.post("http://127.0.0.1:5006/learningJourney/create",
-            {   
-                learningJourney: {
-                    "staffId": staffId,
-                    "workRoleId": workRoleId
-                },
-                skills: skillsDict["skills"]
-            })
-                .then(function (response) {
-                    console.log("Create LJ response",response);
-                    document.getElementById("statusMsg").className = "text-success"
-                    document.getElementById("statusMsg").innerHTML = "<b>Learning Journey has been created successfully!</b>"
-                }
-            ).catch(function (error) {
-                console.log(error);
+            // check if there are courses in the skill key of the skillsDict variable 
+            // for(i in skillsDict){
+            //     counter = 0
+            //     console.log("whyy",skillsDict[i][counter].courses)
+            //     if(skillsDict[i]["0"].courses.length == 0){
+            //         document.getElementById("statusMsg").className = "text-danger"
+            //         document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for the skill" + skillsDict[i].skillId +" </b>"
+            //         break
+
+            //     }
+            //     counter += 1
+
+            // }
+
+            console.log("SkillsDict skills length", skillsDict.skills.length)
+
+            if(skillsDict.skills.length !=localStorage.getItem("totalSkills") ){
+
                 document.getElementById("statusMsg").className = "text-danger"
-                document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Learning Journey</b>"
-            })
+                document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated</b>"
+       
+        
+            } else{
+                axios.post("http://127.0.0.1:5006/learningJourney/create",
+                {   
+                    learningJourney: {
+                        "staffId": staffId,
+                        "workRoleId": workRoleId
+                    },
+                    skills: skillsDict["skills"]
+                })
+                    .then(function (response) {
+                        console.log("Create LJ response",response);
+                        document.getElementById("statusMsg").className = "text-success"
+                        document.getElementById("statusMsg").innerHTML = "<b>Learning Journey has been created successfully!</b>"
+                    }
+                ).catch(function (error) {
+                    console.log(error);
+                    document.getElementById("statusMsg").className = "text-danger"
+                    document.getElementById("statusMsg").innerHTML = "<b>Sorry! There is an error creating the Learning Journey</b>"
+                })
+    
+    
+                localStorage.clear();
+            
 
-
-            localStorage.clear();
-
-
-        }
+            }
 
         
+        }
 
-    }    
+    
+    // }    
 
 }
 
@@ -561,4 +622,34 @@ function getWorkRole() {
             }
         }   
     }
+}
+
+function removeCourse(skillId,counter,courseId){
+
+    // var checkboxes = document.querySelectorAll("input[type=checkbox][name=addCoursesCb"+skillId+"]");
+
+    // for(cb in checkboxes){
+    //     // console.log("checl", checkboxes[cb])
+    //     // if (checkboxes[cb].value == courseId){
+    //     if(checkboxes[cb].checked){
+    //         console.log("yahoo")
+    //         checkboxes[cb].checked == false
+    //     }
+    // }
+
+    document.getElementById("cb" + skillId + courseId).checked = false
+
+    console.log("childCount",document.getElementById('addCourse'+skillId).childElementCount)
+
+    if(document.getElementById('addCourse'+skillId).childElementCount == 2){
+        document.getElementById('addCourse'+skillId).innerHTML = 
+        `<a class="btn btn-secondary mb-1" href="#" role="button">NIL</a><br>
+        <button id="add${skillId}" type="button" class="btn btn-outline-primary mt-5" data-bs-toggle="modal" data-bs-target="#modalAdd${skillId}" onclick="getSkillsCourses(${skillId})">+ Add Course</button>`
+        
+    } else {
+        document.getElementById("courseRow"+skillId+counter).remove()
+
+    }
+
+    console.log("skill status after removing", localStorage.getItem("skills"))
 }
