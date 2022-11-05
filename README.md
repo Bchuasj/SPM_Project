@@ -86,7 +86,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 ## 1. Select a role they want and see a list of skills required
 
 #### For Staff:
-1. Click on Work Roles tab (as shown below).
+1. Click on Work Roles tab.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20WorkRoles.jpg)
 
@@ -94,34 +94,34 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
 
-3. To view the list of skills associated with the Workrole chosen, click on "View details" button (as shown below).
+3. To view the list of skills associated with the Workrole chosen, click on "View details" button.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
 ## 2a. Users should be able to see the courses they can take to acquire those skills, 
 
 #### For Staff:
-1. Click on Skills tab (as shown below).
+1. Click on Skills tab.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills.jpg)
 
-2. Click on "View Details" of "Basic Management" Skill (as shown below).  
+2. Click on "View Details" of "Basic Management" Skill.  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20courses%20for%20skill.jpg)
 
 ## 2b. and add/remove them on their learning journey. 
 
-1. To add courses to Learning Journey, click on Learning journeys tab (as shown below).
+1. To add courses to Learning Journey, click on Learning journeys tab.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20LJ.jpg)
 
-2. Click on "Edit Details" button of "Customer Service Representative" Learning Journey (as shown below).
+2. Click on "Edit Details" button of "Customer Service Representative" Learning Journey.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20edit%20LJ.jpg)
 
 3. Click on "+ Add Course" button.
 
-4. Click on the checkbox next to course with Course ID "SAL003" and click on "Save Changes" button (as shown below).
+4. Click on the checkbox next to course with Course ID "SAL003" and click on "Save Changes" button.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20add%20course%20to%20LJ.jpg)
 
@@ -129,11 +129,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20add%20course%20to%20LJ.jpg)
 
-4. To remove courses from Learning Journey, click on the "Delete" button next to SAL003 course in screenshot below.
+4. To remove courses from Learning Journey, click on the "Delete" button next to SAL003 course.
 
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20view%20from%20LJ.jpg)
 
-
-5. Click on "Delete" in the popup to Confirm deletion in screenshot below.
+5. Click on "Delete" in the popup to Confirm deletion.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20from%20LJ.jpg)
 
