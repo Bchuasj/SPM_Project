@@ -37,18 +37,18 @@ to run your software release
 
 4. Following that, click on "Import" to import CSV files one by one into phpmyadmin to populate the tables in SPM DDL Script.sql. 
 
-5. The SQL files are to be imported in this order:
-    1. Role.csv
-    2. workRole.csv
-    3. Skill.csv
-    4. workRoleSkills.csv
-    5. Staff.csv
-    6. Course.csv
-    7. SkillCourses.csv
-    8. LearningJourney.csv
-    9. LearningJourneyDetails.csv
-    10. StaffSkills.csv
-    11. Registration.csv
+5. The SQL files are to be individually imported in this order:
+    1. Role.csv in role table
+    2. workRole.csv in workrole table
+    3. Skill.csv in skill table
+    4. workRoleSkills.csv in workroleskills table
+    5. Staff.csv in staff table
+    6. courses.csv in course table
+    7. SkillCourses.csv in skillcourses table
+    8. LearningJourney.csv in learningjourney table
+    9. LearningJourneyDetails.csv in learningjourneydetails table
+    10. StaffSkills.csv in staffskills table
+    11. Registration.csv in registration table
 
 6. Start a new terminal on VSCcode and change the directory to backend folder.
 
@@ -90,11 +90,13 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20WorkRoles.jpg)
 
-2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should see that only "Technical Lead" is shown in WorkRole table (as shown below).  
+2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should see that only "Technical Lead" is shown in Workrole table (as shown below).  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
 
-3. To view the skills, 
+3. To view the list of skills associated with the Workrole chosen, click on "View details" button (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshotsstaff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
 ## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
 
