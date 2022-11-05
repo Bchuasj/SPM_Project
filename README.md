@@ -86,6 +86,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 ## Select a role they want and see a list of skills required
 
 ### For Staff:
+1. Click on Work Roles tab (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20WorkRoles.jpg)
+
+2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should 
 
 ## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
 
