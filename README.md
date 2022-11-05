@@ -1,4 +1,4 @@
-﻿# SPM_Project
+﻿## SPM_Project
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
@@ -9,9 +9,9 @@ Luqman Juzaili Bin Muhammad NAJIB - luqmanmn.2020@scis.smu.edu.sg
 Trina Tan Rui - trina.tan.2020@scis.smu.edu.sg  
 Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg
 Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
-
+--------------------------------------------------------------------------
 Link to GitHub Repository: https://github.com/Bchuasj/SPM_Project
-
+--------------------------------------------------------------------------
 Include a README file with clear instructions on how
 to run your software release
 
