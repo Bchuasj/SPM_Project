@@ -7,11 +7,11 @@
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
 Luqman Juzaili Bin Muhammad NAJIB - luqmanmn.2020@scis.smu.edu.sg   
 Trina Tan Rui - trina.tan.2020@scis.smu.edu.sg  
-Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg
+Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg  
 Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
---------------------------------------------------------------------------
+
 Link to GitHub Repository: https://github.com/Bchuasj/SPM_Project
---------------------------------------------------------------------------
+
 Include a README file with clear instructions on how
 to run your software release
 
