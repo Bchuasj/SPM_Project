@@ -2,12 +2,12 @@ function getAllWorkRoles() {
     var workRolesTable = document.getElementById("workRolesTable")
     axios.get("http://127.0.0.1:5006/workRole")
         .then(function (response) {
-            var roles = response.data.data.workRoles;
-            // console.log(skills)
-            if(roles.length == 0){
-                workRolesTable.innerHTML = "<p>No roles found.</p>";
+            console.log("response", response.data)
+            if(response.data.code == 404){
+                workRolesTable.innerHTML = "<p>There are no work roles available</p>";
                 return
             }
+            var roles = response.data.data.workRoles;
             workRolesTable.innerHTML = "";
             for(let role in roles){
                 // console.log(skills[skill])
