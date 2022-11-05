@@ -111,12 +111,33 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ## 2b. and add/remove them on their learning journey. 
 
-1. To add courses to Learning Journey, click on Learning journeys tab.
+1. To add courses to Learning Journey, click on Learning journeys tab (as shown below).
 
-2. 
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20LJ.jpg)
+
+2. Click on "Edit Details" button of "Customer Service Representative" Learning Journey (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20edit%20LJ.jpg)
+
+3. Click on "+ Add Course" button.
+
+4. Click on the checkbox next to course with Course ID "SAL003" and click on "Save Changes" button (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20add%20course%20to%20LJ.jpg)
+
+5. There will be a message in green indicating that "Course(s) added successfully!" and SAL003 course will be one of the courses added under "Customer Service Representative" Learning Journey (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20add%20course%20to%20LJ.jpg)
+
+4. To remove courses from Learning Journey, click on the "Delete" button next to SAL003 course in screenshot below.
 
 
-4. To remove courses from Learning Journey, 
+
+5. Click on "Delete" in the popup to Confirm deletion in screenshot below.
+
+6. There will be a message in green indicating that "Deleted successfully!" and SAL003 course will no longer be under "Customer Service Representative" Learning Journey (as shown below).
+
+
 
 ## 3. CRUD for roles
 
