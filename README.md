@@ -10,7 +10,7 @@ Trina Tan Rui - trina.tan.2020@scis.smu.edu.sg
 Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg  
 Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 
-Link to GitHub Repository: https://github.com/Bchuasj/SPM_Project
+[GitHub Repository Link](https://github.com/Bchuasj/SPM_Project)
 
 Include a README file with clear instructions on how
 to run your software release
