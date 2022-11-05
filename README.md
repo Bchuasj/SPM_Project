@@ -98,7 +98,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
-## 2a. Users should be able to see the courses they can take to acquire those skills, 
+## 2a. Users should be able to see the courses they can take to acquire those skills
 
 #### For Staff:
 1. Click on Skills tab.
