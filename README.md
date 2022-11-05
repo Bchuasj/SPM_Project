@@ -52,6 +52,8 @@ to run your software release
     ```
 
 8. Begin the process by logging in at login.html of the frontend folder using staff ID.
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/login%20ss.png)
+
   * For Staff:
     - Staff ID: 140001
 
