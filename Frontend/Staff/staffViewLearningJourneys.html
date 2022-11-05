@@ -39,7 +39,7 @@
   Alternatively we can try simulate this but for now I shall just hardcode
   the session stored for the StaffID for simplicity -->
 
-<body onload="getAllLearningJourneys('130001')">
+<body onload="getAllLearningJourneys()">
 <!-- <body> -->
 
   <!-- ======= Top Bar ======= -->
@@ -55,8 +55,8 @@
           <li><a class="nav-link scrollto" href="staffViewLearningJourneys.html">Learning journeys</a></li>
           <li><a class="nav-link scrollto fw-light" href="staffSkillsView.html">Skills</a></li>
           <li><a class="nav-link scrollto fw-light" href="staffWorkRoles.html">Work Roles</a></li>
-          <li><a class="nav-link scrollto fw-light" href="../HR/hrViewWorkRoles.html">HR View</a></li>
-          <li><a class="nav-link scrollto fw-light" href="../Login/login.html">Logout</a></li>
+          <li id="hrView"><a class="nav-link scrollto fw-light" href="../HR/hrViewWorkRoles.html">HR View</a></li>
+          <li><a class="nav-link scrollto fw-light" href="../Login/login.html" onclick="logout()">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- navbar -->
@@ -133,6 +133,7 @@
 
   <!-- Vendor JS Files -->
   <script src="staffViewLearningJourneys.js"></script>
+  <script src="../Login/login.js"></script>
   <script src="../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="../BizLand/assets/vendor/aos/aos.js"></script>
   <script src="../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
