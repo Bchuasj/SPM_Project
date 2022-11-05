@@ -14,6 +14,13 @@ Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 Include a README file with clear instructions on how
 to run your software release
 
+## First Release – Core Functionality
+1. Users should be able to select a role they want and see a list of skills required
+2. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
+3. CRUD for roles
+4. CRUD for skills
+5. Assigning skills to roles; assigning skills to courses 
+
 ## Access to Database
 1. Launch Wampserver64 
 
@@ -55,11 +62,10 @@ We run our frontend web pages on Wampserver64. Kindly place the entire "SPM_Proj
 
 Ensure Wampserver64 is running and begin the process by logging in at login.html:
 
-* Login page: http://localhost/Frontend/Login/login.html
+* Login page: http://localhost/SPM_Project/Frontend/Login/login.html
 
 The page should look like this: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/login%20ss.png)
-
 
 #### Login Details:
 
@@ -77,7 +83,25 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 #### Staff View on Login:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20View%20on%20login.jpg)
 
+## Select a role they want and see a list of skills required
 
+### For Staff:
+
+## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
+
+### For Staff:
+
+## CRUD for roles
+
+### For Staff:
+
+## CRUD for skills
+
+### For HR:
+
+## Assigning skills to roles; assigning skills to courses 
+
+### For HR:
 
 ## 👨‍🏫 Acknowledgement
 Professor: Dr Rajesh Krishna BALAN 
