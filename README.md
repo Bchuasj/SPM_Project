@@ -135,8 +135,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 5. Click on "Delete" in the popup to Confirm deletion in screenshot below.
 
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20from%20LJ.jpg)
+
 6. There will be a message in green indicating that "Deleted successfully!" and SAL003 course will no longer be under "Customer Service Representative" Learning Journey (as shown below).
 
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
 
 ## 3. CRUD for roles
