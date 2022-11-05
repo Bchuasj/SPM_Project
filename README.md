@@ -66,7 +66,13 @@ The page should look like this:
   * For HR:
     - Staff ID: 130001
 
-9. Upon logging in, both HR and Staff will be at the View Learning Journey Respectively (as shown below).
+Upon logging in, both HR and Staff will be at the View Learning Journey Respectively (as shown below).
+
+HR View on Login:
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20View%20on%20login.jpg)
+
+Staff View on Login:
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20View%20on%20login.jpg)
 
 
 
