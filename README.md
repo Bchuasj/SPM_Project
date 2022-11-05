@@ -2,8 +2,7 @@
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
-#### GitHub Link: 
-(https://github.com/Bchuasj/SPM_Project)
+#### GitHub Link: (https://github.com/Bchuasj/SPM_Project)
 
 ## 👨👩🥇 Authors
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
