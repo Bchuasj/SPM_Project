@@ -2,7 +2,7 @@
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
-
+--------------------------------------------------------------------------
 ## 👨👩🥇 Authors
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
 Luqman Juzaili Bin Muhammad NAJIB - luqmanmn.2020@scis.smu.edu.sg   
