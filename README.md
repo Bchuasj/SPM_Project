@@ -90,9 +90,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20WorkRoles.jpg)
 
-2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should 
+2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should see that only "Technical Lead" is shown in WorkRole table (as shown below).  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
+
+3. To view the skills, 
 
 ## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
 
