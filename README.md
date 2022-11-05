@@ -98,21 +98,21 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
-## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
+## 2. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
 
-### For Staff:
+#### For Staff:
 
-## CRUD for roles
+## 3. CRUD for roles
 
-### For Staff:
+#### For Staff:
 
-## CRUD for skills
+## 4. CRUD for skills
 
-### For HR:
+#### For HR:
 
-## Assigning skills to roles; assigning skills to courses 
+## 5. Assigning skills to roles; assigning skills to courses 
 
-### For HR:
+#### For HR:
 
 ## 👨‍🏫 Acknowledgement
 Professor: Dr Rajesh Krishna BALAN 
