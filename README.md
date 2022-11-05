@@ -2,7 +2,7 @@
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
-#### GitHub Link: (https://github.com/Bchuasj/SPM_Project)
+#### GitHub Link: https://github.com/Bchuasj/SPM_Project
 
 ## 👨👩🥇 Authors
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
@@ -98,7 +98,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
-## 2a. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey.
+## 2a. Users should be able to see the courses they can take to acquire those skills, 
 
 #### For Staff:
 1. Click on Skills tab (as shown below).
@@ -108,6 +108,15 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 2. Click on "View Details" of "Basic Management" Skill (as shown below).  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20courses%20for%20skill.jpg)
+
+## 2b. and add/remove them on their learning journey. 
+
+1. To add courses to Learning Journey, click on Learning journeys tab.
+
+2. 
+
+
+4. To remove courses from Learning Journey, 
 
 ## 3. CRUD for roles
 
