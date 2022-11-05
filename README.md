@@ -2,7 +2,8 @@
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
-[GitHub Link](https://github.com/Bchuasj/SPM_Project)
+#### GitHub Link: 
+(https://github.com/Bchuasj/SPM_Project)
 
 ## 👨👩🥇 Authors
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
@@ -64,7 +65,7 @@ Ensure Wampserver64 is running and begin the process by logging in at login.html
 
 * Login page: http://localhost/SPM_Project/Frontend/Login/login.html
 
-The page should look like this: 
+#### The page should look like this: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/login%20ss.png)
 
 #### Login Details:
