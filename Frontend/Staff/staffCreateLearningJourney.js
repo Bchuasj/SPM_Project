@@ -24,6 +24,7 @@ function getAllWorkRoles() {
 function selectWorkRole(workRoleId,workRoleName){
 
     document.getElementById("workRole").value = workRoleName;
+    var staffId = localStorage.getItem("staffId")
 
     // localStorage.setItem("workRoleId", workRoleId)
 
@@ -75,7 +76,7 @@ function selectWorkRole(workRoleId,workRoleName){
 
             <div class="col-auto d-flex justify-content-end"> 
                 <!--onclick need change to createLearningJourney instead of createSkill-->
-                <button class="btn text-white col-sm col m-3" style="background-color:#ef7f3e;" onclick = "createLj(130001,${workRoleId})">Create</button>
+                <button class="btn text-white col-sm col m-3" style="background-color:#ef7f3e;" onclick = "createLj(${staffId},${workRoleId})">Create</button>
              </div>
             `
 
@@ -270,7 +271,12 @@ function createLj(staffId,workRoleId){
                 // roleExist = true
                 document.getElementById("statusMsg").className = "text-danger"
                 document.getElementById("statusMsg").innerHTML = "<b>An existing Learning Journey with '"+ workRoleName + "' has already been created </b>"
-                localStorage.clear()
+                
+                var staffId = localStorage.getItem('staffId');
+                var role = localStorage.getItem('role');
+                localStorage.clear();
+                localStorage.setItem('staffId',staffId);
+                localStorage.setItem('role',role);
                 break
             }
         }
@@ -285,7 +291,6 @@ function createLj(staffId,workRoleId){
     if(!localStorage.getItem("skills")){
         document.getElementById("statusMsg").className = "text-danger"
         document.getElementById("statusMsg").innerHTML = "<b>Please select at least a course for all the skills stated </b>"
-        // localStorage.clear()
     }else{
         skillsList = localStorage.getItem("skills").split(",")
         console.log("Skills taken", localStorage.getItem("skills"))
@@ -355,7 +360,11 @@ function createLj(staffId,workRoleId){
                 })
     
     
+                var staffId = localStorage.getItem('staffId');
+                var role = localStorage.getItem('role');
                 localStorage.clear();
+                localStorage.setItem('staffId',staffId);
+                localStorage.setItem('role',role);
             
 
             }

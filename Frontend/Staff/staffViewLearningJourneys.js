@@ -1,5 +1,14 @@
-function getAllLearningJourneys(staffId) {
+var staffId = localStorage.getItem("staffId")
+var role = localStorage.getItem("role")
+
+function getAllLearningJourneys() {
     var table = document.getElementById("ljList");
+
+
+    if(role != 1 && document.getElementById("hrView")){
+        var hrView = document.getElementById("hrView")
+        hrView.remove()
+    }
     axios.get("http://127.0.0.1:5006/allLearningJourney/" + staffId)
         .then(function (response) {
             // var ljList = response.data.data.learningJourney;
@@ -167,7 +176,7 @@ function confirmDeletion(ljId){
     .then(function (response) {
         if (response.status > 200 || response.status <300){
             // window.location.href = './staffViewLearningJourneys.html'
-            getAllLearningJourneys('130001')
+            getAllLearningJourneys(staffId)
         } 
     })
         .catch(function (error) {
@@ -181,7 +190,7 @@ function confirmDeletion(ljId){
 
 function goUpdatePage(ljId,staffId){
     localStorage.setItem('ljId', ljId);
-    localStorage.setItem('staffId', staffId);
+    // localStorage.setItem('staffId', staffId);
     window.location.href = './staffUpdateLearningJourney.html'
 }
 

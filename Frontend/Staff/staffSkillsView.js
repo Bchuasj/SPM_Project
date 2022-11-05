@@ -1,5 +1,12 @@
+var role = localStorage.getItem("role")
 function getAllSkills() {
     var skillsTable = document.getElementById("skillsTable")
+
+    if(role != 1 && document.getElementById("hrView")){
+        var hrView = document.getElementById("hrView")
+        hrView.remove()
+    }
+
     axios.get("http://127.0.0.1:5006/skill")
         .then(function (response) {
             var skills = response.data.data.skills;
