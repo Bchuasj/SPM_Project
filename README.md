@@ -2,15 +2,14 @@
 
 ## Course and Team Information
 ### IS212 Software Project Management AY2022-2023, Term 1 Group 10 Team 1
---------------------------------------------------------------------------
+[GitHub Link](https://github.com/Bchuasj/SPM_Project)
+
 ## 👨👩🥇 Authors
 Brian Chua Siong Jie  - brian.chua.2020@scis.smu.edu.sg  
 Luqman Juzaili Bin Muhammad NAJIB - luqmanmn.2020@scis.smu.edu.sg   
 Trina Tan Rui - trina.tan.2020@scis.smu.edu.sg  
 Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg  
 Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
-
-[GitHub Repository Link](https://github.com/Bchuasj/SPM_Project)
 
 Include a README file with clear instructions on how
 to run your software release
@@ -51,14 +50,25 @@ to run your software release
         python app.py
     ```
 
-8. Begin the process by logging in at login.html of the frontend folder using staff ID.
+## Access to Frontend UI
+We run our frontend web pages on Wampserver64. Kindly place the entire "SPM_Project" Folder onto _C://wamp64/www/_  
+
+Ensure Wampserver64 is running and begin the process by logging in at login.html:
+
+* Login page: http://localhost/Frontend/Login/login.html
+
+The page should look like this: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/login%20ss.png)
 
   * For Staff:
-    - Staff ID: 140001
+    - Staff ID: 140003
 
   * For HR:
-    - Staff ID: 160008
+    - Staff ID: 130001
+
+9. Upon logging in, both HR and Staff will be at the View Learning Journey Respectively (as shown below).
+
+
 
 ## 👨‍🏫 Acknowledgement
 Professor: Dr Rajesh Krishna BALAN 
