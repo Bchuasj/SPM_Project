@@ -101,8 +101,13 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 ## 2a. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey.
 
 #### For Staff:
-1. 
+1. Click on Skills tab (as shown below).
 
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills.jpg)
+
+2. Click on "View Details" of "Basic Management" Skill (as shown below).  
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20courses%20for%20skill.jpg)
 
 ## 3. CRUD for roles
 
