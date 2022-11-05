@@ -92,6 +92,8 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should 
 
+
+
 ## Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
 
 ### For Staff:
