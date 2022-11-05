@@ -83,7 +83,6 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 #### Staff View on Login:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20View%20on%20login.jpg)
 
-----------------------------------------------------------------------------------------------------------------------
 ## 1. Select a role they want and see a list of skills required
 
 #### For Staff:
@@ -99,7 +98,6 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
-----------------------------------------------------------------------------------------------------------------------
 ## 2a. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey.
 
 #### For Staff:
