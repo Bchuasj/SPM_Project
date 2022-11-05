@@ -60,6 +60,9 @@ Ensure Wampserver64 is running and begin the process by logging in at login.html
 The page should look like this: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/login%20ss.png)
 
+
+#### Login Details:
+
   * For Staff:
     - Staff ID: 140003
 
@@ -68,10 +71,10 @@ The page should look like this:
 
 Upon logging in, both HR and Staff will be at the View Learning Journey Respectively (as shown below).
 
-HR View on Login:
+#### HR View on Login:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20View%20on%20login.jpg)
 
-Staff View on Login:
+#### Staff View on Login:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20View%20on%20login.jpg)
 
 
