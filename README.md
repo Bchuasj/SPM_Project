@@ -53,10 +53,10 @@ to run your software release
 
 8. Begin the process by logging in at login.html of the frontend folder using staff ID.
   * For Staff:
-    Staff ID: 140001
+    - Staff ID: 140001
 
   * For HR:
-    Staff ID: 160008
+    - Staff ID: 160008
 
 ## 👨‍🏫 Acknowledgement
 Professor: Dr Rajesh Krishna BALAN 
