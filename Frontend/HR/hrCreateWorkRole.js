@@ -82,6 +82,8 @@ function createRole() {
 
     workRoleNameMsg.innerHTML = ""
     skillIdMsg.innerText = ""
+
+    document.getElementById("statusMsg").innerHTML = ""
     
     if (workRoleName == ""){
         // <div id="roleNameMsg" class="text-danger mx-3">Please fill in a work role name</div>
