@@ -205,6 +205,10 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%20boss%20successfully.png)
 
+4. Click on Work Roles tab and you will see that the Name has been changed in Work roles table (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20updated%20boss%20workrole.png)
+
 ## 3d. Delete roles
 
 #### For HR:
