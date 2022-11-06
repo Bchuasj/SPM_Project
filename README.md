@@ -169,7 +169,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 5. Select the skill you would like to add to the new work role (as shown below) and click "Save changes".
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20added%20id%20200%20to%20%workrole.jpg)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20added%20id%20200%20to%20workrole.jpg)
 
 6. Once all the fields have been filled (as shown below), click "Create" button to create new work role.
 
