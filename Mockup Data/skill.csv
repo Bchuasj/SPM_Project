@@ -1,0 +1,12 @@
+skillId,skillName,skillDesc,isDeleted
+200,Basic Management,Basics fundamentals of people and project management,0
+201,Advanced Management,Advanced concepts of people and workplace management,1
+202,Data Analysis & Analytics,Ability to work with data from multiple sources,0
+203,IT Support Management,Knows the proper methodologies of supporting in an IT setting,0
+204,Network Infrastructure,Good knowledge of the setting up a network,0
+205,Data Security,Enforcing data privacy and security,0
+206,Financial Reporting,Accurate and concise reporting of financial matters,1
+207,Communication,Effective interaction between stakeholders,0
+208,Problem Solving,Achieving a goal by overcoming obstacles,0
+209,Critical Thinking,Analysis of available facts,0
+210,Leadership,Leading a team effectively,0
