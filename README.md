@@ -199,11 +199,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 2. To update work role name, change the role name as you want. In our case, we changed CEO to Boss.
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%boss.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%20boss.png)
 
 3. Click "Update" button and a green message will indicate that "Work role has been updated successfully!" (as shown below).
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%boss%20successfully.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%20boss%20successfully.png)
 
 ## 3d. Delete roles
 
