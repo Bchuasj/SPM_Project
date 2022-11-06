@@ -90,9 +90,13 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20work%20roles%20.png)
 
-2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should see that only "Technical Lead" is shown in Workrole table (as shown below).  
+2. If you would like to look for a particular Workrole, you can type in the search bar and search by name or work role ID and you should see that only 1 Workrole is shown in the work roles table. In our case, we searched for "Technical Lead" / Work Role ID 800 (as shown below).  
 
+#### By Name: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
+
+#### By Work Role ID:
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20search%20workrole%20by%20id.png)
 
 3. To view the list of skills associated with the Workrole chosen, click on "View details" button.
 
