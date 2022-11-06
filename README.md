@@ -145,6 +145,31 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 #### For HR:
 
+1. Logout and login again with Staff ID 130001 
+
+2. Click on Work Roles and you will see the Work Roles page (as shown below).
+
+![alt text]()
+
+3. Click on "+ Create New Work Role" button and you will see the Create New Work Role page (as shown below). 
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20create%20new%20workrole.png)
+
+4. Once filled in the Work Role Name (as shown below), click on "Add/Remove Skills" button to add skills to your new Work Role.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20name%20filled.png)
+
+![alt text]()
+
+5. Select the skill you would like to add to the new work role (as shown below) and click "Save changes".
+
+![alt text]()
+
+6. Once all the fields filled (as shown below), click "Create" button to create new work role.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20all%20filled.png)
+
+
 ## 3b. Read/View roles
 
 #### For Staff:
