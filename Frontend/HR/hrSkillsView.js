@@ -51,6 +51,7 @@ function getAllSkills() {
         })   
         .catch(function (error) {
             console.log(error);
+            skillsTable.innerHTML = "There are no skills available.";
         }
     );
 }
@@ -105,10 +106,12 @@ function searchSkills() {
         if (isNaN(input.value)){
             console.log(input.value)
             filter = input.value.toUpperCase();
+            filter = filter.replace(/ /g, '');
             skillNameList = document.getElementsByName("skillName");
             for (i = 0; i < skillNameList.length; i++) {
                 skillName = skillNameList[i];
                 txtValue = skillName.textContent || skillName.innerText;
+                txtValue = txtValue.replace(/ /g, '')
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 SkillsList[i].style.display = "";
                 } else {
@@ -134,6 +137,19 @@ function searchSkills() {
             for (i = 0; i < SkillsList.length; i++) {
                 SkillsList[i].style.display = "";
             }
+        }
+
+        // if all skills are hidden, display no skills found
+        var hiddenSkills = 0;
+        noskills = document.getElementById("noSkills");
+        for (i = 0; i < SkillsList.length; i++) {
+            if (SkillsList[i].style.display == "none"){
+                hiddenSkills += 1;
+            }
+        }
+        if (hiddenSkills == SkillsList.length){
+            noskills.style.display = "";
+            noskills.innerHTML = "There is no skill(s) available for the input given";
         }
 }
 
