@@ -233,7 +233,7 @@ You would also be able to update (add / remove) skills required by the work role
 
 2. To create a skill, click on "+ Create New Skill" button and you will be redirected to Create New Skill page (as shown below).
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%skill.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20skill.png)
 
 3. 
 
