@@ -141,7 +141,13 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
-## 3a. Create new roles
+## 3a. Read/View roles
+
+#### For Staff:
+
+1. 
+
+## 3b. Create new roles
 
 #### For HR:
 
@@ -165,14 +171,17 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text]()
 
-6. Once all the fields filled (as shown below), click "Create" button to create new work role.
+6. Once all the fields have been filled (as shown below), click "Create" button to create new work role.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20all%20filled.png)
 
+7. A green message indicating that "Work Role has been created successfully!" would show up (as shown below).
 
-## 3b. Read/View roles
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20successful.png)
 
-#### For Staff:
+8. Click on Work Roles tab to view the newly created Work Role. In our case, CEO work role is shown in work roles table.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20workrole%20CEO%20shown.png)
 
 ## 3c. Update roles
 
