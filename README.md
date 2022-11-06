@@ -257,9 +257,9 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20skill.jpg)
 
-3. Click "Update" to update the skill.
-
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20remove%20course%20from%20skill.jpg)
+
+3. Click "Update" button to update the skill.
 
 4. A green message indicating that "Skill has been updated successfully!" will be displayed (as shown below).
 
