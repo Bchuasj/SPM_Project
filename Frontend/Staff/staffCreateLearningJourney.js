@@ -17,7 +17,7 @@ function getAllWorkRoles() {
         })
         .catch(function (error) {
             console.log(error);
-            workRolesList.innerHTML = "No courses are available"
+            workRolesList.innerHTML = "No work roles are available"
         })
 }
 
