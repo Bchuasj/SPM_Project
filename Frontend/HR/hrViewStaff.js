@@ -32,7 +32,6 @@ function getAllStaff() {
                         <div class="collapse pt-2" id="collapseExample${staff[person].staffId}">
                         <div class="card card-body text-start">
                                 <p><b>Skills</b></p>
-                                <br><br>
                                 <div id="staffSkills${staff[person].staffId}"></div>
                             </div>
                         </div>
@@ -74,8 +73,8 @@ function getSkillsForStaff(staffId){
             for(let skill in skills){
                 skillDetails.innerHTML += `
                     <tr>
-                        <td name='skillId'>${skills[skill].skillId}</td>
-                        <td name='skillName'>${skills[skill].skillName}</td>
+                        <td class='skillId' name='skillId'>${skills[skill].skillId}</td>
+                        <td class='skillName' name='skillName'>${skills[skill].skillName}</td>
                     </tr>
                 `
             }
@@ -88,46 +87,62 @@ function getSkillsForStaff(staffId){
     );
 }
 
-function searchStaff() {
+function changeSearch(){
+    var inputStaff = document.getElementById("searchInputStaff")
+    var inputSkill = document.getElementById("searchInputSkill")
+    var buttonStaff = document.getElementById("searchStaffButton")
+    var buttonSkill = document.getElementById("searchSkillsButton")
+
+    if (inputSkill.style.display == "none"){
+        inputSkill.style.display = ""
+        buttonSkill.style.display = ""
+        inputStaff.style.display = "none"
+        buttonStaff.style.display = "none"
+
+        inputSkill.value = ""
+        inputStaff.value = ""
+
+    } else {
+        inputSkill.style.display = "none"
+        buttonSkill.style.display = "none"
+        inputStaff.style.display = ""
+        buttonStaff.style.display = ""
+        
+        inputSkill.value = ""
+        inputStaff.value = ""
+    }
+}
+
+function searchByStaff() {
     // print what key is pressed
-    var input, filter, staffList,  staffName, skillName, skillId, i, txtValue, numValue;
-    input = document.getElementById("searchInput");
+    var input, filter, staffList,  staffName, i, txtValue, numValue;
+    input = document.getElementById("searchInputStaff");
     staffList = document.getElementsByName("staff");
-    // console.log(staffList)
+    // console.log("here", input)
     // check if input is string
     if (isNaN(input.value)){
         // console.log(input.value)
+        // console.log(staffList)
         filter = input.value.toUpperCase();
+        filter = filter.replace(/ /g, '');
+
         var staffNameList = document.getElementsByName("staffName");
         for (i = 0; i < staffNameList.length; i++) {
 
             staffName = staffNameList[i];
             txtValue = staffName.textContent || staffName.innerText;
+            txtValue = txtValue.replace(/ /g, '');
+
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
             staffList[i].style.display = "";
             } else {
             staffList[i].style.display = "none";
             }
-            
-            // if (staffList[i].style.display = "none"){
-            //     // console.log(staffList[i])
-            //     var skillNameList = staffList[i].querySelector("[name='skillName']")
-            //     console.log(skillNameList)
-                // for (i = 0; i < skillNameList.length; i++) {
-                //     skillName = skillNameList[i];
-                //     txtValue = skillName.textContent || skillName.innerText;
-                //     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                //     staffList[i].style.display = "";
-                //     } else {
-                //     staffList[i].style.display = "none";
-                //     }
-                // }
-            // }
         }
        
     }
     else if (!isNaN(input.value) && input.value != ""){
-        console.log(input.value)
+        // console.log("here2",input.value)
         staffIdList = document.getElementsByName("staffId");
         for (i = 0; i < staffIdList.length; i++) {
             staffId = staffIdList[i];
@@ -143,6 +158,106 @@ function searchStaff() {
     else{
         for (i = 0; i < staffList.length; i++) {
             staffList[i].style.display = "";
+        }
+    }
+}
+
+function searchBySkill() {
+    // print what key is pressed
+    var input, filter, staffList,  skillList, staffIdList, i, txtValue, numValue;
+    input = document.getElementById("searchInputSkill");
+    staffList = document.getElementsByName("staff");
+    // console.log("here", input)
+    // check if input is string
+    if (isNaN(input.value)){
+        // console.log(input.value)
+        // console.log(staffList)
+        filter = input.value.toUpperCase();
+        filter = filter.replace(/ /g, '');
+        
+        for (i = 0; i < staffList.length; i++){
+            var skillEleId = "staffSkills" + staffList[i].id
+            var skillEle = document.getElementById(skillEleId)
+            // console.log(skillEle)
+            skillList = skillEle.querySelectorAll('.skillName')
+            // console.log(skillList)
+            var shown = 0 
+            // console.log(staffList[i])
+            
+            // default show all unless no skills 
+            if (skillList.length == 0){
+                staffList[i].style.display = "none";
+            } else {
+                staffList[i].style.display = "";
+            }
+
+            for (j = 0; j < skillList.length; j++){
+                // console.log(skillList[j].innerText)
+                txtValue = skillList[j].innerText 
+                txtValue = txtValue.replace(/ /g, '');
+
+                // Only check if it has not already been shown 
+                if (shown == 0){
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        // console.log("shown", txtValue)
+                        staffList[i].style.display = "";
+                        shown = 1
+                    } else {
+                    staffList[i].style.display = "none";
+                    }
+                }
+            
+            // reset shown for each staff 
+            }
+            shown = 0
+        }
+       
+    }
+    else if (!isNaN(input.value) && input.value != ""){
+        // console.log("here2",input.value)
+        // staffIdList = document.getElementsByName("staffId");
+        filter = input.value.toUpperCase();
+
+        for (i = 0; i < staffList.length; i++) {
+            var skillEleId = "staffSkills" + staffList[i].id
+            var skillEle = document.getElementById(skillEleId)
+            // console.log(skillEle)
+            skillList = skillEle.querySelectorAll('.skillId')
+            // console.log(skillList)
+            var shown = 0 
+            // console.log(staffList[i])
+            
+            // default show all unless no skills 
+            if (skillList.length == 0){
+                staffList[i].style.display = "none";
+            } else {
+                staffList[i].style.display = "";
+            }
+
+            for (j = 0; j < skillList.length; j++){
+                // console.log(skillList[j].innerText)
+                txtValue = skillList[j].innerText 
+
+                // Only check if it has not already been shown 
+                if (shown == 0){
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        // console.log("shown", txtValue)
+                        staffList[i].style.display = "";
+                        shown = 1
+                    } else {
+                    staffList[i].style.display = "none";
+                    }
+                }
+            
+            // reset shown for each staff 
+            }
+            shown = 0
+        }
+    }
+    else{
+        for (i = 0; i < staffList.length; i++) {
+            staffList[i].style.display = "";
+
         }
     }
 }

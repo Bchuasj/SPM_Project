@@ -63,13 +63,17 @@
     <div class="footer-newsletter">
       <div class="container pb-4">
         <div class="row justify-content-center">
-          <div class="col-lg-2" style="margin-top:30px">
-            <h1 class="logo" style="vertical-align:bottom; font-size:210%;">All Staff</h1></div>
-          <div class="col-lg-9" style = "padding-top: 30px;">
+          <div class="col-lg-2" style="margin-top:25px">
+            <h1 class="logo" style="vertical-align:bottom; font-size:210%;">Staff</h1></div>
+          <div class="col-lg-7" style = "padding-top: 30px;">
               
               <!-- to change onkeyup function -->
-              <input type="text" style="width: 89%;" placeholder="Search for staff by name and id" id="searchInput" onkeyup = "searchStaff()">
-
+              <input type="text" style="width: 89%; display:none" placeholder="Search for staff by staff name and id" id="searchInputStaff" onkeyup = "searchByStaff()">
+              <input type="text" style="width: 89%" placeholder="Search for staff by skill name and id" id="searchInputSkill" onkeyup = "searchBySkill()">
+          </div>
+          <div class="col-lg-2" style = "padding-top: 30px;">
+            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #ef7f3e; display:none" id="searchStaffButton" onclick="changeSearch()">Change to search by skill</button>
+            <button type="button" class="btn btn-sm px-3 text-white" style="background-color: #ef7f3e; " id="searchSkillsButton" onclick="changeSearch()">Change to search by staff</button>
           </div>
         </div>
       </div>

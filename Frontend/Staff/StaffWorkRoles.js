@@ -1,6 +1,14 @@
 // ONLOAD CALLS
+var role = localStorage.getItem("role")
+
 function getAllWorkRoles() {
   var workRolesTable = document.getElementById("workRolesTable");
+
+  if(role != 1 && document.getElementById("hrView")){
+    var hrView = document.getElementById("hrView")
+    hrView.remove() 
+   }
+
   axios.get("http://127.0.0.1:5006/workRole")
       .then(function (response) {
         var workRoles = response.data.data.workRoles;

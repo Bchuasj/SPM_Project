@@ -1,3 +1,5 @@
+var role = localStorage.getItem("role")
+
 function getAllLearningJourneys() {
 
     staffId = localStorage.getItem('staffId')
@@ -6,6 +8,11 @@ function getAllLearningJourneys() {
 
     // var ljId = '501'
     // var staffId = '130001'
+
+    if(role != 1 && document.getElementById("hrView")){
+        var hrView = document.getElementById("hrView")
+        hrView.remove()
+    }
 
 
 

@@ -844,68 +844,95 @@ class TestGetLearningJourney(TestApp):
         }
         )
 
-# class TestCreateLearningJourney(TestApp):
-#     def test_create_learning_journey(self):
-#         response = self.client.post("/learningJourney/create", data=json.dumps({
-#                     "learningJourney": {
-#                         "learningJourneyId": 511,
-#                         "staffId": 140008,
-#                         "workRoleId": 810
-#                     },
-#                     "skills":[{
-#                         "skillId": 207,
-#                         "courses": ["MGT002"]
-#                     },
-#                     {   
-#                         "skillId":208,
-#                         "courses": ["MGT002"]
-#                     }]
-#                 }),
-#         content_type='application/json')
-#         self.assertEqual(response.json, {
-#                     {
-#                         "code": 201,
-#                         "data": {
-#                             "learningJourneyId": 511,
-#                             "skills": [
-#                                 {
-#                                     "courses": [
-#                                         "MGT002"
-#                                     ],
-#                                     "skillId": 207
-#                                 },
-#                                 {
-#                                     "courses": [
-#                                         "MGT002"
-#                                     ],
-#                                     "skillId": 208
-#                                 }
-#                             ]
-#                         }
-#                     }
-#                     })
+class TestCreateSkill(TestApp):
+    def test_create_skill(self):
+        response = self.client.post("/skill/create", data=json.dumps({
+                    "skill": {
+                        "skillName": 200,
+                        "skillDesc": "hello",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 201,
+                        "data": {
+                            "courses": [
+                                "COR001",
+                                "COR002"
+                            ],
+                            "skill": {
+                                "isDeleted": False,
+                                "skillDesc": "hello",
+                                "skillId": 1,
+                                "skillName": "200"
+                            }
+                        }
+                    })
 
-#     def test_create_learning_journey_fail(self):
-#         response = self.client.post("/learningJourney/create", data=json.dumps({
-#                     "learningJourney": {
-#                         "learningJourneyId": 511,
-#                         "staffId": 140008,
-#                         "workRoleId": 999
-#                     },
-#                     "skills":[{
-#                         "skillId": 207,
-#                         "courses": ["MGT002"]
-#                     },
-#                     {   
-#                         "skillId":208,
-#                         "courses": ["MGT002"]
-#                     }]
-#                 }),
-#         content_type='application/json')
-#         self.assertEqual(response.json, {
-#                         "code": 500,
-#                         "message": "An error occurred creating the learning journey."
-#                     })
+    def test_create_skill_fail(self):
+        response = self.client.post("/skill/create", data=json.dumps({
+                    "skill": {
+                        "skillName": "asd",
+                        "isDeleted": 0
+                    },
+                    "courses": ["COR001", "COR002"]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 500,
+                        "message": "An error occurred creating the skill."
+                    })
+
+class TestCreateLearningJourney(TestApp):
+    def test_create_learning_journey(self):
+        response = self.client.post("/learningJourney/create", data=json.dumps({
+                    "learningJourney": {
+                        "staffId": 140001,
+                        "workRoleId": 800
+                    },
+                    "skills": [{
+                        "skillId":207,
+                        "courses":["MGT002"]
+
+                    }]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 201,
+                        "data": {
+                            "learningJourneyId":1,
+                            "skills": [{
+                                "courses":["MGT002"],
+                                "skillId": 207
+                            }]
+                        }
+                    })
+
+    def test_create_learning_journey_fail(self):
+        response = self.client.post("/learningJourney/create", data=json.dumps({
+                    "learningJourney": {
+                        "staffId": 140001
+                    },
+                    "skills": [{
+                        "skillId":207,
+                        "courses":["MGT002"]
+
+                    }]
+                }),
+        content_type='application/json')
+        self.assertEqual(response.json, {
+                        "code": 500,
+                        "data": {
+                            "learningJourneyId":1,
+                            "skills": [{
+                                "courses":["MGT002"],
+                                "skillId": 207
+                            }]
+                        },
+                        "message": "An error occurred creating the learning journey."
+                    })
 
 
 class TestAddCourseToLearningJourney(TestApp):
