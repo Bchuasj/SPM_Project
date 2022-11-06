@@ -209,9 +209,19 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20updated%20boss%20workrole.png)
 
+You would also be able to update (add / remove) skills required by the work role if necessary. 
+
 ## 3d. Delete roles
 
 #### For HR:
+
+1. At the Work Roles table, click on the "Delete" button for the Work Role you would like to delete. In our case, we chose to delete the Boss Work role. 
+
+2. Upon clicking the "Delete" button, a popup will show asking for if you want to confirm deletion (as shown below). Click on "Delete".
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20confirm%20deletion%20of%20workrole.png)
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20boss%20workrole%20deleted.png)
 
 ## 4. CRUD for skills
 
