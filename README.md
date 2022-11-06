@@ -243,6 +243,9 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20people%20skill%20successfully.png)
 
+5. Click on "Skill" tab and the newly created skill is shown in the Skills table. In our case, it is "People Management" skill (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8ed%20skill%20shown.png)
 
 ## 4b. Update of skills
 
