@@ -1,0 +1,12 @@
+workRole_Id,workRole_Name,isDeleted
+800,Technical Lead,0
+801,Network Administrator,0
+802,Project Manager,0
+803,Product Manager,0
+804,Business Analyst,0
+805,Marketing Specialist,1
+806,Sales Representative,0
+807,Customer Service Representive,0
+808,Administrative Assistant,1
+809,Finance Manager,0
+810,Operations Executive,0
