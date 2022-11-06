@@ -38,7 +38,6 @@ function getAllSkills() {
                                     <p><b>Description</b></p>
                                     <p>${skills[skill].skillDesc}</p>
                                     <p><b>Courses</b></p>
-                                    <br><br>
                                     <div id="skillCourses${skills[skill].skillId}"></div>
                                 </div>
                             </div>
