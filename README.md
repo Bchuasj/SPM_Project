@@ -88,7 +88,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 #### For Staff:
 1. Click on Work Roles tab.
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20WorkRoles.jpg)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20workroles.png)
 
 2. If you would like to look for "Technical Lead" Workrole, type in "Tech" in the search bar and you should see that only "Technical Lead" is shown in Workrole table (as shown below).  
 
@@ -103,7 +103,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 #### For Staff:
 1. Click on Skills tab.
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20workroles.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills.jpg)
 
 2. Click on "View Details" of "Basic Management" Skill.  
 
