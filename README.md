@@ -141,10 +141,21 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
+## 3a. Create new roles
 
-## 3. CRUD for roles
+#### For HR:
+
+## 3b. Read/View roles
 
 #### For Staff:
+
+## 3c. Update roles
+
+#### For HR:
+
+## 3d. Delete roles
+
+#### For HR:
 
 ## 4. CRUD for skills
 
