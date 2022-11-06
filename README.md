@@ -235,7 +235,14 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20skill.png)
 
-3. 
+3. Insert the Skill Name, Skill Description and relevant courses (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20people%20management%20skill.png)
+
+4. Click on "Create" and a green message indicating "Skill has been created successfully!" will be displayed (as shown below).  
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20people%20skill%20successfully.png)
+
 
 ## 4b. Update of skills
 
