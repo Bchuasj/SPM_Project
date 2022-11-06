@@ -165,11 +165,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20name%20filled.png)
 
-![alt text]()
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20adding%20skill%20to%20ceo%20workrole.png)
 
 5. Select the skill you would like to add to the new work role (as shown below) and click "Save changes".
 
-![alt text]()
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20added%20id%20200%20to%20%workrole.png)
 
 6. Once all the fields have been filled (as shown below), click "Create" button to create new work role.
 
