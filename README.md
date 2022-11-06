@@ -173,7 +173,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20adding%20skill%20to%20ceo%20workrole.jpg)
 
-5. Select the skill you would like to add to the new work role (as shown below) and click "Save changes".
+5. Select the skill you would like to add to the new Work role (as shown below) and click "Save changes".
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20added%20id%20200%20to%20workrole.jpg)
 
@@ -192,6 +192,18 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 ## 3c. Update roles
 
 #### For HR:
+
+1. Click "Edit Details" button of Work role you would like to update. In our case, we chose CEO Work role.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20workrole.png)
+
+2. To update work role name, change the role name as you want. In our case, we changed CEO to Boss.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%boss.png)
+
+3. Click "Update" button and a green message will indicate that "Work role has been updated successfully!" (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%boss%20successfully.png)
 
 ## 3d. Delete roles
 
