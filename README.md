@@ -125,15 +125,15 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 3. Click on "+ Add Course" button.
 
-4. Click on the checkbox next to course with Course ID "SAL003" and click on "Save Changes" button.
+4. Click on the checkbox next to course you would like to add and click on "Save Changes" button. In our case, we chose course with Course ID "SAL003" .
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20add%20course%20to%20LJ.jpg)
 
-5. There will be a message in green indicating that "Course(s) added successfully!" and SAL003 course will be one of the courses added under "Customer Service Representative" Learning Journey (as shown below).
+5. There will be a message in green indicating that "Course(s) added successfully!" (as shown below) and the newly added course will be one of the courses added under "Customer Service Representative" Learning Journey. In our case, it is course with Course ID "SAL003".
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20add%20course%20to%20LJ.jpg)
 
-4. To remove courses from Learning Journey, click on the "Delete" button next to SAL003 course.
+4. To remove courses from Learning Journey, click on the "Delete" button next to course you would like to delete. In this case, we chose to delete the SAL003 course.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20view%20from%20LJ.jpg)
 
@@ -141,7 +141,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20from%20LJ.jpg)
 
-6. There will be a message in green indicating that "Deleted successfully!" and SAL003 course will no longer be under "Customer Service Representative" Learning Journey (as shown below).
+6. There will be a message in green indicating that "Deleted successfully!" (as shown below) and the course deleted will no longer be under the Learning Journey. In our case, we chose to delete the SAL003 course.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
@@ -251,9 +251,25 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
+1. Click on "Edit Details" of skill you would like to update. In our case, we chose to update "Basic Management" Skill.
+
+2. Click "Add / Remove Courses" from skill and if you would like to remove course, you can uncheck the checkbox beside a particular course. In our case, we chose to uncheck "Stakeholder Management" course from "Basic Management" Skill.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20skill.jpg)
+
+3. Click "Update" to update the skill.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20remove%20course%20from%20skill.jpg)
+
+4. A green message indicating that "Skill has been updated successfully!" will be displayed (as shown below).
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20skill%20successfully.jpg)
+
 ## 4c. Delete of skills
 
 #### For HR:
+
+
 
 ## 4d. Read / View skills
 
