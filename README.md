@@ -155,7 +155,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 2. Click on Work Roles and you will see the Work Roles page (as shown below).
 
-![alt text]()
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20workroles%20page.png)
 
 3. Click on "+ Create New Work Role" button and you will see the Create New Work Role page (as shown below). 
 
