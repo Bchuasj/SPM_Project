@@ -273,7 +273,7 @@ You would also be able to update (add / remove) skills required by the work role
 
 2. Click "Delete" when popup appears to confirm deletion of skill.
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20confirm%20deletion%20of%20skill.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20confirm%20deletion%20of%20skill.png)
 
 3. Skill that was deleted will no longer be seen in the skills table. In our case, "People Management" skill is no longer seen.
 
