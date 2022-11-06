@@ -145,7 +145,9 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 #### For Staff:
 
-1. 
+1. Click on Work Roles tab to view all work roles available.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20workroles.png)
 
 ## 3b. Create new roles
 
