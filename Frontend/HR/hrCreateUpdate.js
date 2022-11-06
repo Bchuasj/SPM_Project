@@ -70,6 +70,12 @@ function createSkill() {
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("courses").value;
     selectedCourses = courses.split(",")
+
+    document.getElementById("statusMsg").innerHTML = ""
+    document.getElementById("skillNameMsg").innerHTML = ""
+    document.getElementById("skillDescMsg").innerHTML = ""
+    document.getElementById("courseIdMsg").innerHTML = ""
+
     if (skillName == "" && skillDesc == "" && courses == ""){
         document.getElementById("statusMsg").className = "text-danger"
         document.getElementById("statusMsg").innerHTML = "<b>Please fill up the fields!</b>"
