@@ -269,7 +269,15 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
+1. Click on "Delete" button of the skill you would wish to delete. In our case, we chose to delete "People Management" skill.
 
+2. Click "Delete" when popup appears to confirm deletion of skill.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20confirm%20deletion%20of%20skill.png)
+
+3. Skill that was deleted will no longer be seen in the skills table. In our case, "People Management" skill is no longer seen.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20after%20deletion%20of%20skill.png)
 
 ## 4d. Read / View skills
 
