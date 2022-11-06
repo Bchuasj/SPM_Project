@@ -90,7 +90,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20work%20roles%20.png)
 
-2. If you would like to look for a particular Workrole, you can type in the search bar and search by name or work role ID and you should see that only 1 Workrole is shown in the work roles table. In our case, we searched for "Technical Lead" / Work Role ID 800 (as shown below).  
+2. If you would like to look for a particular Work role, you can type in the search bar and search by name or work role ID and you should see that only 1 Work role is shown in the work roles table. In our case, we searched for "Technical Lead" / Work Role ID 800 (as shown below).  
 
 #### By Name: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
@@ -102,14 +102,14 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
-## 2a. Users should be able to see the courses they can take to acquire those skills
+## 2a. Users should be able to see the courses they can take to acquire those skills / Read & View skills
 
 #### For Staff:
 1. Click on Skills tab.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills.jpg)
 
-2. Click on "View Details" of "Basic Management" Skill.  
+2. Click on "View Details" of skill to see the courses that needs to be taken to acquire that skill. In our case, we chose to see the courses of "Basic Management" Skill.  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20courses%20for%20skill.jpg)
 
@@ -119,7 +119,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20LJ.jpg)
 
-2. Click on "Edit Details" button of "Customer Service Representative" Learning Journey.
+2. Click on "Edit Details" button of Learning Journey you would like to add courses to. In our case, we chose "Customer Service Representative" Learning Journey.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20edit%20LJ.jpg)
 
@@ -129,11 +129,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20add%20course%20to%20LJ.jpg)
 
-5. There will be a message in green indicating that "Course(s) added successfully!" (as shown below) and the newly added course will be one of the courses added under "Customer Service Representative" Learning Journey. In our case, it is course with Course ID "SAL003".
+5. There will be a message in green indicating that "Course(s) added successfully!" (as shown below) and the newly added course will be one of the courses added under "Customer Service Representative" Learning Journey. In our case, the course added is that of Course ID "SAL003".
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20add%20course%20to%20LJ.jpg)
 
-4. To remove courses from Learning Journey, click on the "Delete" button next to course you would like to delete. In this case, we chose to delete the SAL003 course.
+4. To remove courses from Learning Journey, click on the "Delete" button next to course you would like to delete. In our case, we chose to delete the SAL003 course.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20view%20from%20LJ.jpg)
 
@@ -153,7 +153,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20work%20roles%20.png)
 
-## 3b. Create new roles
+## 3b. Create new roles / Assigning skills to roles
 
 #### For HR:
 
@@ -223,7 +223,7 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20boss%20workrole%20deleted.png)
 
-## 4a. Create skills
+## 4a. Create skills / Assigning skills to courses 
 
 #### For HR:
 
@@ -278,14 +278,6 @@ You would also be able to update (add / remove) skills required by the work role
 3. Skill that was deleted will no longer be seen in the skills table. In our case, "People Management" skill is no longer seen.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20after%20deletion%20of%20skill.png)
-
-## 4d. Read / View skills
-
-#### For Staff:
-
-## 5. Assigning skills to roles; assigning skills to courses 
-
-#### For HR:
 
 ## 👨‍🏫 Acknowledgement
 Professor: Dr Rajesh Krishna BALAN  
