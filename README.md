@@ -280,6 +280,6 @@ You would also be able to update (add / remove) skills required by the work role
 #### For HR:
 
 ## 👨‍🏫 Acknowledgement
-Professor: Dr Rajesh Krishna BALAN 
-Instructor: Chow Kong Ming
-Teaching Assistant: Jing Wei
+Professor: Dr Rajesh Krishna BALAN  
+Instructor: Chow Kong Ming  
+Teaching Assistant: Jing Wei  
