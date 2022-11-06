@@ -219,7 +219,7 @@ You would also be able to update (add / remove) skills required by the work role
 
 2. Upon clicking the "Delete" button, a popup will show asking for if you want to confirm deletion (as shown below). Click on "Delete".
 
-![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20confirm%20deletion%20of%20workrole.png)
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20confirm%20deletion%20of%20workrole.png)
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20boss%20workrole%20deleted.png)
 
