@@ -145,7 +145,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
-## 3a. Read/View roles
+## 3a. Read / View roles
 
 #### For Staff:
 
@@ -223,9 +223,29 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20boss%20workrole%20deleted.png)
 
-## 4. CRUD for skills
+## 4a. Create skills
 
 #### For HR:
+
+1. Click on Skills tab to view the list of available skills.
+
+![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20skills%20view.png)
+
+2. To create a skill, click on "+ Create New Skill" button.
+
+3. 
+
+## 4b. Update of skills
+
+#### For HR:
+
+## 4c. Delete of skills
+
+#### For HR:
+
+## 4d. Read / View skills
+
+#### For Staff:
 
 ## 5. Assigning skills to roles; assigning skills to courses 
 
