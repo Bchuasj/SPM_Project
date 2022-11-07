@@ -42,6 +42,8 @@ function getAllStaff() {
             }
         }).catch(function (error) {
             console.log(error);
+            var invis = document.getElementById("invis")
+            invis.style.display = ""
         }
     );
 }
@@ -51,12 +53,12 @@ function getSkillsForStaff(staffId){
         .then(function (response) {
 
             var skills = response.data.data.skills
-            
+            console.log(skills)
+            var staffSkills = document.getElementById("staffSkills" + staffId)
             if(skills.length == 0){
                 return 
             }
 
-            var staffSkills = document.getElementById("staffSkills" + staffId)
             staffSkills.innerHTML = `
             <table class="table align-items-center">
                 <thead>
@@ -81,6 +83,8 @@ function getSkillsForStaff(staffId){
             
         })
         .catch(function (error) {
+            var staffSkills = document.getElementById("staffSkills" + staffId)
+            staffSkills.innerHTML = "No skills found.";
             console.log(error);
             // getAllSkills()
         }
