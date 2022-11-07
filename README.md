@@ -16,7 +16,7 @@ to run your software release
 
 ## First Release – Core Functionality
 1. Users should be able to select a role they want and see a list of skills required
-2. Users should be able to see the courses they can take to acquire those skills, and add/remove them on their learning journey
+2. Users should be able to see the courses they can take to acquire those skills, and add/remove them to/from their learning journey
 3. CRUD for roles
 4. CRUD for skills
 5. Assigning skills to roles; assigning skills to courses 
@@ -24,7 +24,7 @@ to run your software release
 ## Access to Database
 1. Launch Wampserver64 
 
-2. Go to phpMyAdmin and login. The login details are:
+2. Go to phpMyAdmin and login. The login details are as follows:
   * For Windows users:
     - Username: root
     - Password: -
@@ -38,19 +38,19 @@ to run your software release
 4. Following that, click on "Import" to import CSV files one by one into phpmyadmin to populate the tables in SPM DDL Script.sql. 
 
 5. The SQL files are to be individually imported in this order:
-    1. Role.csv in role table
+    1. role.csv in role table
     2. workRole.csv in workrole table
-    3. Skill.csv in skill table
+    3. skill.csv in skill table
     4. workRoleSkills.csv in workroleskills table
-    5. Staff.csv in staff table
+    5. staff.csv in staff table
     6. courses.csv in course table
-    7. SkillCourses.csv in skillcourses table
-    8. LearningJourney.csv in learningjourney table
-    9. LearningJourneyDetails.csv in learningjourneydetails table
-    10. StaffSkills.csv in staffskills table
-    11. Registration.csv in registration table
+    7. skillCourses.csv in skillcourses table
+    8. learningjourney.csv in learningjourney table
+    9. learningjourneydetails.csv in learningjourneydetails table
+    10. staffSkills.csv in staffskills table
+    11. registration.csv in registration table
 
-6. Start a new terminal on VSCcode and change the directory to backend folder.
+6. Start a new terminal on Visual Studio Ccode and change the directory to the backend folder.
 
 7. Run app.py in the terminal with the following command:
     ``` python
@@ -75,7 +75,7 @@ Ensure Wampserver64 is running and begin the process by logging in at login.html
   * For HR:
     - Staff ID: 130001
 
-Upon logging in, both HR and Staff will be at the View Learning Journey Respectively (as shown below).
+Upon logging in, both HR and Staff will be on the Learning journeys page (as shown below).
 
 #### HR View on Login:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20View%20on%20login.jpg)
@@ -86,11 +86,11 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 ## 1. Select a role they want and see a list of skills required
 
 #### For Staff:
-1. Click on Work Roles tab.
+1. Click on the Work Roles tab in the navbar.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20work%20roles%20.png)
 
-2. If you would like to look for a particular Work role, you can type in the search bar and search by name or work role ID and you should see that only 1 Work role is shown in the work roles table. In our case, we searched for "Technical Lead" / Work Role ID 800 (as shown below).  
+2. If you would like to look for a particular work role, you can search for the role by Name or Work Role ID in the search bar and you should see that only 1 work role is shown. In our case, we searched for "Technical Lead" / Work Role ID 800 (as shown below).  
 
 #### By Name: 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20technical%20lead%20workrole.png)
@@ -98,50 +98,50 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 #### By Work Role ID:
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20search%20workrole%20by%20id.png)
 
-3. To view the list of skills associated with the Workrole chosen, click on "View details" button.
+3. To view a list of skills associated with the work role, click on the "View details" button.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills%20for%20technical%20lead%20workrole.png)
 
 ## 2a. Users should be able to see the courses they can take to acquire those skills / Read & View skills
 
 #### For Staff:
-1. Click on Skills tab.
+1. Click on the Skills tab in the navbar.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20skills.jpg)
 
-2. Click on "View Details" of skill to see the courses that needs to be taken to acquire that skill. In our case, we chose to see the courses of "Basic Management" Skill.  
+2. Click on the "View Details" button on each skill to see the courses that need to be taken to acquire that skill. In our case, we chose to see the courses needed for the "Basic Management" skill.  
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20courses%20for%20skill.jpg)
 
 ## 2b. and add/remove them on their learning journey. 
 
-1. To add courses to Learning Journey, click on Learning journeys tab.
+1. To add courses to a Learning Journey, click on the Learning journeys tab in the navbar.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20LJ.jpg)
 
-2. Click on "Edit Details" button of Learning Journey you would like to add courses to. In our case, we chose "Customer Service Representative" Learning Journey.
+2. Click on the "Edit Details" button of a Learning Journey you would like to add courses to. In our case, we chose to add courses to the "Customer Service Representative" Learning Journey.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20edit%20LJ.jpg)
 
-3. Click on "+ Add Course" button.
+3. Click on the "+ Add Course" button.
 
-4. Click on the checkbox next to course you would like to add and click on "Save Changes" button. In our case, we chose course with Course ID "SAL003" .
+4. Click on the checkbox next to course you would like to add and click on the "Save Changes" button. In our case, we chose a course with Course ID "SAL003" .
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20add%20course%20to%20LJ.jpg)
 
-5. There will be a message in green indicating that "Course(s) added successfully!" (as shown below) and the newly added course will be one of the courses added under "Customer Service Representative" Learning Journey. In our case, the course added is that of Course ID "SAL003".
+5. There will be a message in green indicating that "Course(s) added successfully!" (as shown below) and the newly added course will be added under the "Customer Service Representative" Learning Journey. In our case, the course added has Course ID "SAL003".
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20add%20course%20to%20LJ.jpg)
 
-4. To remove courses from Learning Journey, click on the "Delete" button next to course you would like to delete. In our case, we chose to delete the SAL003 course.
+4. To remove courses from a Learning Journey, click on the "Delete" button next to the course you would like to delete. In our case, we chose to delete the SAL003 course.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20view%20from%20LJ.jpg)
 
-5. Click on "Delete" in the popup to Confirm deletion.
+5. Click on the "Delete" button in the popup to confirm deletion.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20delete%20course%20from%20LJ.jpg)
 
-6. There will be a message in green indicating that "Deleted successfully!" (as shown below) and the course deleted will no longer be under the Learning Journey. In our case, we chose to delete the SAL003 course.
+6. There will be a message in green indicating that "Deleted successfully!" (as shown below) and the course deleted will no longer be under a Learning Journey. In our case, we chose to delete the SAL003 course.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20successfully%20delete%20course%20from%20LJ.jpg)
 
@@ -149,7 +149,7 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 #### For Staff:
 
-1. Click on Work Roles tab to view all work roles available.
+1. Click on the Work Roles tab in the navbar to view all work roles available.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/staff%20view%20work%20roles%20.png)
 
@@ -157,35 +157,35 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 #### For HR:
 
-1. Logout and login again with Staff ID 130001 
+1. Logout and login again with Staff ID 130001.
 
-2. Click on Work Roles and you will see the Work Roles page (as shown below).
+2. Click on the Work Roles tab in the navbar and you will see the Work Roles page (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20workroles%20page.png)
 
-3. Click on "+ Create New Work Role" button and you will see the Create New Work Role page (as shown below). 
+3. Click on the "+ Create New Work Role" button and you will see the Create New Work Role page (as shown below). 
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20create%20new%20workrole.png)
 
-4. Once filled in the Work Role Name (as shown below), click on "Add/Remove Skills" button to add skills to your new Work Role.
+4. Once the Work Role Name field is filled (as shown below), click on the "Add/Remove Skills" button to add skills to your new work role.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20name%20filled.png)
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20adding%20skill%20to%20ceo%20workrole.jpg)
 
-5. Select the skill you would like to add to the new Work role (as shown below) and click "Save changes".
+5. Select the skill you would like to add to the new work role (as shown below) and click on the "Save changes" button.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20added%20id%20200%20to%20workrole.jpg)
 
-6. Once all the fields have been filled (as shown below), click "Create" button to create new work role.
+6. Once all the fields have been filled (as shown below), click on the "Create" button to create a new work role.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20all%20filled.png)
 
-7. A green message indicating that "Work Role has been created successfully!" would show up (as shown below).
+7. A green message indicating that "Work Role has been created successfully!" will show up (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20workrole%20successful.png)
 
-8. Click on Work Roles tab to view the newly created Work Role. In our case, CEO work role is shown in work roles table.
+8. Click on Work Roles tab to view the newly created Work Role. In our case, the new CEO work role is shown in work roles table.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20workrole%20CEO%20shown.png)
 
@@ -193,19 +193,19 @@ Upon logging in, both HR and Staff will be at the View Learning Journey Respecti
 
 #### For HR:
 
-1. Click "Edit Details" button of Work role you would like to update. In our case, we chose CEO Work role.
+1. Click on the the "Edit Details" button of the work role you would like to update. In our case, we chose the CEO work role.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20workrole.png)
 
-2. To update work role name, change the role name as you want. In our case, we changed CEO to Boss.
+2. To update the Work Role Name, change the role name as you want. In our case, we changed CEO to Boss.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%20boss.png)
 
-3. Click "Update" button and a green message will indicate that "Work role has been updated successfully!" (as shown below).
+3. Click on the "Update" button and a green message will indicate that "Work role has been updated successfully!" (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20ceo%20to%20boss%20successfully.png)
 
-4. Click on Work Roles tab and you will see that the Name has been changed in Work roles table (as shown below).
+4. Click on the Work Roles tab and you will see that the Name has been changed in the work roles table (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20updated%20boss%20workrole.png)
 
@@ -215,9 +215,9 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
-1. At the Work Roles table, click on the "Delete" button for the Work Role you would like to delete. In our case, we chose to delete the Boss Work role. 
+1. From the work roles table, click on the "Delete" button for the work role you would like to delete. In our case, we chose to delete the Boss work role. 
 
-2. Upon clicking the "Delete" button, a popup will show asking for if you want to confirm deletion (as shown below). Click on "Delete".
+2. Upon clicking the "Delete" button, a popup will show asking to confirm the deletion (as shown below). Click on "Delete".
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20confirm%20deletion%20of%20workrole.png)
 
@@ -227,11 +227,11 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
-1. Click on Skills tab to view the list of available skills.
+1. Click on the Skills tab in the navbar to view the list of available skills.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20skills%20view.png)
 
-2. To create a skill, click on "+ Create New Skill" button and you will be redirected to Create New Skill page (as shown below).
+2. To create a skill, click on "+ Create New Skill" button and you will be redirected to the Create New Skill page (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20skill.png)
 
@@ -243,7 +243,7 @@ You would also be able to update (add / remove) skills required by the work role
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8%20people%20skill%20successfully.png)
 
-5. Click on "Skill" tab and the newly created skill is shown in the Skills table. In our case, it is "People Management" skill (as shown below).
+5. Click on the Skills tab in the navbar and the newly created skill will be shown in the skills table. In our case, the new skill is "People Management" (as shown below).
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20cr8ed%20skill%20shown.png)
 
@@ -251,15 +251,15 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
-1. Click on "Edit Details" of skill you would like to update. In our case, we chose to update "Basic Management" Skill.
+1. Click on the "Edit Details" button of a skill you would like to update. In our case, we chose to update the "Basic Management" skill.
 
-2. Click "Add / Remove Courses" from skill and if you would like to remove course, you can uncheck the checkbox beside a particular course. In our case, we chose to uncheck "Stakeholder Management" course from "Basic Management" Skill.
+2. Click on the "Add / Remove Courses" button and if you would like to remove a course, you can uncheck the checkbox beside the particular course. In our case, we chose to uncheck the "Stakeholder Management" course from the "Basic Management" skill.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20update%20skill.jpg)
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20remove%20course%20from%20skill.jpg)
 
-3. Click "Update" button to update the skill.
+3. Click on the "Update" button to update the skill.
 
 4. A green message indicating that "Skill has been updated successfully!" will be displayed (as shown below).
 
@@ -269,13 +269,13 @@ You would also be able to update (add / remove) skills required by the work role
 
 #### For HR:
 
-1. Click on "Delete" button of the skill you would wish to delete. In our case, we chose to delete "People Management" skill.
+1. Click on the "Delete" button of the skill you wish to delete. In our case, we chose to delete the "People Management" skill.
 
-2. Click "Delete" when popup appears to confirm deletion of skill.
+2. Click "Delete" when a popup appears to confirm deletion of the skill.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/HR%20confirm%20deletion%20of%20skill.png)
 
-3. Skill that was deleted will no longer be seen in the skills table. In our case, "People Management" skill is no longer seen.
+3. The skill that was deleted will no longer be seen in the Skills table. In our case, the "People Management" skill is no longer seen.
 
 ![alt text](https://github.com/Bchuasj/SPM_Project/blob/main/Screenshots/hr%20after%20deletion%20of%20skill.png)
 
