@@ -1,5 +1,7 @@
 function getAllStaff() {
     var staffTable = document.getElementById("staffTable")
+    var invis = document.getElementById("invis")
+    invis.innerHTML = ""
     axios.get("http://127.0.0.1:5006/staff")
         .then(function (response) {
             var staff = response.data.data.staff;
@@ -42,8 +44,7 @@ function getAllStaff() {
             }
         }).catch(function (error) {
             console.log(error);
-            var invis = document.getElementById("invis")
-            invis.style.display = ""
+
         }
     );
 }
@@ -119,9 +120,11 @@ function changeSearch(){
 
 function searchByStaff() {
     
-    var hiddenStaffs = 0;
-    nostaffs = document.getElementById("invis");
     // noskills.style.display = "none";
+    var hiddenStaffs = 0
+    var invis = document.getElementById("invis")
+    invis.innerHTML = ""
+
 
     // print what key is pressed
     var input, filter, staffList,  staffName, i, txtValue, numValue;
@@ -146,6 +149,7 @@ function searchByStaff() {
             staffList[i].style.display = "";
             } else {
             staffList[i].style.display = "none";
+            hiddenStaffs += 1
             }
         }
        
@@ -161,26 +165,32 @@ function searchByStaff() {
             } 
             else {
            staffList[i].style.display = "none";
+           hiddenStaffs += 1
             }
         }
     }
     else{
         for (i = 0; i < staffList.length; i++) {
             staffList[i].style.display = "";
-            hiddenStaffs += 1;
         }
     }
 
-    if (hiddenStaffs == staffList.length){
-        nostaffs.style.display = "";
-        nostaffs.innerHTML = "There is no staff(s) available for the input given";
+    console.log("hiddenStaffs", hiddenStaffs)
+    console.log("staff list length", staffList.length)
+
+    if(hiddenStaffs == staffList.length){
+        invis.innerHTML = "No staff have been found"
+
     }
+
 }
 
 function searchBySkill() {
 
-    var hiddenStaffs = 0;
-    nostaffs = document.getElementById("invis");
+    var hiddenStaffs = 0
+    var invis = document.getElementById("invis")
+    invis.innerHTML = ""
+
     // noskills.style.display = "none";
 
     // print what key is pressed
@@ -207,6 +217,7 @@ function searchBySkill() {
             // default show all unless no skills 
             if (skillList.length == 0){
                 staffList[i].style.display = "none";
+                hiddenStaffs += 1
             } else {
                 staffList[i].style.display = "";
             }
@@ -233,10 +244,11 @@ function searchBySkill() {
             }
             shown = 0
 
-            if (hiddenStaffs == staffList.length){
-                nostaffs.style.display = "";
-                nostaffs.innerHTML = "There is no staff(s) available for the input given";
+            if(hiddenStaffs == staffList.length){
+                invis.innerHTML = "No staff have been found"
+        
             }
+
         }
        
     }
@@ -257,6 +269,7 @@ function searchBySkill() {
             // default show all unless no skills 
             if (skillList.length == 0){
                 staffList[i].style.display = "none";
+                hiddenStaffs += 1
             } else {
                 staffList[i].style.display = "";
             }
@@ -280,10 +293,12 @@ function searchBySkill() {
             // reset shown for each staff 
             }
             shown = 0
-            if (hiddenStaffs == staffList.length){
-                nostaffs.style.display = "";
-                nostaffs.innerHTML = "There is no staffs(s) available for the input given";
+
+            if(hiddenStaffs == staffList.length){
+                invis.innerHTML = "No staff have been found"
+        
             }
+
         }
     }
     else{
