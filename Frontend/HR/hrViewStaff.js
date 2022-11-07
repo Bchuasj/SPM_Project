@@ -180,7 +180,7 @@ function searchByStaff() {
     console.log("staff list length", staffList.length)
 
     if(hiddenStaffs == staffList.length){
-        invis.innerHTML = "No staff have been found"
+        invis.innerHTML = "There is no staff with that skill available"
 
     }
 
@@ -246,7 +246,7 @@ function searchBySkill() {
             shown = 0
 
             if(hiddenStaffs == staffList.length){
-                invis.innerHTML = "No staff have been found"
+                invis.innerHTML = "There is no staff with that skill available"
         
             }
 
@@ -296,7 +296,7 @@ function searchBySkill() {
             shown = 0
 
             if(hiddenStaffs == staffList.length){
-                invis.innerHTML = "No staff have been found"
+                invis.innerHTML = "There is no staff with that skill available"
         
             }
 
