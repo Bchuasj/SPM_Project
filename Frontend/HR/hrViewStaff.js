@@ -118,6 +118,11 @@ function changeSearch(){
 }
 
 function searchByStaff() {
+    
+    var hiddenStaffs = 0;
+    nostaffs = document.getElementById("invis");
+    // noskills.style.display = "none";
+
     // print what key is pressed
     var input, filter, staffList,  staffName, i, txtValue, numValue;
     input = document.getElementById("searchInputStaff");
@@ -162,11 +167,22 @@ function searchByStaff() {
     else{
         for (i = 0; i < staffList.length; i++) {
             staffList[i].style.display = "";
+            hiddenStaffs += 1;
         }
+    }
+
+    if (hiddenStaffs == staffList.length){
+        nostaffs.style.display = "";
+        nostaffs.innerHTML = "There is no staff(s) available for the input given";
     }
 }
 
 function searchBySkill() {
+
+    var hiddenStaffs = 0;
+    nostaffs = document.getElementById("invis");
+    // noskills.style.display = "none";
+
     // print what key is pressed
     var input, filter, staffList,  skillList, staffIdList, i, txtValue, numValue;
     input = document.getElementById("searchInputSkill");
@@ -208,12 +224,19 @@ function searchBySkill() {
                         shown = 1
                     } else {
                     staffList[i].style.display = "none";
+                    hiddenStaffs += 1
+
                     }
                 }
             
             // reset shown for each staff 
             }
             shown = 0
+
+            if (hiddenStaffs == staffList.length){
+                nostaffs.style.display = "";
+                nostaffs.innerHTML = "There is no staff(s) available for the input given";
+            }
         }
        
     }
@@ -250,12 +273,17 @@ function searchBySkill() {
                         shown = 1
                     } else {
                     staffList[i].style.display = "none";
+                    hiddenStaffs += 1
                     }
                 }
             
             // reset shown for each staff 
             }
             shown = 0
+            if (hiddenStaffs == staffList.length){
+                nostaffs.style.display = "";
+                nostaffs.innerHTML = "There is no staffs(s) available for the input given";
+            }
         }
     }
     else{
