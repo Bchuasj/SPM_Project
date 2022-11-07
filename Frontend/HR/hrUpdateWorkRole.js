@@ -133,6 +133,7 @@ function getWorkRole(){
             var skills = response.data.data.skills;
             console.log(skills)
             document.getElementById("workRoleName").value = workRole.workRoleName;
+            document.getElementById("orgWorkRoleName").value = workRole.workRoleName;
             // based on the input values, tick the checkbox
             for (skill in skills){
                 console.log(skill)
@@ -152,6 +153,7 @@ function updateWorkRole(){
     var workRoleId = location.search.substring(1);
     console.log("id",workRoleId)
     var workRoleName = document.getElementById("workRoleName").value;
+    var orgWorkRoleName = document.getElementById("orgWorkRoleName").value
     var skills = document.getElementById("skills").value;
     var workRoleNameMsg = document.getElementById("roleNameMsg")
     var skillIdMsg = document.getElementById("skillIdMsg")
@@ -176,50 +178,61 @@ function updateWorkRole(){
         // alert("Please enter at least 1 skill!")
         return 
     } else {
-
-        isDeleted = 0
-        axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
-            {           
-                workRoleName: workRoleName,
-                isDeleted: isDeleted,
-                skills: selectedSkills
-            
-        })
-            .then(function (response) {
-                console.log(response);
-                document.getElementById("statusMsg").className = "text-success"
-                document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
-            }
-        )
-
-        // Get request to check if work role name already exists
-        // axios.get(`http://127.0.0.1:5006/workRole/name/${workRoleName}`)
-        // .then(function (response) {
-        //     if (response.data.data.workRoleName){
-        //         workRoleNameMsg.innerHTML = "Please enter a unique work role name"
-        //         workRoleNameMsg.className = "text-danger mx-3"
-        //         return
-        //     }
-        // }).catch(function (){
-        //         // Put request
-        //         isDeleted = 0
-        //         axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
-        //             {           
-        //                 workRoleName: workRoleName,
-        //                 isDeleted: isDeleted,
-        //                 skills: selectedSkills
-                    
-        //         })
-        //             .then(function (response) {
-        //                 console.log(response);
-        //                 document.getElementById("statusMsg").className = "text-success"
-        //                 document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
-        //             }
-        //         )
-                                
-        //     })
         
+        // Get request to check if work role name already exists
+        axios.get(`http://127.0.0.1:5006/workRole/name/${workRoleName}`)
+        .then(function (response) {
+            console.log(response)
+            if (response.data.data.workRoleName){
+                if (workRoleName != orgWorkRoleName){
+                    document.getElementById("roleNameMsg").className = "text-danger"
+                    document.getElementById("roleNameMsg").innerHTML = "<b>Please enter a unique name!</b>"
+                    return
+                }
+                else {
+                    // Put request
+                    isDeleted = 0
+                    axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
+                        {           
+                            workRoleName: workRoleName,
+                            isDeleted: isDeleted,
+                            skills: selectedSkills
+                        
+                    })
+                        .then(function (response) {
+                            console.log(response);
+                            document.getElementById("statusMsg").className = "text-success"
+                            document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
+                        }
+                    ).catch(function (error) {
+                        console.log(error);
+                        document.getElementById("statusMsg").className = "text-danger"
+                        document.getElementById("statusMsg").innerHTML = "<b>Unable to update work role!</b>"
+                    })
+                }
+            }
+        }).catch(function (){
 
+            // Put request
+            isDeleted = 0
+            axios.put("http://127.0.0.1:5006/workRole/update/" + workRoleId,
+                {           
+                    workRoleName: workRoleName,
+                    isDeleted: isDeleted,
+                    skills: selectedSkills
+                
+            })
+                .then(function (response) {
+                    console.log(response);
+                    document.getElementById("statusMsg").className = "text-success"
+                    document.getElementById("statusMsg").innerHTML = "<b>Work role has been updated successfully!</b>"
+                }
+            ).catch(function (error) {
+                console.log(error);
+                document.getElementById("statusMsg").className = "text-danger"
+                document.getElementById("statusMsg").innerHTML = "<b>Unable to update work role!</b>"
+            })
+        })
     }
 
 }

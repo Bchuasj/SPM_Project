@@ -97,6 +97,10 @@ function getCoursesForSkill(skillId){
 }
 
 function searchSkills() {
+        // if all skills are hidden, display no skills found
+        var hiddenSkills = 0;
+        noskills = document.getElementById("noSkills");
+        noskills.style.display = "none";
         // print what key is pressed
         var input, filter, SkillsList,  skillName, i, txtValue, numValue;
         input = document.getElementById("searchInput");
@@ -138,9 +142,7 @@ function searchSkills() {
             }
         }
 
-        // if all skills are hidden, display no skills found
-        var hiddenSkills = 0;
-        noskills = document.getElementById("noSkills");
+
         for (i = 0; i < SkillsList.length; i++) {
             if (SkillsList[i].style.display == "none"){
                 hiddenSkills += 1;

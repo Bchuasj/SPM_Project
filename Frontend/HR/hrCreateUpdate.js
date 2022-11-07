@@ -139,6 +139,7 @@ function getSkill(){
             var courses = response.data.data.courses;
             console.log(courses)
             document.getElementById("skillName").value = skill.skillName;
+            document.getElementById("orgSkillName").value = skill.skillName;
             document.getElementById("skillDesc").value = skill.skillDesc;
             // based on the input values, tick the checkbox
             for (course in courses){
@@ -158,6 +159,7 @@ function getSkill(){
 function updateSkill(){
     var skillId = location.search.substring(1);
     var skillName = document.getElementById("skillName").value;
+    var orgSkillName = document.getElementById("orgSkillName").value
     var skillDesc = document.getElementById("skillDesc").value;
     var courses = document.getElementById("courses").value;
     var selectedCourses = courses.split(",")
@@ -187,24 +189,61 @@ function updateSkill(){
         document.getElementById("courseIdMsg").innerHTML = "<b>Please select at least one course!</b>"
         return
     }
-    // Put request
-    isDeleted = 0
-    axios.put(`http://127.0.0.1:5006/skill/update/${skillId}`,
-        {   skill: {
-                    skillName: skillName, 
-                    skillDesc: skillDesc,
-                    isDeleted: isDeleted
-                }, 
-        courses: selectedCourses
-    })
-        .then(function (response) {
-            console.log(response);
-            document.getElementById("statusMsg").className = "text-success"
-            document.getElementById("statusMsg").innerHTML = "<b>Skill has been updated successfully!</b>"
+    // Get request to check if skill name already exists
+    axios.get(`http://127.0.0.1:5006/skill/name/${skillName}`)
+    .then(function (response) {
+        console.log(response)
+        if (response.data.data.skillName){
+            if (skillName != orgSkillName){
+                console.log('hi');
+                document.getElementById("skillNameMsg").className = "text-danger"
+                document.getElementById("skillNameMsg").innerHTML = "<b>Please enter a unique skill name!</b>"
+                return
+            }
+            else {
+                // Put request
+                isDeleted = 0
+                axios.put(`http://127.0.0.1:5006/skill/update/${skillId}`,
+                    {   skill: {
+                                skillName: skillName, 
+                                skillDesc: skillDesc,
+                                isDeleted: isDeleted
+                            }, 
+                    courses: selectedCourses
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        document.getElementById("statusMsg").className = "text-success"
+                        document.getElementById("statusMsg").innerHTML = "<b>Skill has been updated successfully!</b>"
+                    }
+                ).catch(function (error) {
+                    console.log(error);
+                    document.getElementById("statusMsg").className = "text-danger"
+                    document.getElementById("statusMsg").innerHTML = "<b>Unable to update skill!</b>"
+                })
+            }
         }
-    ).catch(function (error) {
-        console.log(error);
-        document.getElementById("statusMsg").className = "text-danger"
-        document.getElementById("statusMsg").innerHTML = "<b>Unable to update skill!</b>"
+    }).catch(function (){
+        console.log('bue');
+        // Put request
+        isDeleted = 0
+        axios.put(`http://127.0.0.1:5006/skill/update/${skillId}`,
+            {   skill: {
+                        skillName: skillName, 
+                        skillDesc: skillDesc,
+                        isDeleted: isDeleted
+                    }, 
+            courses: selectedCourses
+        })
+            .then(function (response) {
+                console.log(response);
+                document.getElementById("statusMsg").className = "text-success"
+                document.getElementById("statusMsg").innerHTML = "<b>Skill has been updated successfully!</b>"
+            }
+        ).catch(function (error) {
+            console.log(error);
+            document.getElementById("statusMsg").className = "text-danger"
+            document.getElementById("statusMsg").innerHTML = "<b>Unable to update skill!</b>"
+        })
     })
 }
