@@ -44,6 +44,7 @@ function getAllStaff() {
             }
         }).catch(function (error) {
             console.log(error);
+            staffTable.innerHTML = "There are no staffs available.";
 
         }
     );

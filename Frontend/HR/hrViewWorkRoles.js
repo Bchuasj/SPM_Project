@@ -46,6 +46,7 @@ function getAllWorkRoles() {
         })   
         .catch(function (error) {
             console.log(error);
+            workRolesTable.innerHTML = "There are no work roles available.";
         }
     );
 }
