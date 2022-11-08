@@ -179,16 +179,17 @@ function searchByStaff() {
     console.log("staff list length", staffList.length)
 
     if(hiddenStaffs == staffList.length){
-        invis.innerHTML = "There is no staff with that skill available"
+        invis.innerHTML = "There is no staff with that skill available."
 
     }
 
 }
 
 function searchBySkill() {
-
+    // search by skill by name/ id where if skill is found, show staff with that skill
     var hiddenStaffs = 0
     var invis = document.getElementById("invis")
+    invis.style.display = "none"
     invis.innerHTML = ""
 
     // noskills.style.display = "none";
@@ -200,104 +201,75 @@ function searchBySkill() {
     // console.log("here", input)
     // check if input is string
     if (isNaN(input.value)){
-        // console.log(input.value)
-        // console.log(staffList)
         filter = input.value.toUpperCase();
         filter = filter.replace(/ /g, '');
-        
         for (i = 0; i < staffList.length; i++){
             var skillEleId = "staffSkills" + staffList[i].id
             var skillEle = document.getElementById(skillEleId)
-            // console.log(skillEle)
             skillList = skillEle.querySelectorAll('.skillName')
-            // console.log(skillList)
-            var shown = 0 
-            // console.log(staffList[i])
             
             // default show all unless no skills 
             if (skillList.length == 0){
                 staffList[i].style.display = "none";
                 hiddenStaffs += 1
-            } else {
-                staffList[i].style.display = "";
-            }
-
+            } 
+            
+            // check if skill is found
+            counter = 0
             for (j = 0; j < skillList.length; j++){
                 // console.log(skillList[j].innerText)
                 txtValue = skillList[j].innerText 
                 txtValue = txtValue.replace(/ /g, '');
-
                 // Only check if it has not already been shown 
-                if (shown == 0){
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        // console.log("shown", txtValue)
-                        staffList[i].style.display = "";
-                        shown = 1
-                    } else {
-                    staffList[i].style.display = "none";
-                    hiddenStaffs += 1
-
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    // console.log("shown", txtValue)
+                    staffList[i].style.display = "";
+                    break
+                } else {
+                    counter += 1
+                    if (counter == skillList.length){
+                        staffList[i].style.display = "none";
+                        hiddenStaffs += 1
                     }
                 }
-            
-            // reset shown for each staff 
             }
-            shown = 0
+        }
 
-            if(hiddenStaffs == staffList.length){
-                invis.innerHTML = "There is no staff with that skill available"
-        
-            }
-
+        if(hiddenStaffs == staffList.length){
+            invis.style.display = ""
+            invis.innerHTML = "There is no staff with that skill available."
         }
     }
     else if (!isNaN(input.value) && input.value != ""){
-        // console.log("here2",input.value)
-        // staffIdList = document.getElementsByName("staffId");
-        filter = input.value.toUpperCase();
-
         for (i = 0; i < staffList.length; i++) {
             var skillEleId = "staffSkills" + staffList[i].id
             var skillEle = document.getElementById(skillEleId)
-            // console.log(skillEle)
             skillList = skillEle.querySelectorAll('.skillId')
-            // console.log(skillList)
-            var shown = 0 
-            // console.log(staffList[i])
-            
-            // default show all unless no skills 
+
             if (skillList.length == 0){
                 staffList[i].style.display = "none";
                 hiddenStaffs += 1
-            } else {
-                staffList[i].style.display = "";
-            }
-
+            } 
+            console.log(skillList)
+            counter = 0
             for (j = 0; j < skillList.length; j++){
-                // console.log(skillList[j].innerText)
                 txtValue = skillList[j].innerText 
 
-                // Only check if it has not already been shown 
-                if (shown == 0){
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        // console.log("shown", txtValue)
-                        staffList[i].style.display = "";
-                        shown = 1
-                    } else {
-                    staffList[i].style.display = "none";
-                    hiddenStaffs += 1
+                if (txtValue.indexOf(input.value) > -1) {
+                    staffList[i].style.display = "";
+                } else {
+                    counter += 1
+                    if (counter == skillList.length){
+                        staffList[i].style.display = "none";
+                        hiddenStaffs += 1
                     }
                 }
+            }
             
-            // reset shown for each staff 
-            }
-            shown = 0
-
-            if(hiddenStaffs == staffList.length){
-                invis.innerHTML = "There is no staff with that skill available"
-        
-            }
-
+        }
+        if(hiddenStaffs == staffList.length){
+            invis.style.display = ""
+            invis.innerHTML = "There is no staff with that skill available."
         }
     }
     else{
