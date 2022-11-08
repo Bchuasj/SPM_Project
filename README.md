@@ -36,7 +36,7 @@ Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 
 3. Click on "Import" and import the SPM DDL Script.sql into phpmyAdmin to create all the tables that need to be populated.
 
-4. Following that, click on "Import" to import CSV files one by one into phpmyadmin to populate the tables in SPM DDL Script.sql. 
+4. Following that, click on "Import" to import CSV files one by one into phpmyadmin to populate the tables in SPM DDL Script.sql. Under the "partial import" option, indicate "1" for the "Skip this number of queries (for SQL) starting from the first one" section. 
 
 5. The SQL files in Mockup Data folder are to be individually imported in this order:
     1. role.csv in role table
