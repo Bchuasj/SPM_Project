@@ -13,6 +13,7 @@ Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 
 ### *Disclaimer: 
 #### The BizLand folder in Frontend is only used as a bootstrap reference template for our frontend websites.
+#### The Screenshots folder is used to display screenshots shown in README.
 
 ## First Release – Core Functionality
 1. Users should be able to select a role they want and see a list of skills required
@@ -37,7 +38,7 @@ Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 
 4. Following that, click on "Import" to import CSV files one by one into phpmyadmin to populate the tables in SPM DDL Script.sql. 
 
-5. The SQL files are to be individually imported in this order:
+5. The SQL files in Mockup Data folder are to be individually imported in this order:
     1. role.csv in role table
     2. workRole.csv in workrole table
     3. skill.csv in skill table
@@ -50,7 +51,7 @@ Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
     10. staffSkills.csv in staffskills table
     11. registration.csv in registration table
 
-6. Start a new terminal on Visual Studio Ccode and change the directory to the backend folder.
+6. Start a new terminal on Visual Studio Code and change the directory to the backend folder.
 
 7. Run app.py in the terminal with the following command:
     ``` python

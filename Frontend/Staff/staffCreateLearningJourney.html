@@ -35,10 +35,6 @@
   ======================================================== -->
 </head>
 
-<!-- StaffID is hardcorded at the moment as we're not doing login. 
-  Alternatively we can try simulate this but for now I shall just hardcode
-  the session stored for the StaffID for simplicity -->
-
 <body>
 <!-- <body> -->
 
@@ -50,8 +46,6 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <h1 class="logo">AIO LJPS<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="Mask group.png" alt=""></a> -->
 
       <nav id="navbar" class="navbar">
         <ul>
@@ -67,12 +61,12 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Viewing all the Learning Journeys ======= -->
+  <!-- ======= Create a Learning Journey ======= -->
   <footer id="footer">
     <div class="footer-newsletter">
       <div class="container pb-4">
         <div class="row">
-          <!-- learning journey heading -->
+          <!-- Create learning journey heading -->
           <div class="col-5 d-flex align-content-center">
             <h2 class="logo" style="vertical-align:bottom">&nbsp; Create a Learning Journey</h2>
           </div>
@@ -115,7 +109,6 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Work Roles</h5><input id = "workRoleInput" placeholder = "Search by Name/ID" onkeyup="getWorkRole()">
-            <!-- <button id = "searchWorkRole" class = "btn btn-primary btn text-white" onclick ="getCourse()">Search</button> -->
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -127,7 +120,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <!-- <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick = "populateInput()">Save changes</button> -->
           </div>
         </div>
       </div>
