@@ -153,7 +153,6 @@ function searchByStaff() {
             hiddenStaffs += 1
             }
         }
-       
     }
     else if (!isNaN(input.value) && input.value != ""){
         // console.log("here2",input.value)
@@ -162,7 +161,7 @@ function searchByStaff() {
             staffId = staffIdList[i];
             numValue = staffId.textContent || staffId.innerText;
             if (numValue.indexOf(input.value) > -1) {
-           staffList[i].style.display = "";
+            staffList[i].style.display = "";
             } 
             else {
            staffList[i].style.display = "none";
@@ -251,7 +250,6 @@ function searchBySkill() {
             }
 
         }
-       
     }
     else if (!isNaN(input.value) && input.value != ""){
         // console.log("here2",input.value)

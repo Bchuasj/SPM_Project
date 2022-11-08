@@ -94,12 +94,14 @@ function getSkillsForWorkRoles(roleId){
 
 function searchWorkRoles() {
     // print what key is pressed
+    invis = document.getElementById("invis");
+    invis.style.display = "none";
+    invisCounter = 0
     var input, filter, workRolesList,  workRoleName, i, txtValue, numValue;
     input = document.getElementById("searchInput");
     workRolesList = document.getElementsByName("workRoles");
     // check if input is string
     if (isNaN(input.value)){
-        console.log(input.value)
         filter = input.value.toUpperCase();
         jobNameList = document.getElementsByName("workRoleName");
         for (i = 0; i < jobNameList.length; i++) {
@@ -109,7 +111,12 @@ function searchWorkRoles() {
             workRolesList[i].style.display = "";
             } else {
             workRolesList[i].style.display = "none";
+            invisCounter += 1
             }
+        }
+        if (invisCounter == workRolesList.length){
+            invis.style.display = "";
+            invis.innerHTML = "No such workrole exists."
         }
     }
     else if (!isNaN(input.value) && input.value != ""){
@@ -123,7 +130,12 @@ function searchWorkRoles() {
             } 
             else {
             workRolesList[i].style.display = "none";
+            invisCounter += 1
             }
+        }
+        if (invisCounter == workRolesList.length){
+            invis.style.display = "";
+            invis.innerHTML = "No such workrole exists."
         }
     }
     else{

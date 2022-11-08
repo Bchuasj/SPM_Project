@@ -42,6 +42,7 @@ function populateInput(){
 }
 
 function getCourse() {
+    document.getElementById("invis").innerHTML = ""
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("courseInput");
     filter = input.value.toUpperCase();
@@ -62,6 +63,16 @@ function getCourse() {
             tr[i].style.display = "none";
             }
         }   
+    }
+    // count how many rows are displayed
+    var count = 0;
+    for (i = 0; i < tr.length; i++) {
+        if (tr[i].style.display == "none"){
+            count += 1;
+        }
+    }
+    if (count == tr.length-1){
+        document.getElementById("invis").innerHTML = "No courses found"
     }
 }
 
