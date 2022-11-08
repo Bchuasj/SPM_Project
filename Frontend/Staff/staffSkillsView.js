@@ -49,6 +49,7 @@ function getAllSkills() {
         })   
         .catch(function (error) {
             console.log(error);
+            skillsTable.innerHTML = "There are no skills available."
         }
     );
 }
