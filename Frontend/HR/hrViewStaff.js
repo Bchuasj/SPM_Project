@@ -269,7 +269,7 @@ function searchBySkill() {
         }
         if(hiddenStaffs == staffList.length){
             invis.style.display = ""
-            invis.innerHTML = "There is no staff with that skill available"
+            invis.innerHTML = "There is no staff with that skill available."
         }
     }
     else{
