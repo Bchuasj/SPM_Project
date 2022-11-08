@@ -96,6 +96,11 @@ function getSkillsForWorkRole(workRoleId){
 
 // SEARCH
 function searchWorkRoles() {
+
+    var hiddenWorkRoles = 0;
+    noWorkRoles = document.getElementById("noWorkRoles");
+    noWorkRoles.style.display = "none";
+
     // print what key is pressed
     var input, filter, workRolesList,  workRoleName, i, txtValue, numValue;
     input = document.getElementById("searchInput");
@@ -135,5 +140,15 @@ function searchWorkRoles() {
         for (i = 0; i < workRolesList.length; i++) {
             workRolesList[i].style.display = "";
         }
+    }
+
+    for (i = 0; i < workRolesList.length; i++) {
+        if (workRolesList[i].style.display == "none"){
+            hiddenWorkRoles += 1;
+        }
+    }
+    if (hiddenWorkRoles == workRolesList.length){
+        noWorkRoles.style.display = "";
+        noWorkRoles.innerHTML = "There is no workrole(s) available for the input given";
     }
 }
