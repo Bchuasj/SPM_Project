@@ -179,7 +179,7 @@ function searchByStaff() {
     console.log("staff list length", staffList.length)
 
     if(hiddenStaffs == staffList.length){
-        invis.innerHTML = "There is no staff with that skill available"
+        invis.innerHTML = "There is no staff with that skill available."
 
     }
 
@@ -237,7 +237,7 @@ function searchBySkill() {
 
         if(hiddenStaffs == staffList.length){
             invis.style.display = ""
-            invis.innerHTML = "There is no staff with that skill available"
+            invis.innerHTML = "There is no staff with that skill available."
         }
     }
     else if (!isNaN(input.value) && input.value != ""){
