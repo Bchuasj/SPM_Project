@@ -11,8 +11,7 @@ Trina Tan Rui - trina.tan.2020@scis.smu.edu.sg
 Nur Sabrina HALLMI @ Nur Sabrina Angeles HALLMI - sabrinah.2020@scis.smu.edu.sg  
 Seah Pei Ming - pmseah.2020@scis.smu.edu.sg
 
-Include a README file with clear instructions on how
-to run your software release
+### *Disclaimer: The BizLand folder in Frontend is only used as a bootstrap reference template for our frontend websites.
 
 ## First Release – Core Functionality
 1. Users should be able to select a role they want and see a list of skills required
